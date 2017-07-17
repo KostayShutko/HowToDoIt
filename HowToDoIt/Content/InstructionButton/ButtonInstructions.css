@@ -1,0 +1,38 @@
+﻿
+
+.animate {
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+}
+
+.action-button {
+    position: relative;
+    padding: 3px 6px;
+    float: left;
+    border-radius: 10px;
+
+    font-size: 15px;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.color-button {
+    background-color: #82BF56;
+    border-bottom: 4px solid #669644;
+}
+
+.action-button:active {
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    border-bottom: 1px solid;
+}
+
+a:focus, a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+#button-instruction {
+    width: 100%;
+    text-align: center;
+}

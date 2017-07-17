@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNet.Identity
+
+<link rel="stylesheet" href="~/Content/InstructionButton/ButtonInstructions.css">
+
+@if (Request.IsAuthenticated)
+{
+    <a href="#" id="button-instruction" class="action-button animate color-button">Добавить инструкцию</a>
+}
