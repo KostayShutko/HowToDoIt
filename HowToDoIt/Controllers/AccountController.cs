@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HowToDoIt.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HowToDoIt.Controllers
 {
@@ -345,12 +346,20 @@ namespace HowToDoIt.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model,string password, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -365,6 +374,15 @@ namespace HowToDoIt.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
+                var existingUser = await UserManager.FindByNameAsync(model.Email);// как сократить код?
+                if (existingUser != null)
+                {
+                    if (IsAdminUser(existingUser))
+                    {
+                        await SignInManager.SignInAsync(existingUser, isPersistent: false, rememberBrowser: false);
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -372,15 +390,30 @@ namespace HowToDoIt.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        await UserManager.AddToRoleAsync(user.Id, "user");
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
                 AddErrors(result);
             }
-
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
+        }
+        
+        private bool IsAdminUser(ApplicationUser existingUser)
+        {
+            var admins = GetAdminUsers();
+            foreach (var admin in admins)
+                if (admin.UserId == existingUser.Id)
+                    return true;
+            return false;
+        }
+
+        private System.Collections.Generic.List<IdentityUserRole> GetAdminUsers()
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            return roleManager.FindByName("admin").Users.ToList();
         }
 
         //
