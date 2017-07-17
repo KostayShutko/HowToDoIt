@@ -273,9 +273,7 @@ namespace HowToDoIt.Controllers
 
         //
         // POST: /Account/ExternalLogin
-        [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Запрос перенаправления к внешнему поставщику входа

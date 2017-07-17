@@ -50,19 +50,24 @@ namespace HowToDoIt
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "nNTIIE72s9y5lNEJICsxACpUv",
+               consumerSecret: "wAlcJZOCSEl1vRScUgBm9Doftz8DvEtd3K4f89G5ENd1xO0ykB");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "820677264761214",
+               appSecret: "3e8e6fd5205558debae632ff62d4e70e");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseVkontakteAuthentication(
+                "6100424",
+                "RtnZhjBNtK3guAApGzPt",
+                "email");
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "558455880141-gtt8aeh08bcbl7p39eg70k4tacaf5pu7.apps.googleusercontent.com",
+                ClientSecret = "hvC23VtzbIfZkNDzaXfF1ajC"
+            });
         }
     }
 }

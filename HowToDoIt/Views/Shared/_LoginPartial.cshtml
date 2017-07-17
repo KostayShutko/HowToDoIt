@@ -5,24 +5,45 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+    <ul class="dropdown nav navbar-nav navbar-right">
+        <li id="li-language">
+            <a data-toggle="dropdown" class="proxy-chooselanguage">
+                <img width="20" height="20" src="~/image/user.png">
+                <span class="caret"> </span>
+            </a>
+            <ul class="dropdown-menu" id="proxy-dropdown-menu-color">
+                <li><a href="#">Профиль</a></li>
+                <li><a href="#">История</a></li>
+                <li><a href="#">Пользователи</a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+            </ul>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
     </ul>
     }
 }
 else
 {
     <ul class="dropdown nav navbar-nav navbar-right">
-        <li>
+        <li id="li-language">
             <a data-toggle="dropdown" class="proxy-chooselanguage"><span class="glyphicon glyphicon-user"></span> Sign in</a>
             <ul class="dropdown-menu" id="proxy-dropdown-menu-color">
-                <li><a href="#">English</a></li>
-                <li><a href="#">Русский</a></li>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Русский</a></li>
+                <li>
+                    <div id="icon-social">
+                        <a class="btn btn-social-icon btn-facebook" href="@Url.Action("ExternalLogin", "Account",new { provider="Facebook",returnUrl= Request.Url.ToString() })">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-google" href="@Url.Action("ExternalLogin", "Account",new { provider="Google",returnUrl= Request.Url.ToString() })">
+                            <span class="fa fa-google"></span> 
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter" href="@Url.Action("ExternalLogin", "Account",new { provider="Twitter",returnUrl= Request.Url.ToString() })">
+                            <span class="fa fa-twitter"></span> 
+                        </a>
+                        <a class="btn btn-social-icon btn-vk" href="@Url.Action("ExternalLogin", "Account",new { provider="Vkontakte",returnUrl= Request.Url.ToString() })">
+                            <span class="fa fa-vk"></span> 
+                        </a>
+
+                    </div>
+                </li>
             </ul>
         </li>
     </ul>
