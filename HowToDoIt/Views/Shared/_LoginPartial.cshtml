@@ -11,10 +11,13 @@
                 <span class="caret"> </span>
             </a>
             <ul class="dropdown-menu" id="proxy-dropdown-menu-color">
-                <li><a href="@Url.Action("About", "Account")">Профиль</a></li>
-                <li><a href="#">История</a></li>
-                <li><a href="#">Пользователи</a></li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+                <li><a href="@Url.Action("About", "Account")">@Res.ResourceIndex.Profile</a></li>
+                <li><a href="#">@Res.ResourceIndex.History</a></li>
+                @if (User.IsInRole("admin"))
+                {
+                    <li><a href="#">@Res.ResourceIndex.Users</a></li>
+                }
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">@Res.ResourceIndex.SignOut</a></li>
             </ul>
         </li>
     </ul>
@@ -24,7 +27,7 @@ else
 {
     <ul class="dropdown nav navbar-nav navbar-right">
         <li id="li-language">
-            <a data-toggle="dropdown" class="proxy-chooselanguage"><span class="glyphicon glyphicon-user"></span> Sign in</a>
+            <a data-toggle="dropdown" class="proxy-chooselanguage"><span class="glyphicon glyphicon-user"></span> @Res.ResourceIndex.SignIn</a>
             <ul class="dropdown-menu" id="proxy-dropdown-menu-color">
                 <li>
                     <div id="icon-social">
