@@ -346,8 +346,26 @@ namespace HowToDoIt.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Upload()
+        {
+            foreach (string file in Request.Files)
+            {
+                var upload = Request.Files[file];
+                if (upload != null)
+                {
+                    // получаем имя файла
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    // сохраняем файл в папку Files в проекте
+                    upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+                    return Json(new { success = true, responseText = fileName }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return null;
+        }
+
+        [Authorize]
+        public ActionResult Profile()
         {
             ViewBag.Message = "Your application description page.";
 

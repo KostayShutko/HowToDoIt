@@ -210,10 +210,15 @@
     <Compile Include="Migrations\201707161856484_DataMigration.Designer.cs">
       <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707181211173_v1.cs" />
+    <Compile Include="Migrations\201707181211173_v1.Designer.cs">
+      <DependentUpon>201707181211173_v1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationManager.cs" />
+    <Compile Include="Models\Classes for Db\Profile.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +242,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\InstructionButton\ButtonInstructions.css" />
+    <Content Include="Content\InstructionButton\StyleFromGit.css" />
     <Content Include="Content\StyleLayout.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -262,6 +268,8 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dowland\avatar.js" />
+    <Content Include="Scripts\dowland\resample.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -313,6 +321,7 @@
     <Content Include="Views\Shared\_LanguagePartial.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
     <Content Include="Views\Shared\_AddInstructionButtonPartial.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707161856484_DataMigration.resx">
       <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181211173_v1.resx">
+      <DependentUpon>201707181211173_v1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>
