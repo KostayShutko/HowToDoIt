@@ -62,29 +62,19 @@ jQuery.event.props.push('dataTransfer');
         },
 
         saveFile: function (file) {
-            var files = file;
-                if (window.FormData !== undefined) {
-                    
-                    var data = new FormData();
-                    for (var x = 0; x < files.length; x++) {
-                        data.append("file" + x, files[x]);
-                    }
-                    alert("sv2");
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("Upload", "Account")',
-                        contentType: false,
-                        processData: false,
-                        data: data,
-                        success: function (response) {
-                            alert(response.fileName);
-                            alert("File upload");
-                        },
-                        error: function (xhr, status, p3) {
-                            alert(xhr.responseText);
-                        }
-                    });
-            }
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Account/Upload');
+            xhr.setRequestHeader('X-FILE-NAME', 'file.name');
+            var fd = new FormData
+            fd.append("file", file)
+            xhr.send(fd)
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    $('#infoimg').val(json["responseText"]);
+                }
+            }; 
         },
 
         handleDrop: function (files) {
@@ -93,8 +83,7 @@ jQuery.event.props.push('dataTransfer');
 
             // Multiple files can be dropped. Lets only deal with the "first" one.
             var file = files[0];
-            var path = file.path;
-            alert(path);
+            Avatar.saveFile(file);
             if (typeof file !== 'undefined' && file.type.match('image.*')) {
                 Avatar.resizeImage(file, 256, function (data) {
                     Avatar.placeImage(data);
