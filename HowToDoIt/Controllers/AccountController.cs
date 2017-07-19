@@ -346,53 +346,6 @@ namespace HowToDoIt.Controllers
             }
         }
 
-        public JsonResult Upload()
-        {
-            try
-            {
-                string fileName = "";
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    HttpPostedFileBase file = Request.Files[i]; //Uploaded file
-                                                                //Use the following properties to get file's name, size and MIMEType
-                    int fileSize = file.ContentLength;
-                    fileName = file.FileName;
-                    string mimeType = file.ContentType;
-                    System.IO.Stream fileContent = file.InputStream;
-                    //To save file, use SaveAs method
-                    file.SaveAs(Server.MapPath("~/Files/") + fileName); //File will be saved in application root
-                }
-                return Json(new { success = true, responseText = "~/Files/"+fileName }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception) { return null; }
-        }
-
-        /*[HttpPost]
-        public ActionResult Upload()
-        {
-            foreach (string file in Request.Files)
-            {
-                var upload = Request.Files[file];
-                if (upload != null)
-                {
-                    // получаем имя файла
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
-                    // сохраняем файл в папку Files в проекте
-                    upload.SaveAs(Server.MapPath("~/Files/" + fileName));
-                    return Json(new { success = true, responseText = fileName }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            return null;
-        }*/
-
-        [Authorize]
-        public ActionResult Profile()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
         //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]

@@ -63,7 +63,7 @@ jQuery.event.props.push('dataTransfer');
 
         saveFile: function (file) {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Account/Upload');
+            xhr.open('POST', '/Profile/Upload');
             xhr.setRequestHeader('X-FILE-NAME', 'file.name');
             var fd = new FormData
             fd.append("file", file)
