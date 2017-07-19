@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\CultureAttribute.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Views\Shared\_AddInstructionButtonPartial.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\Instructions\Step.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

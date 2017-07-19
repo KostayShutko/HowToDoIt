@@ -72,33 +72,11 @@ namespace HowToDoIt.Controllers
 
         public void SaveProfileData(Profile profile)
         {
-            /*var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            var userManager = new UserManager<ApplicationUser>(store);
-            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-            user.Profile = profile;*/
             using (var db = new ApplicationDbContext())
             {
                 db.Entry(profile).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }
-
-        /*[HttpPost]
-        public ActionResult Upload()
-        {
-            foreach (string file in Request.Files)
-            {
-                var upload = Request.Files[file];
-                if (upload != null)
-                {
-                    // получаем имя файла
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
-                    // сохраняем файл в папку Files в проекте
-                    upload.SaveAs(Server.MapPath("~/Files/" + fileName));
-                    return Json(new { success = true, responseText = fileName }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            return null;
-        }*/
     }
 }
