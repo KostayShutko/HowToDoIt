@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,10 +22,15 @@ namespace HowToDoIt.Controllers
             {
                 ApplicationUser user;
                 user = GetCurrentUser(db);
-                if (user.Profile != null)
-                    profile = user.Profile;
-                if (profile.Avatar == null)
+                if (user.Profile == null)
+                {
                     profile.Avatar = "~/image/256.jpg";
+                    profile.Users = user;
+                    db.Profiles.Add(profile);
+                    db.SaveChanges();
+                }
+                else
+                    profile = user.Profile;
             }
 
             return View(profile);
@@ -72,22 +78,7 @@ namespace HowToDoIt.Controllers
             user.Profile = profile;*/
             using (var db = new ApplicationDbContext())
             {
-                ApplicationUser user;
-                user = GetCurrentUser(db);
-                if (user.Profile == null)
-                {
-                    user.Profile = profile;
-                }
-                else
-                {
-                    user.Profile.Avatar = profile.Avatar;
-                    user.Profile.FirtstName = profile.FirtstName;
-                    user.Profile.LastName = profile.LastName;
-                    user.Profile.Sex = profile.Sex;
-                    user.Profile.City = profile.City;
-                    user.Profile.Contacts = profile.Contacts;
-                    user.Profile.Interests = profile.Interests;
-                }
+                db.Entry(profile).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }
