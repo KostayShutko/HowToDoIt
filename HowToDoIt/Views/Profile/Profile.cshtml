@@ -7,10 +7,10 @@
 <link rel='stylesheet' href='~/Content/InstructionButton/StyleFromGit.css'>
 
 
-<h3>Personal info</h3>
+<h3>@Res.ResourceProfile.PersonalInfo</h3>
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-md-2 control-label">Аватар:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Avatar:</label>
         <div class="col-md-10">
             <div class="profile">
                 <div class="profile-avatar-wrap">
@@ -22,46 +22,46 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 control-label">Имя:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.FirstName:</label>
         <div class="col-md-5">
             <input id="firstName" class="form-control" type="text" value="@Model.FirtstName">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Фамилия:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.LastName:</label>
         <div class="col-md-5">
             <input id="lastName" class="form-control" type="text" value="@Model.LastName">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Пол:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Sex:</label>
         <div class="col-md-5">
             @if (Model.Sex == "man")
             {
-                <label class="radio-inline"><input id="man" type="radio" checked name="optradio">Мужчина</label>
-                <label class="radio-inline"><input id="woman" type="radio" name="optradio">Женщина</label>
+                <label class="radio-inline"><input id="man" type="radio" checked name="optradio">@Res.ResourceProfile.Man</label>
+                <label class="radio-inline"><input id="woman" type="radio" name="optradio">@Res.ResourceProfile.Woman</label>
             }
             else
             {
-                <label class="radio-inline"><input id="man" type="radio"  name="optradio">Мужчина</label>
-                <label class="radio-inline"><input id="woman" type="radio" checked name="optradio">Женщина</label>
+                <label class="radio-inline"><input id="man" type="radio"  name="optradio">@Res.ResourceProfile.Man</label>
+                <label class="radio-inline"><input id="woman" type="radio" checked name="optradio">@Res.ResourceProfile.Woman</label>
             }
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Город:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.City:</label>
         <div class="col-md-5">
             <input id="city" class="form-control" type="text" value="@Model.City">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Контакты:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Contacts:</label>
         <div class="col-md-5">
             <textarea id="contact" class="form-control" type="text" >@Model.Contacts</textarea>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Интересы:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Interests:</label>
         <div class="col-md-5">
             <textarea id="interest" class="form-control" type="text" >@Model.Interests</textarea>
         </div>
@@ -73,7 +73,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="~/Scripts/dowland/resample.js"></script>
 <script src="~/Scripts/dowland/avatar.js"></script>
-<script type='text/javascript'>
+<script>
     $('input, textarea').on('change', function () {
         // отправка на сервер
         SendData();
@@ -84,7 +84,7 @@
 
     function SendData() {
         var object = new Object();
-        
+
 
         object.FirtstName = $("#firstName").val();
         object.LastName = $("#lastName").val();
@@ -100,13 +100,14 @@
         object.Avatar = $('#profile-avatar').attr('src');
         object.Id = $("#info").val();
         $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("SaveProfileData", "Profile")',
+            type: "POST",
+            url: '@Url.Action("SaveProfileData", "Profile")',
 
-                    data: object,
-                    success: function (response) {
+            data: object,
+            success: function (response) {
 
-                    },
-                    });
+            },
+        });
     };
 </script>
+

@@ -1,4 +1,5 @@
-﻿using HowToDoIt.Models;
+﻿using HowToDoIt.Filters;
+using HowToDoIt.Models;
 using HowToDoIt.Models.Classes_for_Db;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,29 +12,42 @@ using System.Web.Mvc;
 
 namespace HowToDoIt.Controllers
 {
+    [Culture]
     public class ProfileController : Controller
     {
 
         [Authorize]
         public new ActionResult Profile()
         {
+            Profile profile;
+            profile = GetProfileUser();
+            return View(profile);
+        }
+
+        private Profile GetProfileUser()
+        {
             Profile profile = new Profile();
             using (var db = new ApplicationDbContext())
             {
                 ApplicationUser user;
-                user = GetCurrentUser(db);
-                if (user.Profile == null)
-                {
-                    profile.Avatar = "~/image/256.jpg";
-                    profile.Users = user;
-                    db.Profiles.Add(profile);
-                    db.SaveChanges();
-                }
-                else
+                user = Manager.GetCurrentUser(db, User.Identity.Name);
+                if (ProfileExist(profile,user,db))
                     profile = user.Profile;
             }
+            return profile;
+        }
 
-            return View(profile);
+        private bool ProfileExist(Profile profile,ApplicationUser user,ApplicationDbContext db)
+        {
+            if (user.Profile == null)
+            {
+                profile.Avatar = "~/image/256.jpg";
+                profile.Users = user;
+                db.Profiles.Add(profile);
+                db.SaveChanges();
+                return false;
+            }
+            return true;
         }
 
         // GET: Profile
@@ -42,32 +56,10 @@ namespace HowToDoIt.Controllers
             try
             {
                 string fileName = "";
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    HttpPostedFileBase file = Request.Files[i];                                              
-                    int fileSize = file.ContentLength;
-                    fileName = file.FileName;
-                    string mimeType = file.ContentType;
-                    System.IO.Stream fileContent = file.InputStream;
-                    //To save file, use SaveAs method
-                    file.SaveAs(Server.MapPath("~/Files/") + fileName); //File will be saved in application root
-                }
+                fileName= Manager.UploadFile(Request, Server, "~/Files/");
                 return Json(new { success = true, responseText = "~/Files/" + fileName }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception) { return null; }
-        }
-
-        private ApplicationUser GetCurrentUser(ApplicationDbContext db)
-        {
-            var users = db.Users.ToList();
-            foreach (var user in users)
-            {
-                if (user.UserName == User.Identity.Name)
-                {
-                    return user;
-                }
-            }
-            return null;
         }
 
         public void SaveProfileData(Profile profile)

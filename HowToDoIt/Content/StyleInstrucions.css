@@ -1,0 +1,64 @@
+﻿iframe {
+    width: 100%;
+    height: 350px;
+}
+
+.icon-step {
+    font-size: 25px;
+}
+
+.elem-in-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.margin-button{
+    margin-left:3px;
+}
+
+.button-save {
+    margin-top:5%;
+    width:100px;
+    font-size: 20px;
+}
+
+.icon-remove {
+    color: gray;
+}
+    .icon-remove:hover {
+        cursor: pointer;
+        color: black;
+    }
+    .icon-remove:active {
+        color: red;
+    }
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-left-20 {
+    margin-left: 20px;
+}
+
+.margin-left-1 {
+    margin-left: 1px;
+}
+
+.content {
+    width: 100%;
+
+}
+
+    .content .block {
+
+    }
+
+.link-youtube{
+    margin-bottom:20px;
+}
