@@ -5,17 +5,17 @@ jQuery.event.props.push('dataTransfer');
 (function () {
 
     var s;
-    var Avatar = {
+    var Step = {
 
         settings: {
-            bod: $("body"), 
-            img: $("#profile-avatar"),
+            bod: $("body"),
+            img: $(".profile-avatar"),
             fileInput: $("#uploader")
         },
 
         init: function () {
-            s = Avatar.settings;
-            Avatar.bindUIActions();
+            s = Step.settings;
+            Step.bindUIActions();
         },
 
         bindUIActions: function () {
@@ -25,7 +25,7 @@ jQuery.event.props.push('dataTransfer');
             s.bod.on("dragover", function (event) {
                 clearTimeout(timer);
                 if (event.currentTarget == s.bod[0]) {
-                    Avatar.showDroppableArea();
+                    Step.showDroppableArea();
                 }
 
                 // Required for drop to work
@@ -36,7 +36,7 @@ jQuery.event.props.push('dataTransfer');
                 if (event.currentTarget == s.bod[0]) {
                     // Flicker protection
                     timer = setTimeout(function () {
-                        Avatar.hideDroppableArea();
+                        Step.hideDroppableArea();
                     }, 200);
                 }
             });
@@ -44,12 +44,11 @@ jQuery.event.props.push('dataTransfer');
             s.bod.on('drop', function (event) {
                 // Or else the browser will open the file
                 event.preventDefault();
-
-                Avatar.handleDrop(event.dataTransfer.files);
+                Step.handleDrop(event.dataTransfer.files);
             });
 
             s.fileInput.on('change', function (event) {
-                Avatar.handleDrop(event.target.files);
+                Step.handleDrop(event.target.files);
             });
         },
 
@@ -74,18 +73,18 @@ jQuery.event.props.push('dataTransfer');
                     var json = JSON.parse(xhr.responseText);
                     $('#infoimg').val(json["responseText"]);
                 }
-            }; 
+            };
         },
 
         handleDrop: function (files) {
 
-            Avatar.hideDroppableArea();
+            Step.hideDroppableArea();
             // Multiple files can be dropped. Lets only deal with the "first" one.
             var file = files[0];
-            Avatar.saveFile(file);
+            
             if (typeof file !== 'undefined' && file.type.match('image.*')) {
-                Avatar.resizeImage(file, 256, function (data) {
-                    Avatar.placeImage(data);
+                Step.resizeImage(file, 256, function (data) {
+                    Step.placeImage(data);
                 });
 
             } else {
@@ -119,11 +118,17 @@ jQuery.event.props.push('dataTransfer');
         },
 
         placeImage: function (data) {
-            s.img.attr("src", data);
+            $('.profile').mousemove(function (evt) {
+                var obj = evt.target;
+                var entity = $(obj).find(".profile-avatar");
+                entity.attr("src", data);
+                $(".profile").unbind("mousemove");
+            });
+
         }
 
     }
 
-    Avatar.init();
+    Step.init();
 
 })();

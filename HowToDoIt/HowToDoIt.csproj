@@ -260,6 +260,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\InstructionButton\ButtonInstructions.css" />
     <Content Include="Content\InstructionButton\StyleFromGit.css" />
+    <Content Include="Content\InstructionButton\StyleStep.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
     <Content Include="favicon.ico" />
@@ -289,6 +290,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dowland\avatar.js" />
     <Content Include="Scripts\dowland\resample.js" />
+    <Content Include="Scripts\dowland\step.js" />
+    <Content Include="Scripts\dowland\stepresample.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />

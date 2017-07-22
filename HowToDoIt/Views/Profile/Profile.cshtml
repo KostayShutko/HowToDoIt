@@ -75,7 +75,6 @@
 <script src="~/Scripts/dowland/avatar.js"></script>
 <script>
     $('input, textarea').on('change', function () {
-        // отправка на сервер
         SendData();
     });
     $('img').on('load', function () {
@@ -84,30 +83,38 @@
 
     function SendData() {
         var object = new Object();
+        GetDataFromInput(object);
+        GetSex(object);
+        SendAsAjax(object);
+    };
 
-
-        object.FirtstName = $("#firstName").val();
-        object.LastName = $("#lastName").val();
+    function GetSex(object) {
         var inp = document.getElementsByName('optradio');
         for (var i = 0; i < inp.length; i++) {
             if (inp[i].type == "radio" && inp[i].checked) {
                 object.Sex = inp[i].id;
             }
         }
+    }
+
+    function SendAsAjax(data) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveProfileData", "Profile")',
+            data: data,
+            success: function (response) {
+            },
+        });
+    }
+
+    function GetDataFromInput(object) {
+        object.FirtstName = $("#firstName").val();
+        object.LastName = $("#lastName").val();
         object.City = $("#city").val();
         object.Contacts = $("#contact").val();
         object.Interests = $("#interest").val();
         object.Avatar = $('#profile-avatar').attr('src');
         object.Id = $("#info").val();
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("SaveProfileData", "Profile")',
-
-            data: object,
-            success: function (response) {
-
-            },
-        });
-    };
+    }
 </script>
 

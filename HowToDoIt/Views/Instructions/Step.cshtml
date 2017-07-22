@@ -4,8 +4,10 @@
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
 <link rel="stylesheet" href="~/Content/jquery-ui.css">
 <script src="~/Scripts/jquery-ui.min.js"></script>
+<link rel='stylesheet' href='~/Content/InstructionButton/StyleStep.css'>
 
 <div class="content">
+   
     
 </div>
 
@@ -13,7 +15,7 @@
     <div class="col-md-offset-4 col-md-4">
         <div class="elem-in-center">
             <button class="btn btn-success margin-button"><span class="glyphicon glyphicon-pencil icon-step"></span></button>
-            <button class="btn btn-success margin-button"><span class="glyphicon glyphicon-picture icon-step"></span></button>
+            <button class="btn btn-success margin-button"><span onclick="AddImg()" class="glyphicon glyphicon-picture icon-step"></span></button>
             <button class="btn btn-success margin-button"><span onclick="AddVideo()" class="glyphicon glyphicon-play-circle icon-step"></span></button>
         </div>
     </div>
@@ -26,11 +28,27 @@
     </div>
 </div>
 
+
 <script>
-    $('body').on('change', '.link-youtube', function () {
-        var block = $(this).parent().parent().parent();
+    var srcimg = "/image/img-ru.bmp";
+
+    $(".profile-avatar-wrap").droppable({
+        drop: function (event, ui) {
+            alert("11111");
+            $(this).css({ "border-color": "lightblue", "border-weight": "5px", "border-style": "dashed" });
+        }
+    });
+
+
+    function GetEntity(input) {
+        var block = $(input).parent().parent().parent();
         var entity = $(block).find(".entity");
         $(entity).empty();
+        return entity;
+    }
+
+    $('body').on('change', '.link-youtube', function () {
+        var entity = GetEntity(this);
         var code = $(this).val().split('=')[1];
         $('<iframe src="' + 'http://www.youtube.com/embed/' + code + '" frameborder="0" allowfullscreen"></iframe>').appendTo($(entity));
     });
@@ -44,4 +62,13 @@
     function AddVideo() {
         $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-trash-o fa-lg icon-remove" aria-hidden="true"></i></div></div><div class="form-group "><label class="col-md-offset-2 col-md-2 control-label">Link on youtube:</label><div class="col-md-5"><input  class="form-control link-youtube" name="link-youtube-name" type="text"></div></div></div>').appendTo($('.content'));
     }
+    function AddImg() {
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><div class="profile"><div class="profile-avatar-wrap"><img id="addimg" class="profile-avatar"><input type="hidden" id="info" name="info"></div></div> </div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-trash-o fa-lg icon-remove" aria-hidden="true"></i></div></div></div>').appendTo($('.content'));
+        $('#addimg').attr("src", srcimg);
+        $('.profile-avatar').removeAttr('id');
+    }
 </script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/dowland/stepresample.js"></script>
+<script src="~/Scripts/dowland/step.js"></script>
