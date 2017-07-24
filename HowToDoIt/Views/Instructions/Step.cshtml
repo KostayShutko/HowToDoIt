@@ -6,24 +6,29 @@
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link rel='stylesheet' href='~/Content/InstructionButton/StyleStep.css'>
 
+<div class="row margin-top-30">
+    <div class="col-md-offset-2 col-md-8 entity">
+        <input id="header"  class="form-control" name="link-youtube-name" placeholder="Заголовок" type="text">
+    </div>
+</div>
+
 <div class="content">
-   
     
 </div>
 
 <div class="row margin-top-30">
     <div class="col-md-offset-4 col-md-4">
         <div class="elem-in-center">
-            <button class="btn btn-success margin-button"><span class="glyphicon glyphicon-pencil icon-step"></span></button>
+            <button class="btn btn-success margin-button"><span onclick="AddText()" class="glyphicon glyphicon-pencil icon-step"></span></button>
             <button class="btn btn-success margin-button"><span onclick="AddImg()" class="glyphicon glyphicon-picture icon-step"></span></button>
             <button class="btn btn-success margin-button"><span onclick="AddVideo()" class="glyphicon glyphicon-play-circle icon-step"></span></button>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-offset-5 col-md-2">
+    <div class="col-md-offset-4 col-md-4">
         <div class="elem-in-center">
-            <button type="button" class="btn btn-primary button-save">Save</button>
+            <button type="button" class="btn btn-primary button-save">Сохранить</button>
         </div>
     </div>
 </div>
@@ -60,12 +65,16 @@
     $('.content').sortable();
 
     function AddVideo() {
-        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-trash-o fa-lg icon-remove" aria-hidden="true"></i></div></div><div class="form-group "><label class="col-md-offset-2 col-md-2 control-label">Link on youtube:</label><div class="col-md-5"><input  class="form-control link-youtube" name="link-youtube-name" type="text"></div></div></div>').appendTo($('.content'));
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div><div class="form-group "><label class="col-md-offset-2 col-md-2 control-label">Link on youtube</label><div class="col-md-6"><input  class="form-control link-youtube" name="link-youtube-name" type="text"></div></div></div>').appendTo($('.content'));
     }
     function AddImg() {
-        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><div class="profile"><div class="profile-avatar-wrap"><img id="addimg" class="profile-avatar"><input type="hidden" id="info" name="info"></div></div> </div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-trash-o fa-lg icon-remove" aria-hidden="true"></i></div></div></div>').appendTo($('.content'));
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><div class="profile elem-in-center"><div class="profile-avatar-wrap"><img id="addimg" class="profile-avatar"><input type="hidden" id="info" name="info"></div></div> </div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div></div>').appendTo($('.content'));
         $('#addimg').attr("src", srcimg);
         $('.profile-avatar').removeAttr('id');
+    }
+
+    function AddText() {
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><textarea id="simple-text" class="form-control" type="text"></textarea></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div ></div >').appendTo($('.content'));
     }
 </script>
 

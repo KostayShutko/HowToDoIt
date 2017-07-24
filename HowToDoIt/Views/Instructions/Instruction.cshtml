@@ -1,0 +1,235 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/StyleInstrucions.css">
+<link rel="stylesheet" href="~/Scripts/dowland/autocomplete-jquery-ui.css">
+<link rel="stylesheet" href="~/Content/jquery-ui.css">
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="~/Content/InstructionButton/Square.css">
+<div class="content">
+    <div class="block">
+        <div class="row margin-top-30">
+            <div class=" col-md-8 entity">
+                <input class="form-control" id="header-instruction" name="link-youtube-name" placeholder="заголовок" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="row margin-top-15">
+            <div class="col-md-8 entity">
+                <select id="category" class="form-control">
+                    <option selected disabled>Категория</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="row margin-top-15">
+            <div class="col-md-8 entity">
+                <input id="tags" class="form-control" placeholder="Введи теги через запятую">
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="row content-sortable">
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 1</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 2</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 3</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 4</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 5</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 6</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+             
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 7</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 8</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 move-true">
+                <div class="square-service-block">
+                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
+                    <div class="item-block">
+                        <a class="link" href="#">
+                            <h2 class="ssb-title">Step 9</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 before-insert">
+                <div class="square-service-block">
+                    <div class="item-block">
+                        <a id="AddStep" class="link" href="#">
+                            <div class="ssb-icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $('body').on('click', '#AddStep', function () {
+            $('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step n</h2></a></div></div ></div >').insertBefore($('.before-insert'));
+        });
+
+        $('body').on('click', '.icon-remove', function () {
+            var block = $(this).parent().parent().parent();
+            block.remove();
+        });
+        $('.content-sortable').sortable({
+            items: '.move-true'
+        });
+
+
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+
+        $("#tags")
+            .on("keydown", function (event) {
+                if (event.keyCode === $.ui.keyCode.TAB &&
+                    $(this).autocomplete("instance").menu.active) {
+                    event.preventDefault();
+                }
+            })
+            .autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(
+                        availableTags, extractLast(request.term)));
+                },
+                focus: function () {
+                    return false;
+                },
+                select: function (event, ui) {
+                    var terms = split(this.value);
+                    terms.pop();
+                    terms.push(ui.item.value);
+                    terms.push("");
+                    this.value = terms.join(", ");
+                    return false;
+                }
+            });
+    });
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/dowland/autocomplete-jquery-ui.js")
+}
+

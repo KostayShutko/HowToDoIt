@@ -26,6 +26,21 @@ namespace HowToDoIt.Models
     {
         public DbSet<Profile> Profiles { get; set; }
 
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Instruction>().HasMany(c => c.Tags).WithMany(p => p.Instructions).Map(m =>
+            {
+                m.ToTable("InstructionTags");
+                m.MapLeftKey("InstructionId");
+                m.MapRightKey("TagId");
+            });
+
+            modelBuilder.Entity<Category>().HasMany(c => c.Instructions).WithOptional(o => o.Category);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

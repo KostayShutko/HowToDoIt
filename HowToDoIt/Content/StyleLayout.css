@@ -17,9 +17,11 @@
 }
 
 #main-container {
-    position:absolute;
-    display:inline-block;
-    left:14%;
+    position: absolute;
+    display: inline-block;
+    left: 14%;
     width: 72%;
-
+    border-radius: 7px;
+    margin-top: 10px;
+    background: #fff;
 }

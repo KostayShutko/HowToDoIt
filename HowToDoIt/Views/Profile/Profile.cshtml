@@ -10,11 +10,11 @@
 <h3>@Res.ResourceProfile.PersonalInfo</h3>
 <form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.Avatar:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Avatar</label>
         <div class="col-md-10">
             <div class="profile">
                 <div class="profile-avatar-wrap">
-                    <img  id="profile-avatar" src= "@Url.Content(Model.Avatar)" alt="Image for Profile">
+                    <img style="border-radius:5px;"  id="profile-avatar" src= "@Url.Content(Model.Avatar)" alt="Image for Profile">
                     <input type="hidden" id="info" name="info" value="@Model.Id">
                 </div>
             </div>
@@ -22,19 +22,19 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.FirstName:</label>
+        <label class="col-md-2 control-label" >@Res.ResourceProfile.FirstName</label>
         <div class="col-md-5">
             <input id="firstName" class="form-control" type="text" value="@Model.FirtstName">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.LastName:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.LastName</label>
         <div class="col-md-5">
             <input id="lastName" class="form-control" type="text" value="@Model.LastName">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.Sex:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Sex</label>
         <div class="col-md-5">
             @if (Model.Sex == "man")
             {
@@ -49,19 +49,19 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.City:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.City</label>
         <div class="col-md-5">
             <input id="city" class="form-control" type="text" value="@Model.City">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.Contacts:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Contacts</label>
         <div class="col-md-5">
             <textarea id="contact" class="form-control" type="text" >@Model.Contacts</textarea>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">@Res.ResourceProfile.Interests:</label>
+        <label class="col-md-2 control-label">@Res.ResourceProfile.Interests</label>
         <div class="col-md-5">
             <textarea id="interest" class="form-control" type="text" >@Model.Interests</textarea>
         </div>

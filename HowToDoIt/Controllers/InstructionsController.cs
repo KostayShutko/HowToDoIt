@@ -15,5 +15,10 @@ namespace HowToDoIt.Controllers
         {
             return View();
         }
+
+        public ActionResult Instruction()
+        {
+            return View();
+        }
     }
 }

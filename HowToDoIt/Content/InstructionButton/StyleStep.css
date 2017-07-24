@@ -6,9 +6,6 @@
 }
 
 .profile-avatar-wrap {
-    float: left;
-    margin: 0 20px 5px 0;
-    position: relative;
     pointer-events: none;
     border: 5px solid transparent;
 }

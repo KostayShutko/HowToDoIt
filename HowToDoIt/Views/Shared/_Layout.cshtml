@@ -13,11 +13,8 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
-
-
-    
 </head>
-<body>
+<body style="background:#edeef0;">
     <nav class="navbar proxy-navbar navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header" id="HeaderOnIndex">
@@ -30,7 +27,6 @@
         </nav>
         <div id="main-container" class="container body-content">
             @RenderBody()
-            <hr />
         </div>
     <div style="display:inline-block; position:absolute; left:86%; width:14%; padding-top:10px; padding-right:10px;">
         @Html.Partial("_AddInstructionButtonPartial")
@@ -41,5 +37,6 @@
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
+    
 </body>
 </html>
