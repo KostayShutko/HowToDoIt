@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -407,13 +407,17 @@
     <Compile Include="Migrations\201707161856484_DataMigration.Designer.cs">
       <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707181211173_v1.cs" />
-    <Compile Include="Migrations\201707181211173_v1.Designer.cs">
-      <DependentUpon>201707181211173_v1.cs</DependentUpon>
+    <Compile Include="Migrations\201707241607354_v3.cs" />
+    <Compile Include="Migrations\201707241607354_v3.Designer.cs">
+      <DependentUpon>201707241607354_v3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707190754235_v2.cs" />
-    <Compile Include="Migrations\201707190754235_v2.Designer.cs">
-      <DependentUpon>201707190754235_v2.cs</DependentUpon>
+    <Compile Include="Migrations\201707241620456_v4.cs" />
+    <Compile Include="Migrations\201707241620456_v4.Designer.cs">
+      <DependentUpon>201707241620456_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707241757520_v5.cs" />
+    <Compile Include="Migrations\201707241757520_v5.Designer.cs">
+      <DependentUpon>201707241757520_v5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -636,11 +640,14 @@
     <EmbeddedResource Include="Migrations\201707161856484_DataMigration.resx">
       <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707181211173_v1.resx">
-      <DependentUpon>201707181211173_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707241607354_v3.resx">
+      <DependentUpon>201707241607354_v3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707190754235_v2.resx">
-      <DependentUpon>201707190754235_v2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707241620456_v4.resx">
+      <DependentUpon>201707241620456_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707241757520_v5.resx">
+      <DependentUpon>201707241757520_v5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>
@@ -699,8 +706,8 @@
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.3.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

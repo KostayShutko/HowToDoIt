@@ -1,4 +1,5 @@
 ﻿using HowToDoIt.Models;
+using HowToDoIt.Models.Classes_for_Db;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -12,7 +13,31 @@ namespace HowToDoIt
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            //AddCategory();
             //CreateRolesandUsers();
+        }
+
+        private void AddCategory()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Category category1 = new Category();
+                Category category2= new Category();
+                category1.Name = "Обычная категория";
+                category2.Name = "Необычная категория";
+                context.Categories.Add(category1);
+                context.Categories.Add(category2);
+                Tag tag1 = new Tag();
+                Tag tag2 = new Tag();
+                Tag tag3 = new Tag();
+                tag1.Name = "Деньги";
+                tag2.Name = "Карты";
+                tag3.Name = "Два ствола";
+                context.Tags.Add(tag1);
+                context.Tags.Add(tag2);
+                context.Tags.Add(tag3);
+                context.SaveChanges();
+            }
         }
 
         private void CreateRolesandUsers()

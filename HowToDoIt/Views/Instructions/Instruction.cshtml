@@ -1,12 +1,22 @@
-﻿@{
+﻿@model HowToDoIt.Models.Classes_for_Db.Instruction
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
 <link rel="stylesheet" href="~/Scripts/dowland/autocomplete-jquery-ui.css">
-<link rel="stylesheet" href="~/Content/jquery-ui.css">
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="~/Content/InstructionButton/Square.css">
+<input type="hidden" id="id-instruction" name="id-instruction" value="@Model.Id">
+
+
 <div class="content">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="elem-in-center">
+                <h1 class="text-muted">Добавить инструкцию</h1>
+            </div>
+        </div>
+    </div>
     <div class="block">
         <div class="row margin-top-30">
             <div class=" col-md-8 entity">
@@ -19,10 +29,10 @@
             <div class="col-md-8 entity">
                 <select id="category" class="form-control">
                     <option selected disabled>Категория</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    @for (int i = 0; i < ViewBag.Categories.Length; i++)
+                    {
+                        <option>@ViewBag.Categories[i].Name</option>
+                    }
                 </select>
             </div>
         </div>
@@ -35,107 +45,9 @@
             </div>
         </div>
     </div>
+    <hr />
     <div class="block">
-        <div class="row content-sortable">
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 1</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 2</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 3</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 4</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 5</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 6</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-             
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 7</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 8</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 move-true">
-                <div class="square-service-block">
-                    <div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div>
-                    <div class="item-block">
-                        <a class="link" href="#">
-                            <h2 class="ssb-title">Step 9</h2>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="row content-sortable margin-top-30">
             <div class="col-md-3 before-insert">
                 <div class="square-service-block">
                     <div class="item-block">
@@ -149,49 +61,119 @@
             
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <div class="elem-in-center">
+                <button type="button" class="btn btn-primary button-save">Сохранить</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 <script>
+    var count = 0;
+    var notHeader = "Введите заголовок";
+    var notCorrectCategory = "Выберите категорию";
+    var err;
     $(function () {
+        function Recount() {
+            var elems = document.getElementsByTagName('h2')
+            for (var i = 0; i < elems.length; i++) {
+                var step = elems[i].innerHTML.split(' ')[0];
+                elems[i].innerHTML = step +' '+ (i + 1);
+            }
+
+        }
+        $('body').on('click', '.button-save', function () {
+            instrution = new Object();
+            if (GetData(instrution)) {
+                alert(err);
+                return;
+            }
+            SendAsAjax(instrution);
+            window.location.href = '@Url.Action("Index", "Home")';
+        });
+
+        function GetData(instruction)
+        {
+            if ($("#header-instruction").val() == "") {
+                err = notHeader;
+                return true;
+            }
+            instruction.Name = $("#header-instruction").val();
+            var e = document.getElementById("category");
+            var category = e.options[e.selectedIndex].text;
+            if (category == e.options[0].text) {
+                err = notCorrectCategory;
+                return true;
+            }
+            Category = new Object();
+            Category.Name = category;
+            Category.Id = 5;
+            instruction.Category = Category;
+            var tags = $("#tags").val().split(',');
+            tags = RemoveEmptyElemets(tags);
+            Tags = [];
+            CreateTags(tags, Tags);
+            instruction.Tags = Tags;
+            instruction.Id = $("#id-instruction").val();
+            return false;
+        }
+
+        function CreateTags(tags, Tags) {
+            for (var i = 0; i < tags.length; i++) {
+                object = new Object();
+                object.Name = tags[i];
+                Tags.push(object);
+            }
+        }
+
+        function RemoveEmptyElemets(array) {
+            var newarray = [];
+            for (var i = 0; i < array.length; i++) {
+                if ((array[i] != " ") && (array[i] != ""))
+                    newarray.push(array[i]);
+            }
+            return newarray;
+        }
+
+        function SendAsAjax(data) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SaveInstruction", "Instructions")',
+                data: data,
+                success: function (response) {
+                },
+            });
+        }
+
         $('body').on('click', '#AddStep', function () {
-            $('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step n</h2></a></div></div ></div >').insertBefore($('.before-insert'));
+            count++;
+            $('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step '+count+'</h2></a></div></div ></div >').insertBefore($('.before-insert'));
+
         });
 
         $('body').on('click', '.icon-remove', function () {
+            count--;
             var block = $(this).parent().parent().parent();
             block.remove();
+            Recount();
         });
         $('.content-sortable').sortable({
-            items: '.move-true'
+            items: '.move-true',
+            stop: function (e, ui) {
+                Recount();
+            }
         });
 
 
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
+        var availableTags = [];
+        @foreach (var d in ViewBag.Tags)
+        {
+            @:availableTags.push("@d.Name");
+        }
         function split(val) {
             return val.split(/,\s*/);
         }

@@ -13,6 +13,7 @@ namespace HowToDoIt.Models
     {
         public virtual Profile Profile { get; set; }
 
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType
@@ -25,21 +26,9 @@ namespace HowToDoIt.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Profile> Profiles { get; set; }
-
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Instruction>().HasMany(c => c.Tags).WithMany(p => p.Instructions).Map(m =>
-            {
-                m.ToTable("InstructionTags");
-                m.MapLeftKey("InstructionId");
-                m.MapRightKey("TagId");
-            });
-
-            modelBuilder.Entity<Category>().HasMany(c => c.Instructions).WithOptional(o => o.Category);
-
-            base.OnModelCreating(modelBuilder);
-        }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Instruction> Instructions { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

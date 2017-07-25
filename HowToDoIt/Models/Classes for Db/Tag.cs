@@ -9,8 +9,12 @@ namespace HowToDoIt.Models.Classes_for_Db
 {
     public class Tag
     {
+        public Tag()
+        {
+            Instructions = new List<Instruction>();
+        }
         [Key]
-        public string TagId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

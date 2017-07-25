@@ -9,8 +9,13 @@ namespace HowToDoIt.Models.Classes_for_Db
 {
     public class Category
     {
+        public Category()
+        {
+            Instructions = new List<Instruction>();
+        }
+
         [Key]
-        public string CategoryId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

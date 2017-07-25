@@ -4,5 +4,5 @@
 
 @if (Request.IsAuthenticated)
 {
-    <a href="#" id="button-instruction" class="action-button animate color-button">@Res.ResourceIndex.AddInstruction</a>
+    <a href="@Url.Action("Instruction", "Instructions")" id="button-instruction" class="action-button animate color-button">@Res.ResourceIndex.AddInstruction</a>
 }
