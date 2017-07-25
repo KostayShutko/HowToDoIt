@@ -102,8 +102,9 @@
                 window.location.href = '@Url.Action("Index", "Home")';
         }
 
-        function SaveByAddStep() {
-            SaveInstruction("Instructions", "SaveInstructionForAddStep/?step=" + count);
+        function SaveByAddStep(count) {
+
+            SaveInstruction("Instructions", "SaveInstructionForAddStep");
         }
 
         $('body').on('click', '.button-save', function () {
@@ -154,19 +155,21 @@
         }
 
         function SendAsAjax(data, controller, action) {
-            var path = '/' + controller + '/' + action;
+            var path = '/' + controller + '/' + action + '/';
             $.ajax({
                 type: "POST",
                 url: path,
                 data: data,
                 success: function (response) {
+                    if (response.success)
+                        window.location.href = '@Url.Action("Step", "Instructions")/' + '?step=' + count + '&id=' + response.Id;
                 },
             });
         }
 
         $('body').on('click', '#AddStep', function () {
             count++;
-            SaveByAddStep();
+            SaveByAddStep(count);
             //$('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step '+count+'</h2></a></div></div ></div >').insertBefore($('.before-insert'));
 
         });

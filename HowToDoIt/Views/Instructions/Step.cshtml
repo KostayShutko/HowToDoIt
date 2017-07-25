@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="~/Content/jquery-ui.css">
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link rel='stylesheet' href='~/Content/InstructionButton/StyleStep.css'>
-
+<input type="hidden" id="id-step" name="id-instruction" >
+<input type="hidden" id="id-instruction" name="id-instruction" >
+<input type="hidden" id="step" name="id-instruction" >
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="elem-in-center">
@@ -15,7 +17,7 @@
 </div>
 
 <div class="row margin-top-30">
-    <div class="col-md-offset-2 col-md-8 entity">
+    <div class="col-md-offset-2 col-md-8">
         <input id="header"  class="form-control" name="link-youtube-name" placeholder="Заголовок" type="text">
     </div>
 </div>
@@ -44,13 +46,65 @@
 <script>
     var srcimg = "/image/img-ru.bmp";
 
+    function CheckVideo(entity, Step) {
+        var object = new Object();
+        object.Type = "Video";
+        var iframe = entity.getElementsByTagName("iframe")[0];
+        if (iframe != null) {
+            object.Name = $(iframe).attr("src");
+            Step.Blocks.push(object);
+        }
+    }
+
+    function CheckText(entity, Step) {
+        var object = new Object();
+        object.Type = "Text";
+        var text = entity.getElementsByClassName("simple-text")[0];
+        if (text != null) {
+            object.Name = $(text).val();
+            Step.Blocks.push(object);
+        }
+    }
+
+    function CheckImage(entity, Step) {
+        var object = new Object();
+        object.Type = "Image";
+        var image = entity.getElementsByClassName("profile-avatar")[0];
+        if (image != null) {
+            object.Name = $(image).attr("src");
+            Step.Blocks.push(object);
+        }
+    }
+
+    function CheckEntity(entity, Step) {
+        CheckVideo(entity, Step);
+        CheckText(entity, Step);
+        CheckImage(entity, Step);
+    }
+
+    function GetEntityAndCheck(Step) {
+        var entity = document.getElementsByClassName('entity');
+        for (var i = 0; i < entity.length; i++) {
+            CheckEntity(entity[i], Step);
+        }
+    }
+
+    function GetAnotherData(Step) {
+        Step.Id = $("#id-step").val();
+        Step.Number = $("#step").val();
+        Step.InstructionId = $("#id-instruction").val();
+    }
+
     $('body').on('click', '.button-save', function () {
-        
+        var Step = new Object();
+        Step.Blocks = [];
+        GetEntityAndCheck(Step);
+        GetAnotherData(Step);
+        SendAsAjax(Step, "Instructions", "SaveStep");
     });
 
     $(".profile-avatar-wrap").droppable({
         drop: function (event, ui) {
-            alert("11111");
             $(this).css({ "border-color": "lightblue", "border-weight": "5px", "border-style": "dashed" });
         }
     });
@@ -85,8 +139,19 @@
     }
 
     function AddText() {
-        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><textarea id="simple-text" class="form-control" type="text"></textarea></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div ></div >').appendTo($('.content'));
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><textarea id="simple-text" class="form-control simple-text" type="text"></textarea></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div ></div >').appendTo($('.content'));
     }
+
+    function SendAsAjax(data, controller, action) {
+            var path = '/' + controller + '/' + action + '/';
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: data,
+                success: function (response) {
+                },
+            });
+        }
 </script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

@@ -14,9 +14,14 @@ namespace HowToDoIt.Controllers
     public class InstructionsController : Controller
     {
         // GET: Instructions
-        public ActionResult Step()
+        public ActionResult Step(int step,int id)
         {
             return View();
+        }
+
+        public void SaveStep(Step step)
+        {
+            string str = "";
         }
 
         public ActionResult Instruction(Instruction instruction)
@@ -73,7 +78,7 @@ namespace HowToDoIt.Controllers
             db.SaveChanges();
         }
 
-        public void SaveInstruction(Instruction instruction)
+        public JsonResult SaveInstruction(Instruction instruction)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -82,9 +87,10 @@ namespace HowToDoIt.Controllers
                     CreateNewInstruction(db, instruction);
                 }
             }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public void SaveInstructionForAddStep(Instruction instruction, int step)
+        public JsonResult SaveInstructionForAddStep(Instruction instruction)
         {
             int id = 0;
             using (var db = new ApplicationDbContext())
@@ -95,6 +101,7 @@ namespace HowToDoIt.Controllers
                     id = (db.Instructions.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
                 }
             }
+            return Json(new { success = true, Id = id }, JsonRequestBehavior.AllowGet);
         }
     }
 }
