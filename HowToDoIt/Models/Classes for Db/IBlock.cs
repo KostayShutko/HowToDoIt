@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HowToDoIt.Models.Classes_for_Db
 {
-    interface IBlock
+    public interface IBlock
     {
         string Type { get; set; }
         string Name { get; set; }

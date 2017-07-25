@@ -83,5 +83,18 @@ namespace HowToDoIt.Controllers
                 }
             }
         }
+
+        public void SaveInstructionForAddStep(Instruction instruction, int step)
+        {
+            int id = 0;
+            using (var db = new ApplicationDbContext())
+            {
+                if (instruction.Id == 0)
+                {
+                    CreateNewInstruction(db, instruction);
+                    id = (db.Instructions.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
+                }
+            }
+        }
     }
 }

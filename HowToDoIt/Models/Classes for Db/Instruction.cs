@@ -19,6 +19,8 @@ namespace HowToDoIt.Models.Classes_for_Db
         public string Name { get; set; }
         public string Date { get; set; }
 
+
+        public virtual ICollection<Step> Steps { get; set; }
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }

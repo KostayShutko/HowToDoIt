@@ -86,14 +86,28 @@
             }
 
         }
-        $('body').on('click', '.button-save', function () {
+
+        function SaveInstruction(controller, action){
             instrution = new Object();
             if (GetData(instrution)) {
                 alert(err);
-                return;
+                return false;
             }
-            SendAsAjax(instrution);
-            window.location.href = '@Url.Action("Index", "Home")';
+            SendAsAjax(instrution, controller, action);
+            return true;
+        }
+
+        function SaveByButton() {
+            if (SaveInstruction("Instructions", "SaveInstruction"))
+                window.location.href = '@Url.Action("Index", "Home")';
+        }
+
+        function SaveByAddStep() {
+            SaveInstruction("Instructions", "SaveInstructionForAddStep/?step=" + count);
+        }
+
+        $('body').on('click', '.button-save', function () {
+            SaveByButton();
         });
 
         function GetData(instruction)
@@ -139,10 +153,11 @@
             return newarray;
         }
 
-        function SendAsAjax(data) {
+        function SendAsAjax(data, controller, action) {
+            var path = '/' + controller + '/' + action;
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("SaveInstruction", "Instructions")',
+                url: path,
                 data: data,
                 success: function (response) {
                 },
@@ -151,7 +166,8 @@
 
         $('body').on('click', '#AddStep', function () {
             count++;
-            $('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step '+count+'</h2></a></div></div ></div >').insertBefore($('.before-insert'));
+            SaveByAddStep();
+            //$('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step '+count+'</h2></a></div></div ></div >').insertBefore($('.before-insert'));
 
         });
 
