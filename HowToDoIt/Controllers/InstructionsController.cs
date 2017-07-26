@@ -21,12 +21,7 @@ namespace HowToDoIt.Controllers
             {
                 if (idStep == 0)
                 {
-                    var instruction = db.Instructions.Find(idInstruction);
-                    s = new Step();
-                    s.Number = step;
-                    instruction.Steps.Add(s);
-                    db.Entry(instruction).State = EntityState.Modified;
-                    db.SaveChanges();
+                    s = CreateNewStep(db, idInstruction, step);
                     idStep = (db.Steps.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
                 }
                 else
@@ -35,27 +30,49 @@ namespace HowToDoIt.Controllers
                     ViewBag.Blocks = s.Blocks;
                 }
             }
+            MakeDataForStepView(step, idInstruction, idStep);
+            return View(s);
+        }
+
+        private void MakeDataForStepView(int step, int idInstruction, int idStep)
+        {
             ViewBag.Step = step;
             ViewBag.IdInstruction = idInstruction;
             ViewBag.IdStep = idStep;
-            return View(s);
+        }
+
+        private Step CreateNewStep(ApplicationDbContext db, int idInstruction, int step)
+        {
+            var instruction = db.Instructions.Find(idInstruction);
+            Step s = new Step();
+            s.Number = step;
+            instruction.Steps.Add(s);
+            db.Entry(instruction).State = EntityState.Modified;
+            db.SaveChanges();
+            return s;
+            
         }
 
         public void SaveStep(Step Step)
         {
             using (var db = new ApplicationDbContext())
             {
-                var s = db.Steps.Find(Step.Id);
-                s.Name = Step.Name;
-                s.Number = Step.Number;
-                db.Entry(s).State = EntityState.Modified;
-                DeleteAllBlocks(db, s);
+                UpdateStep(db,Step);
                 foreach (var block in Step.Blocks)
                 {
                     db.Blocks.Add(block);
                 }
                 db.SaveChanges();
             }
+        }
+
+        private void UpdateStep(ApplicationDbContext db, Step Step)
+        {
+            var s = db.Steps.Find(Step.Id);
+            s.Name = Step.Name;
+            s.Number = Step.Number;
+            db.Entry(s).State = EntityState.Modified;
+            DeleteAllBlocks(db, s);
         }
 
         public ActionResult Instruction(int? instructionid)
@@ -67,20 +84,30 @@ namespace HowToDoIt.Controllers
                     instruction = new Models.Classes_for_Db.Instruction();
                 else
                 {
-                    ViewBag.TagString = "";
                     var inst = db.Instructions.Find(instructionid);
-                    ViewBag.Step = inst.Steps;
-                    ViewBag.CountStep = inst.Steps.Count;
-                    foreach (var tag in inst.Tags)
-                    {
-                        ViewBag.TagString += tag.Name + ", ";
-                    }
+                    WriteDataInViewBag(inst);
                     instruction = inst;
                 }
-                ViewBag.Categories= db.Categories.ToArray();
-                ViewBag.Tags= db.Tags.ToArray();
+                WriteCatedoryAndTagInViewBag(db);
             }
             return View(instruction);
+        }
+
+        private void WriteCatedoryAndTagInViewBag(ApplicationDbContext db)
+        {
+            ViewBag.Categories = db.Categories.ToArray();
+            ViewBag.Tags = db.Tags.ToArray();
+        }
+
+        private void WriteDataInViewBag(Instruction inst)
+        {
+            ViewBag.TagString = "";
+            ViewBag.Step = inst.Steps;
+            ViewBag.CountStep = inst.Steps.Count;
+            foreach (var tag in inst.Tags)
+            {
+                ViewBag.TagString += tag.Name + ", ";
+            }
         }
 
         private void DeleteAllBlocks(ApplicationDbContext db,Step Step)
@@ -134,6 +161,14 @@ namespace HowToDoIt.Controllers
             db.SaveChanges();
         }
 
+        private void UpdateDataInInstruction(ApplicationDbContext db, Instruction instruction)
+        {
+            var instr = db.Instructions.Find(instruction.Id);
+            DeleteNotExistTag(db, instruction, instr);
+            WriteDataInInstruction(db, instruction, instr);
+            db.SaveChanges();
+        }
+
         public JsonResult SaveInstruction(Instruction instruction)
         {
             using (var db = new ApplicationDbContext())
@@ -144,10 +179,7 @@ namespace HowToDoIt.Controllers
                 }
                 else
                 {
-                    var instr = db.Instructions.Find(instruction.Id);
-                    DeleteNotExistTag(db, instruction, instr);
-                    WriteDataInInstruction(db, instruction, instr);
-                    db.SaveChanges();
+                    UpdateDataInInstruction(db, instruction);
                 }
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
@@ -165,10 +197,7 @@ namespace HowToDoIt.Controllers
                 }
                 else
                 {
-                    var instr = db.Instructions.Find(instruction.Id);
-                    DeleteNotExistTag(db, instruction, instr);
-                    WriteDataInInstruction(db, instruction, instr);
-                    db.SaveChanges();
+                    UpdateDataInInstruction(db, instruction);
                     id = instruction.Id;
                 }
             }
@@ -202,22 +231,35 @@ namespace HowToDoIt.Controllers
             catch (Exception) { return null; }
         }
 
-        public void DeleteStep(int num, int? instructionid)
+        public void DeleteStep(int num, int instructionid)
         {
             using (var db = new ApplicationDbContext())
             {
                 var instr = db.Instructions.Find(instructionid);
-                foreach(var step in instr)
-                {
-
-                }
-                var steps = instr.Steps.ToList();
-                steps.RemoveAt(num-1);
-                for (int i=0;i<steps.Count;i++)
-                    if (i >= num - 1)
-                        steps[i].Number--;
+                Step stepForDelete = GetStepForDelete(db,num, instr);
+                db.Steps.Remove(stepForDelete);
                 db.SaveChanges();
             }
+        }
+
+        private Step GetStepForDelete(ApplicationDbContext db,int num, Instruction instr)
+        {
+            bool fl = false;
+            Step stepForDelete = null;
+            foreach (var step in instr.Steps.ToList())
+            {
+                if (fl)
+                {
+                    step.Number--;
+                    db.Entry(step).State = EntityState.Modified;
+                }
+                if ((step.Number == num)&&(fl==false))
+                {
+                    stepForDelete = step;
+                    fl = true;
+                }
+            }
+            return stepForDelete;
         }
     }
 }
