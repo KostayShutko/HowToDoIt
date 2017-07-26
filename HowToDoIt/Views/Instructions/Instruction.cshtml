@@ -58,7 +58,7 @@
                             <i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
                         </div>
                         <div class="item-block">
-                            <a style="cursor:pointer;" class="link">
+                            <a style="cursor:pointer;" class="link  go-to-step">
                                 <h2 class="ssb-title">Step @step.Number</h2>
                                 <input type="hidden" id="id-step" name="id-instruction" value="@step.Id">
                             </a>
@@ -93,7 +93,7 @@
 
 
 <script>
-    var count = 0;
+    var count = @(ViewBag.CountStep??0);
     var notHeader = "Введите заголовок";
     var notCorrectCategory = "Выберите категорию";
     var err;
@@ -107,9 +107,13 @@
 
     $(function () {
 
-        $('.link').click(function () {
-            var elem = this.getElementsByTagName('h2')[0];
-            var step = elem.innerHTML.split(' ')[1];
+        function GetStep(block) {
+            var elem = block.getElementsByTagName('h2')[0];
+            return elem.innerHTML.split(' ')[1];
+        }
+
+        $('.go-to-step').click(function () {
+            var step = GetStep(this);
             var idInstruction = $("#id-instruction").val();
             var temp = this.getElementsByTagName('input')[0];
             idStep = $(temp).val();
@@ -148,7 +152,7 @@
                 window.location.href = '@Url.Action("Index", "Home")';
         }
 
-        function SaveByAddStep(count) {
+        function SaveByAddStep() {
 
             SaveInstruction("Instructions", "SaveInstructionForAddStep");
         }
@@ -206,25 +210,42 @@
                 url: path,
                 data: data,
                 success: function (response) {
-                    if (response.success)
+                    if (response.success) {
                         window.location.href = '@Url.Action("Step", "Instructions")/' + '?step=' + count + '&idInstruction=' + response.Id + '&idStep=0';
+                    }
                 },
             });
         }
 
         $('body').on('click', '#AddStep', function () {
             count++;
-            SaveByAddStep(count);
-            //$('<div class="col-md-3 move-true"><div class="square-service-block" ><div class="trash"><i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div><div class="item-block"><a class="link" href="#"><h2 class="ssb-title">Step '+count+'</h2></a></div></div ></div >').insertBefore($('.before-insert'));
-
+            SaveByAddStep();
         });
 
         $('body').on('click', '.icon-remove', function () {
             count--;
             var block = $(this).parent().parent().parent();
+            SendRequestOnDelete(block);
             block.remove();
-            Recount();
+            Recount(); 
         });
+
+        function SendRequestOnDelete(block) {
+            var step = GetStep(block[0]);
+            var id = $("#id-instruction").val();
+            SendRequestAsUrl("/Instructions/DeleteStep/?num=" + step +'&instructionid='+id);
+        }
+
+        function SendRequestAsUrl(url)
+        {
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (response) {
+                },
+            });
+        }
+
         $('.content-sortable').sortable({
             items: '.move-true',
             stop: function (e, ui) {

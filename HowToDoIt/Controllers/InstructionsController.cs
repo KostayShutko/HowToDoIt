@@ -49,6 +49,7 @@ namespace HowToDoIt.Controllers
                 s.Name = Step.Name;
                 s.Number = Step.Number;
                 db.Entry(s).State = EntityState.Modified;
+                DeleteAllBlocks(db, s);
                 foreach (var block in Step.Blocks)
                 {
                     db.Blocks.Add(block);
@@ -69,6 +70,7 @@ namespace HowToDoIt.Controllers
                     ViewBag.TagString = "";
                     var inst = db.Instructions.Find(instructionid);
                     ViewBag.Step = inst.Steps;
+                    ViewBag.CountStep = inst.Steps.Count;
                     foreach (var tag in inst.Tags)
                     {
                         ViewBag.TagString += tag.Name + ", ";
@@ -79,6 +81,13 @@ namespace HowToDoIt.Controllers
                 ViewBag.Tags= db.Tags.ToArray();
             }
             return View(instruction);
+        }
+
+        private void DeleteAllBlocks(ApplicationDbContext db,Step Step)
+        {
+            if (Step.Blocks != null)
+                db.Blocks.RemoveRange(Step.Blocks);
+
         }
 
         private void UpdateCategory(ApplicationDbContext db,Instruction instr, Instruction instruction,ICollection<Category> categories)
@@ -133,6 +142,13 @@ namespace HowToDoIt.Controllers
                 {
                     CreateNewInstruction(db, instruction);
                 }
+                else
+                {
+                    var instr = db.Instructions.Find(instruction.Id);
+                    DeleteNotExistTag(db, instruction, instr);
+                    WriteDataInInstruction(db, instruction, instr);
+                    db.SaveChanges();
+                }
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -147,8 +163,30 @@ namespace HowToDoIt.Controllers
                     CreateNewInstruction(db, instruction);
                     id = (db.Instructions.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
                 }
+                else
+                {
+                    var instr = db.Instructions.Find(instruction.Id);
+                    DeleteNotExistTag(db, instruction, instr);
+                    WriteDataInInstruction(db, instruction, instr);
+                    db.SaveChanges();
+                    id = instruction.Id;
+                }
             }
             return Json(new { success = true, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void DeleteNotExistTag(ApplicationDbContext db,Instruction instruction, Instruction instr)
+        {
+            List<Tag> list = new List<Tag>();
+            foreach(var i in instr.Tags)
+            {
+                if (!(instruction.Tags.Any(c => c.Name == i.Name)))
+                    list.Add(i);
+            }
+            foreach(var tag in list)
+            {
+                instr.Tags.Remove(tag);
+            }
         }
 
 
@@ -162,6 +200,24 @@ namespace HowToDoIt.Controllers
                 return Json(new { success = true, responseText = "~/Files/" + fileName }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception) { return null; }
+        }
+
+        public void DeleteStep(int num, int? instructionid)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var instr = db.Instructions.Find(instructionid);
+                foreach(var step in instr)
+                {
+
+                }
+                var steps = instr.Steps.ToList();
+                steps.RemoveAt(num-1);
+                for (int i=0;i<steps.Count;i++)
+                    if (i >= num - 1)
+                        steps[i].Number--;
+                db.SaveChanges();
+            }
         }
     }
 }
