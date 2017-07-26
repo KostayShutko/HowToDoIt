@@ -14,20 +14,67 @@ namespace HowToDoIt.Controllers
     public class InstructionsController : Controller
     {
         // GET: Instructions
-        public ActionResult Step(int step,int id)
+        public ActionResult Step(int step,int idInstruction,int idStep)
         {
-            return View();
+            Step s=null;
+            using (var db = new ApplicationDbContext())
+            {
+                if (idStep == 0)
+                {
+                    var instruction = db.Instructions.Find(idInstruction);
+                    s = new Step();
+                    s.Number = step;
+                    instruction.Steps.Add(s);
+                    db.Entry(instruction).State = EntityState.Modified;
+                    db.SaveChanges();
+                    idStep = (db.Steps.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
+                }
+                else
+                {
+                    s = db.Steps.Find(idStep);
+                    ViewBag.Blocks = s.Blocks;
+                }
+            }
+            ViewBag.Step = step;
+            ViewBag.IdInstruction = idInstruction;
+            ViewBag.IdStep = idStep;
+            return View(s);
         }
 
-        public void SaveStep(Step step)
-        {
-            string str = "";
-        }
-
-        public ActionResult Instruction(Instruction instruction)
+        public void SaveStep(Step Step)
         {
             using (var db = new ApplicationDbContext())
             {
+                var s = db.Steps.Find(Step.Id);
+                s.Name = Step.Name;
+                s.Number = Step.Number;
+                db.Entry(s).State = EntityState.Modified;
+                foreach (var block in Step.Blocks)
+                {
+                    db.Blocks.Add(block);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public ActionResult Instruction(int? instructionid)
+        {
+            Instruction instruction=null;
+            using (var db = new ApplicationDbContext())
+            {
+                if ((instructionid == null) || (instructionid == 0))
+                    instruction = new Models.Classes_for_Db.Instruction();
+                else
+                {
+                    ViewBag.TagString = "";
+                    var inst = db.Instructions.Find(instructionid);
+                    ViewBag.Step = inst.Steps;
+                    foreach (var tag in inst.Tags)
+                    {
+                        ViewBag.TagString += tag.Name + ", ";
+                    }
+                    instruction = inst;
+                }
                 ViewBag.Categories= db.Categories.ToArray();
                 ViewBag.Tags= db.Tags.ToArray();
             }
@@ -102,6 +149,19 @@ namespace HowToDoIt.Controllers
                 }
             }
             return Json(new { success = true, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public JsonResult Upload()
+        {
+            try
+            {
+                string fileName = "";
+                fileName = Manager.UploadFile(Request, Server, "~/Files/");
+                return Json(new { success = true, responseText = "~/Files/" + fileName }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception) { return null; }
         }
     }
 }

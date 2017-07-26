@@ -7,7 +7,7 @@ using System.Web;
 
 namespace HowToDoIt.Models.Classes_for_Db
 {
-    public class Image:IBlock
+    public class Block
     {
         [Key]
         public int Id { get; set; }

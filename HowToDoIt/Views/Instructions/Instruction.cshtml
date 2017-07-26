@@ -20,7 +20,7 @@
     <div class="block">
         <div class="row margin-top-30">
             <div class=" col-md-8 entity">
-                <input class="form-control" id="header-instruction" name="link-youtube-name" placeholder="заголовок" type="text">
+                <input class="form-control" value="@Model.Name" id="header-instruction" name="link-youtube-name" placeholder="заголовок" type="text">
             </div>
         </div>
     </div>
@@ -48,6 +48,26 @@
     <hr />
     <div class="block">
         <div class="row content-sortable margin-top-30">
+            @if (ViewBag.Step != null)
+            {
+            foreach (var step in ViewBag.Step)
+            {
+                <div class="col-md-3 move-true">
+                    <div class="square-service-block">
+                        <div class="trash">
+                            <i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
+                        </div>
+                        <div class="item-block">
+                            <a style="cursor:pointer;" class="link">
+                                <h2 class="ssb-title">Step @step.Number</h2>
+                                <input type="hidden" id="id-step" name="id-instruction" value="@step.Id">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            }
+
             <div class="col-md-3 before-insert">
                 <div class="square-service-block">
                     <div class="item-block">
@@ -77,7 +97,33 @@
     var notHeader = "Введите заголовок";
     var notCorrectCategory = "Выберите категорию";
     var err;
+    var tegStr="@ViewBag.TagString";
+    var categr;
+    @if  (Model.Category!=null)
+    {
+        @:categr ="@Model.Category.Name";
+    }
+
+
     $(function () {
+
+        $('.link').click(function () {
+            var elem = this.getElementsByTagName('h2')[0];
+            var step = elem.innerHTML.split(' ')[1];
+            var idInstruction = $("#id-instruction").val();
+            var temp = this.getElementsByTagName('input')[0];
+            idStep = $(temp).val();
+            window.location.href = '@Url.Action("Step", "Instructions")/' + '?step=' + step + '&idInstruction=' + idInstruction + '&idStep='+idStep;
+        });
+        if (categr!="") {
+            $("select option").filter(function () {
+                //may want to use $.trim in here
+                return $(this).text() == categr;
+            }).attr('selected', true);
+        }
+
+        $('#tags').val(tegStr);
+
         function Recount() {
             var elems = document.getElementsByTagName('h2')
             for (var i = 0; i < elems.length; i++) {
@@ -126,7 +172,6 @@
             }
             Category = new Object();
             Category.Name = category;
-            Category.Id = 5;
             instruction.Category = Category;
             var tags = $("#tags").val().split(',');
             tags = RemoveEmptyElemets(tags);
@@ -162,7 +207,7 @@
                 data: data,
                 success: function (response) {
                     if (response.success)
-                        window.location.href = '@Url.Action("Step", "Instructions")/' + '?step=' + count + '&id=' + response.Id;
+                        window.location.href = '@Url.Action("Step", "Instructions")/' + '?step=' + count + '&idInstruction=' + response.Id + '&idStep=0';
                 },
             });
         }

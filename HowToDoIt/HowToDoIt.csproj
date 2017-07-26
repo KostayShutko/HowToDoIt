@@ -423,20 +423,21 @@
     <Compile Include="Migrations\201707251556279_v6.Designer.cs">
       <DependentUpon>201707251556279_v6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707260639277_v7.cs" />
+    <Compile Include="Migrations\201707260639277_v7.Designer.cs">
+      <DependentUpon>201707260639277_v7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationManager.cs" />
+    <Compile Include="Models\Classes for Db\Block.cs" />
     <Compile Include="Models\Classes for Db\Category.cs" />
-    <Compile Include="Models\Classes for Db\IBlock.cs" />
-    <Compile Include="Models\Classes for Db\Image.cs" />
     <Compile Include="Models\Classes for Db\Instruction.cs" />
     <Compile Include="Models\Classes for Db\Profile.cs" />
     <Compile Include="Models\Classes for Db\Rating.cs" />
     <Compile Include="Models\Classes for Db\Step.cs" />
     <Compile Include="Models\Classes for Db\Tag.cs" />
-    <Compile Include="Models\Classes for Db\Text.cs" />
-    <Compile Include="Models\Classes for Db\Video.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -659,6 +660,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707251556279_v6.resx">
       <DependentUpon>201707251556279_v6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707260639277_v7.resx">
+      <DependentUpon>201707260639277_v7.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>

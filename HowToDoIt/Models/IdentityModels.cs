@@ -29,9 +29,7 @@ namespace HowToDoIt.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Instruction> Instructions { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Text> Texts { get; set; }
-        public DbSet<Image> Images { get; set; }
-        public DbSet<Video> Videos { get; set; }
+        public DbSet<Block> Blocks { get; set; }
         public DbSet<Step> Steps { get; set; }
 
         public ApplicationDbContext()

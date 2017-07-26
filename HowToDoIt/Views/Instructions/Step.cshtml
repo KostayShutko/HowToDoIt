@@ -1,13 +1,14 @@
-﻿@{
+﻿@model HowToDoIt.Models.Classes_for_Db.Step
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
 <link rel="stylesheet" href="~/Content/jquery-ui.css">
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link rel='stylesheet' href='~/Content/InstructionButton/StyleStep.css'>
-<input type="hidden" id="id-step" name="id-instruction" >
-<input type="hidden" id="id-instruction" name="id-instruction" >
-<input type="hidden" id="step" name="id-instruction" >
+<input type="hidden" id="id-step"  value="@ViewBag.IdStep">
+<input type="hidden" id="id-instruction"  value="@ViewBag.IdInstruction">
+<input type="hidden" id="step"  value="@ViewBag.Step">
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="elem-in-center">
@@ -18,11 +19,47 @@
 
 <div class="row margin-top-30">
     <div class="col-md-offset-2 col-md-8">
-        <input id="header"  class="form-control" name="link-youtube-name" placeholder="Заголовок" type="text">
+        <input id="header"  class="form-control" placeholder="Заголовок" type="text" value="@Model.Name">
     </div>
 </div>
 <div class="content">
-    
+    @if (ViewBag.Blocks != null)
+    {
+        foreach (var block in ViewBag.Blocks)
+        {
+            <div class="block">
+                <div class="row margin-top-30">
+                    <div class="col-md-offset-2 col-md-8 entity">
+                        @if (block.Type == "Text")
+                        {
+                            <textarea id="simple-text" class="form-control simple-text" type="text">@block.Name</textarea>
+                        }
+                        @if (block.Type == "Image")
+                        {
+                            <div class="profile elem-in-center">
+                                <div class="profile-avatar-wrap">
+                                    <img src="@Url.Content(block.Name)" class="profile-avatar">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="margin-left-1 col-md-offset-10 col-md-1">
+                        <i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
+                    </div>
+                </div>
+                @if (block.Type == "Video")
+                {
+                    <div class="form-group ">
+                        <label class="col-md-offset-2 col-md-2 control-label">Link on youtube</label>
+                        <div class="col-md-6">
+                            <input class="form-control link-youtube" name="link-youtube-name" type="text" value="@block.Name">
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+
 </div>
 
 <div class="row margin-top-30">
@@ -46,12 +83,13 @@
 <script>
     var srcimg = "/image/img-ru.bmp";
 
-    function CheckVideo(entity, Step) {
+    function CheckVideo(entity, Step, block) {
         var object = new Object();
         object.Type = "Video";
-        var iframe = entity.getElementsByTagName("iframe")[0];
+        var iframe = block.getElementsByClassName("link-youtube")[0];
         if (iframe != null) {
-            object.Name = $(iframe).attr("src");
+            object.Name = $(iframe).val();
+            object.StepId = $("#id-step").val();
             Step.Blocks.push(object);
         }
     }
@@ -62,6 +100,7 @@
         var text = entity.getElementsByClassName("simple-text")[0];
         if (text != null) {
             object.Name = $(text).val();
+            object.StepId = $("#id-step").val();
             Step.Blocks.push(object);
         }
     }
@@ -72,27 +111,29 @@
         var image = entity.getElementsByClassName("profile-avatar")[0];
         if (image != null) {
             object.Name = $(image).attr("src");
+            object.StepId= $("#id-step").val();
             Step.Blocks.push(object);
         }
     }
 
-    function CheckEntity(entity, Step) {
-        CheckVideo(entity, Step);
+    function CheckEntity(entity, Step, block) {
+        CheckVideo(entity, Step, block);
         CheckText(entity, Step);
         CheckImage(entity, Step);
     }
 
     function GetEntityAndCheck(Step) {
         var entity = document.getElementsByClassName('entity');
+        var block = document.getElementsByClassName('block');
         for (var i = 0; i < entity.length; i++) {
-            CheckEntity(entity[i], Step);
+            CheckEntity(entity[i], Step, block[i]);
         }
     }
 
     function GetAnotherData(Step) {
         Step.Id = $("#id-step").val();
         Step.Number = $("#step").val();
-        Step.InstructionId = $("#id-instruction").val();
+        Step.Name = $("#header").val();
     }
 
     $('body').on('click', '.button-save', function () {
@@ -101,6 +142,7 @@
         GetEntityAndCheck(Step);
         GetAnotherData(Step);
         SendAsAjax(Step, "Instructions", "SaveStep");
+        window.location.href = '/Instructions/Instruction/?instructionid=' + $("#id-instruction").val();
     });
 
     $(".profile-avatar-wrap").droppable({

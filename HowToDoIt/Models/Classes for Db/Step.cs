@@ -11,12 +11,13 @@ namespace HowToDoIt.Models.Classes_for_Db
     {
         public Step()
         {
-            Blocks= new List<IBlock>();
+            Blocks= new List<Block>();
         }
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
         public int Number { get; set; }
-        public virtual ICollection<IBlock> Blocks { get; set; }
+        public virtual ICollection<Block> Blocks { get; set; }
 
         public int InstructionId { get; set; }
         [ForeignKey("InstructionId")]

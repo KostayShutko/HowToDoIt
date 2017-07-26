@@ -62,7 +62,7 @@ jQuery.event.props.push('dataTransfer');
 
         saveFile: function (file) {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Profile/Upload');
+            xhr.open('POST', '/Instructions/Upload');
             xhr.setRequestHeader('X-FILE-NAME', 'file.name');
             var fd = new FormData
             fd.append("file", file)
@@ -81,7 +81,7 @@ jQuery.event.props.push('dataTransfer');
             Step.hideDroppableArea();
             // Multiple files can be dropped. Lets only deal with the "first" one.
             var file = files[0];
-            
+            Step.saveFile(file);
             if (typeof file !== 'undefined' && file.type.match('image.*')) {
                 Step.resizeImage(file, 256, function (data) {
                     Step.placeImage(data);
