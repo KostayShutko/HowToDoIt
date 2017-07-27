@@ -43,8 +43,12 @@ h2.ssb-title {
     text-transform: uppercase;
 }
 
-.trash{
-    position:absolute;
-    top:0;
-    right:5px;
+.tittle-step {
+    color: #fff;
+}
+
+.trash {
+    position: absolute;
+    top: 0;
+    right: 5px;
 }

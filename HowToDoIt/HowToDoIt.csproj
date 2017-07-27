@@ -431,6 +431,10 @@
     <Compile Include="Migrations\201707261840271_v8.Designer.cs">
       <DependentUpon>201707261840271_v8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707271533458_n1.cs" />
+    <Compile Include="Migrations\201707271533458_n1.Designer.cs">
+      <DependentUpon>201707271533458_n1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -670,6 +674,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707261840271_v8.resx">
       <DependentUpon>201707261840271_v8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707271533458_n1.resx">
+      <DependentUpon>201707271533458_n1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>

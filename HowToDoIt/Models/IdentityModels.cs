@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using HowToDoIt.Models.Classes_for_Db;
+using System.Collections.Generic;
 
 namespace HowToDoIt.Models
 {
@@ -12,7 +13,7 @@ namespace HowToDoIt.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual Profile Profile { get; set; }
-
+        public virtual ICollection<Instruction> Instructions { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -31,6 +32,7 @@ namespace HowToDoIt.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Block> Blocks { get; set; }
         public DbSet<Step> Steps { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

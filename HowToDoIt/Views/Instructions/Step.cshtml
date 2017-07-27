@@ -83,6 +83,10 @@
 <script>
     var srcimg = "/image/img-ru.bmp";
 
+    window.addEventListener("hashchange", function (e) {
+        alert("asdasd");
+    })
+
     function CheckVideo(entity, Step, block) {
         var object = new Object();
         object.Type = "Video";

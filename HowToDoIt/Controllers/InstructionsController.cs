@@ -90,6 +90,7 @@ namespace HowToDoIt.Controllers
                 }
                 WriteCatedoryAndTagInViewBag(db);
             }
+            this.Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
             return View(instruction);
         }
 
@@ -268,9 +269,10 @@ namespace HowToDoIt.Controllers
 
         private void MoveSteps(ApplicationDbContext db, int numstart, int numend, Instruction instr)
         {
+            var listForDeleteFromDb = instr.Steps.ToList();
+
             var list = instr.Steps.ToList();
             list= list.OrderBy(c => c.Number).ToList();
-            var listForDeleteFromDb= instr.Steps.ToList();
             ShiftStepInList(list, numstart, numend);
 
             List<List<Block>> listblocks= GetBlocks(list);
@@ -278,7 +280,18 @@ namespace HowToDoIt.Controllers
             db.SaveChanges();
             db.Steps.AddRange(list); 
             db.SaveChanges();
-            RenameBlocks(db, listblocks);
+            RenameBlocks(db, listblocks, instr);
+        }
+
+        private void RenameBlocks(ApplicationDbContext db, List<List<Block>> blocks, Instruction instr)
+        {
+            var instruction = db.Instructions.Find(instr.Id);
+            var list = instruction.Steps.ToList();
+            list = list.OrderBy(c => c.Number).ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                RenameBlockId(db, blocks[i], list[i].Id);
+            }
         }
 
         private void ShiftStepInList(List<Step> list, int numstart, int numend)
@@ -302,19 +315,11 @@ namespace HowToDoIt.Controllers
             return listblocks;
         }
 
-        private void RenameBlocks(ApplicationDbContext db, List<List<Block>> blocks)
-        {
-            for(int i=0;i<blocks.Count;i++)
-            {
-                RenameStepId(db, blocks[i], blocks.Count);
-            }
-        }
-
-        private void RenameStepId(ApplicationDbContext db,List<Block> listblock,int count)
+        private void RenameBlockId(ApplicationDbContext db,List<Block> listblock,int id)
         {
             foreach(var b in listblock)
             {
-                b.StepId = b.StepId + count;
+                b.StepId = id;
                 db.Blocks.Add(b);
             }
         }
