@@ -102,7 +102,8 @@ namespace HowToDoIt.Controllers
         private void WriteDataInViewBag(Instruction inst)
         {
             ViewBag.TagString = "";
-            ViewBag.Step = inst.Steps;
+            var step = inst.Steps;
+            ViewBag.Step = step.OrderBy(c=>c.Number).ToList();
             ViewBag.CountStep = inst.Steps.Count;
             foreach (var tag in inst.Tags)
             {
@@ -242,11 +243,89 @@ namespace HowToDoIt.Controllers
             }
         }
 
+        public JsonResult MoveStep(int numstart, int numend, int instructionid)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var instr = db.Instructions.Find(instructionid);
+                MoveSteps(db, numstart, numend, instr);
+                db.SaveChanges();
+                return Json(new { success = true, responseText = GetStepId(instr) }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        private int[] GetStepId(Instruction instr)
+        {
+            List<int> list = new List<int>();
+            var steps = instr.Steps.ToList();
+            for (int i=0;i<steps.Count;i++)
+            {
+                list.Add(steps[i].Id);
+            }
+            return list.ToArray();
+        }
+
+        private void MoveSteps(ApplicationDbContext db, int numstart, int numend, Instruction instr)
+        {
+            var list = instr.Steps.ToList();
+            list= list.OrderBy(c => c.Number).ToList();
+            var listForDeleteFromDb= instr.Steps.ToList();
+            ShiftStepInList(list, numstart, numend);
+
+            List<List<Block>> listblocks= GetBlocks(list);
+            db.Steps.RemoveRange(listForDeleteFromDb);
+            db.SaveChanges();
+            db.Steps.AddRange(list); 
+            db.SaveChanges();
+            RenameBlocks(db, listblocks);
+        }
+
+        private void ShiftStepInList(List<Step> list, int numstart, int numend)
+        {
+            Step step = list.Single(s => s.Number == numstart + 1);
+            list.Remove(step);
+            list.Insert(numend, step);
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].Number = i + 1;
+            }
+        }
+
+        private List<List<Block>> GetBlocks(List<Step> list)
+        {
+            List<List<Block>> listblocks = new List<List<Block>>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                listblocks.Add(list[i].Blocks.ToList());
+            }
+            return listblocks;
+        }
+
+        private void RenameBlocks(ApplicationDbContext db, List<List<Block>> blocks)
+        {
+            for(int i=0;i<blocks.Count;i++)
+            {
+                RenameStepId(db, blocks[i], blocks.Count);
+            }
+        }
+
+        private void RenameStepId(ApplicationDbContext db,List<Block> listblock,int count)
+        {
+            foreach(var b in listblock)
+            {
+                b.StepId = b.StepId + count;
+                db.Blocks.Add(b);
+            }
+        }
+
         private Step GetStepForDelete(ApplicationDbContext db,int num, Instruction instr)
         {
             bool fl = false;
             Step stepForDelete = null;
-            foreach (var step in instr.Steps.ToList())
+            var list = instr.Steps.ToList();
+            list = list.OrderBy(c => c.Number).ToList();
+            foreach (var step in list)
             {
                 if (fl)
                 {
@@ -259,6 +338,7 @@ namespace HowToDoIt.Controllers
                     fl = true;
                 }
             }
+            
             return stepForDelete;
         }
     }

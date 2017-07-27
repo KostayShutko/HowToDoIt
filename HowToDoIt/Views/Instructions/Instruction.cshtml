@@ -58,7 +58,7 @@
                             <i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
                         </div>
                         <div class="item-block">
-                            <a style="cursor:pointer;" class="link  go-to-step">
+                            <a style="cursor: pointer;" class="link  go-to-step">
                                 <h2 class="ssb-title">Step @step.Number</h2>
                                 <input type="hidden" id="id-step" name="id-instruction" value="@step.Id">
                             </a>
@@ -71,7 +71,7 @@
             <div class="col-md-3 before-insert">
                 <div class="square-service-block">
                     <div class="item-block">
-                        <a id="AddStep" class="link">
+                        <a style="cursor: pointer;" id="AddStep" class="link">
                             <div class="ssb-icon"> <i class="fa fa-plus" aria-hidden="true"></i> </div>
                         </a>
                     </div>
@@ -246,10 +246,39 @@
             });
         }
 
+        function ChangeStepId(Ids)
+        {
+            var link = document.getElementsByClassName("go-to-step");
+            for (var i = 0; i < link.length; i++) 
+            {
+                var input = link[i].getElementsByTagName('input')[0];
+                $(input).val(Ids[i]);
+            }
+        }
+
+        function SendRequestAsUrlAndGetResponse(url) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (response) {
+                    ChangeStepId(response.responseText);
+                },
+            });
+        }
+
+        function SendRequestMove(indexend,indexstart) {
+            var id = $("#id-instruction").val();
+            SendRequestAsUrlAndGetResponse("/Instructions/MoveStep/?numstart=" + indexstart + '&numend=' + indexend+ '&instructionid=' + id);
+        }
+
         $('.content-sortable').sortable({
             items: '.move-true',
+            start: function (event, ui) {
+                ui.item.startPos = ui.item.index();
+            },
             stop: function (e, ui) {
                 Recount();
+                SendRequestMove(ui.item.index(), ui.item.startPos);
             }
         });
 
