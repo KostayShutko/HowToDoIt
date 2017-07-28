@@ -1,0 +1,31 @@
+﻿.pricing-table .plan {
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    -moz-box-shadow: 0 0 6px 2px #b0b2ab;
+    -webkit-box-shadow: 0 0 6px 2px #b0b2ab;
+    box-shadow: 0 0 6px 2px #b0b2ab;
+    margin-top:20px;
+}
+
+.plan:hover {
+    
+    -moz-box-shadow: 0 0 12px 3px #b0b2ab;
+    -webkit-box-shadow: 0 0 12px 3px #b0b2ab;
+    box-shadow: 0 0 12px 3px #b0b2ab;
+}
+
+.plan {
+    padding: 20px;
+    background-color: #5e5f59;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.pricing-three-column {
+    width:90%;
+    margin-left:5%;
+    margin-right:5%;
+}
+

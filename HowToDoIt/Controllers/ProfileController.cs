@@ -19,31 +19,31 @@ namespace HowToDoIt.Controllers
         [Authorize]
         public new ActionResult Profile()
         {
-            Profile profile;
+            Profil profile;
             profile = GetProfileUser();
             return View(profile);
         }
 
-        private Profile GetProfileUser()
+        private Profil GetProfileUser()
         {
-            Profile profile = new Profile();
+            Profil profile = new Profil();
             using (var db = new ApplicationDbContext())
             {
                 ApplicationUser user;
                 user = Manager.GetCurrentUser(db, User.Identity.Name);
                 if (ProfileExist(profile,user,db))
-                    profile = user.Profile;
+                    profile = user.Profil;
             }
             return profile;
         }
 
-        private bool ProfileExist(Profile profile,ApplicationUser user,ApplicationDbContext db)
+        private bool ProfileExist(Profil profile,ApplicationUser user,ApplicationDbContext db)
         {
-            if (user.Profile == null)
+            if (user.Profil == null)
             {
                 profile.Avatar = "~/image/256.jpg";
                 profile.Users = user;
-                db.Profiles.Add(profile);
+                db.Profils.Add(profile);
                 db.SaveChanges();
                 return false;
             }
@@ -62,11 +62,11 @@ namespace HowToDoIt.Controllers
             catch (Exception) { return null; }
         }
 
-        public void SaveProfileData(Profile profile)
+        public void SaveProfileData(Profil profil)
         {
             using (var db = new ApplicationDbContext())
             {
-                db.Entry(profile).State = EntityState.Modified;
+                db.Entry(profil).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<HowToDoIt.Models.Classes_for_Db.Instruction>
+<link rel="stylesheet" href="~/Content/StyleViewInstruction.css">
+@foreach (var item in Model)
+{
+        <div class="pricing-table pricing-three-column ">
+            <div class=" plan">
+                <div style="width:300px;height:100px;background-color:antiquewhite; margin-bottom:10px;">
+                    @item.Name
+                </div>
+            </div>
+        </div>
+}

@@ -28,15 +28,16 @@
         <div id="main-container" class="container body-content">
             @RenderBody()
         </div>
-    <div style="display:inline-block; position:absolute; left:86%; width:14%; padding-top:10px; padding-right:10px;">
-        @Html.Partial("_AddInstructionButtonPartial")
+    @using Microsoft.AspNet.Identity
+@if (ViewContext.RouteData.Values["action"].ToString() == "Index")
+{
+    <div style="display:inline-block; position:absolute; left:86%; width:14%; padding-top:13px; padding-right:10px; padding-left:10px;">
+            @Html.Partial("_AddInstructionButtonPartial")
     </div>
-        
-
-
+}
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
-    
+
 </body>
 </html>

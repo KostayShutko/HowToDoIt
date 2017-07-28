@@ -13,7 +13,31 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
-        // GET: Instructions
+        public ActionResult ViewInstructions(int? id)
+        {
+            int page = id ?? 0;
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_ViewInstructionPartial", GetItemsPage(page));
+            }
+            return View(GetItemsPage(page));
+        }
+
+        private List<Instruction> GetItemsPage(int page = 1)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var itemsToSkip = page * 5;
+                return db.Instructions.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+            }
+         }
+
+
+
+
+
+        //-----------------------------------------------------------------------
+        [Authorize]
         public ActionResult Step(int step,int idInstruction,int idStep)
         {
             Step s=null;
@@ -75,6 +99,7 @@ namespace HowToDoIt.Controllers
             DeleteAllBlocks(db, s);
         }
 
+        [Authorize]
         public ActionResult Instruction(int? instructionid)
         {
             Instruction instruction=null;
@@ -155,12 +180,25 @@ namespace HowToDoIt.Controllers
             UpdateTag(db, instr, instruction, db.Categories.ToArray());
         }
 
+        private void AddDataInInstruction(ApplicationDbContext db, Instruction instruction, Instruction instr)
+        {
+            WriteDataInInstruction(db, instruction, instr);
+            AddUserByInstruction(db, instr);
+        }
+
         private void CreateNewInstruction(ApplicationDbContext db, Instruction instruction)
         {
             Instruction instr = new Instruction();
-            WriteDataInInstruction(db, instruction, instr);
+            AddDataInInstruction(db, instruction, instr);
             db.Instructions.Add(instr);
             db.SaveChanges();
+        }
+
+        private void AddUserByInstruction(ApplicationDbContext db, Instruction instruction)
+        {
+            ApplicationUser user;
+            user = Manager.GetCurrentUser(db, User.Identity.Name);
+            instruction.User = user;
         }
 
         private void UpdateDataInInstruction(ApplicationDbContext db, Instruction instruction)

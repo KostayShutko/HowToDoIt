@@ -403,37 +403,17 @@
     <Compile Include="Migrations\201707161847416_InitialCreate.Designer.cs">
       <DependentUpon>201707161847416_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707161856484_DataMigration.cs" />
-    <Compile Include="Migrations\201707161856484_DataMigration.Designer.cs">
-      <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201707271734502_v14.cs" />
+    <Compile Include="Migrations\201707271734502_v14.Designer.cs">
+      <DependentUpon>201707271734502_v14.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707241607354_v3.cs" />
-    <Compile Include="Migrations\201707241607354_v3.Designer.cs">
-      <DependentUpon>201707241607354_v3.cs</DependentUpon>
+    <Compile Include="Migrations\201707271751067_v1.cs" />
+    <Compile Include="Migrations\201707271751067_v1.Designer.cs">
+      <DependentUpon>201707271751067_v1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707241620456_v4.cs" />
-    <Compile Include="Migrations\201707241620456_v4.Designer.cs">
-      <DependentUpon>201707241620456_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707241757520_v5.cs" />
-    <Compile Include="Migrations\201707241757520_v5.Designer.cs">
-      <DependentUpon>201707241757520_v5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707251556279_v6.cs" />
-    <Compile Include="Migrations\201707251556279_v6.Designer.cs">
-      <DependentUpon>201707251556279_v6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707260639277_v7.cs" />
-    <Compile Include="Migrations\201707260639277_v7.Designer.cs">
-      <DependentUpon>201707260639277_v7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707261840271_v8.cs" />
-    <Compile Include="Migrations\201707261840271_v8.Designer.cs">
-      <DependentUpon>201707261840271_v8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707271533458_n1.cs" />
-    <Compile Include="Migrations\201707271533458_n1.Designer.cs">
-      <DependentUpon>201707271533458_n1.cs</DependentUpon>
+    <Compile Include="Migrations\201707271757241_v2.cs" />
+    <Compile Include="Migrations\201707271757241_v2.Designer.cs">
+      <DependentUpon>201707271757241_v2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -442,7 +422,7 @@
     <Compile Include="Models\Classes for Db\Block.cs" />
     <Compile Include="Models\Classes for Db\Category.cs" />
     <Compile Include="Models\Classes for Db\Instruction.cs" />
-    <Compile Include="Models\Classes for Db\Profile.cs" />
+    <Compile Include="Models\Classes for Db\Profil.cs" />
     <Compile Include="Models\Classes for Db\Rating.cs" />
     <Compile Include="Models\Classes for Db\Step.cs" />
     <Compile Include="Models\Classes for Db\Tag.cs" />
@@ -489,6 +469,7 @@
     <Content Include="Content\InstructionButton\StyleStep.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
+    <Content Include="Content\StyleViewInstruction.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -604,6 +585,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -637,6 +620,8 @@
     <Content Include="Views\Profile\Profile.cshtml" />
     <Content Include="Views\Instructions\Step.cshtml" />
     <Content Include="Views\Instructions\Instruction.cshtml" />
+    <Content Include="Views\Instructions\ViewInstructions.cshtml" />
+    <Content Include="Views\Instructions\_ViewInstructionPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -654,29 +639,14 @@
     <EmbeddedResource Include="Migrations\201707161847416_InitialCreate.resx">
       <DependentUpon>201707161847416_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707161856484_DataMigration.resx">
-      <DependentUpon>201707161856484_DataMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707271734502_v14.resx">
+      <DependentUpon>201707271734502_v14.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707241607354_v3.resx">
-      <DependentUpon>201707241607354_v3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707271751067_v1.resx">
+      <DependentUpon>201707271751067_v1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707241620456_v4.resx">
-      <DependentUpon>201707241620456_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707241757520_v5.resx">
-      <DependentUpon>201707241757520_v5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707251556279_v6.resx">
-      <DependentUpon>201707251556279_v6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707260639277_v7.resx">
-      <DependentUpon>201707260639277_v7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707261840271_v8.resx">
-      <DependentUpon>201707261840271_v8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707271533458_n1.resx">
-      <DependentUpon>201707271533458_n1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707271757241_v2.resx">
+      <DependentUpon>201707271757241_v2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>

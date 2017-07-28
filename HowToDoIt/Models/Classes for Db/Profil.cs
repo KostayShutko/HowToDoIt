@@ -7,7 +7,7 @@ using System.Web;
 
 namespace HowToDoIt.Models.Classes_for_Db
 {
-    public class Profile
+    public class Profil
     {
         [Key]
         [ForeignKey("Users")]
@@ -21,7 +21,5 @@ namespace HowToDoIt.Models.Classes_for_Db
         public string Interests { get; set; }
 
         public virtual ApplicationUser Users { get; set; }
-
-
     }
 }
