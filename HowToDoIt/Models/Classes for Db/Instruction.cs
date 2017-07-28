@@ -20,8 +20,8 @@ namespace HowToDoIt.Models.Classes_for_Db
         public int Id { get; set; }
         public string Name { get; set; }
         public string Date { get; set; }
+        public string Image { get; set; }
 
-        
         public virtual ICollection<Step> Steps { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public int CategoryId { get; set; }

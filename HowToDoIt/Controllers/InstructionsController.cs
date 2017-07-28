@@ -28,11 +28,59 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var itemsToSkip = page * 5;
-                return db.Instructions.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+                return AddImageToInstruction(db, itemsToSkip);
             }
-         }
+        }
 
+        private List<Instruction> AddImageToInstruction(ApplicationDbContext db,int itemsToSkip)
+        {
+            var instructions = db.Instructions.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+            List<Category> listCategory = new List<Category>();
+            List<ApplicationUser> listUser = new List<ApplicationUser>();
+            for(int i=0;i< instructions.Count; i++)
+            {
+                listUser.Add(instructions[i].User);
+                listCategory.Add(instructions[i].Category);
+                instructions[i].Image = FindImg(instructions[i]);
+            }
+            ViewBag.Category= listCategory;
+            ViewBag.Author = listUser;
+            return instructions;
+        }
 
+        private string FindImg(HowToDoIt.Models.Classes_for_Db.Instruction instr)
+        {
+            if (instr.Steps != null)
+            {
+                var sortingStep= (instr.Steps.OrderBy(c => c.Number).ToList());
+                sortingStep.Reverse();
+                return FindImgInStep(sortingStep);
+            }
+            return "~/image/not foto2.png";
+        }
+
+        private string FindImgInStep(List<Step> steps)
+        {
+            foreach (var step in steps)
+            {
+                if (step.Blocks != null)
+                {
+                    return FindImgInBlock(step.Blocks.ToList());
+                }
+            }
+            return "~/image/not foto2.png";
+        }
+
+        private string FindImgInBlock(List<Block> blocks)
+        {
+            blocks.Reverse();
+            foreach (var block in blocks)
+            {
+                if (block.Type == "Image")
+                    return block.Name;
+            }
+            return "~/image/not foto2.png";
+        }
 
 
 

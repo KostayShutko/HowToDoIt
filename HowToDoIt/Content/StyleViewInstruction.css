@@ -5,7 +5,9 @@
     -moz-box-shadow: 0 0 6px 2px #b0b2ab;
     -webkit-box-shadow: 0 0 6px 2px #b0b2ab;
     box-shadow: 0 0 6px 2px #b0b2ab;
-    margin-top:20px;
+    margin-top: 20px;
+    min-height: 230px;
+    max-height: 250px;
 }
 
 .plan:hover {
@@ -27,5 +29,67 @@
     width:90%;
     margin-left:5%;
     margin-right:5%;
+    
 }
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.instruction-name {
+    position: absolute;
+    left: 0;
+    color: #505050;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+    .instruction-name:hover {
+        color: black;
+    }
+    
+    
+    .img-container {
+        margin-top: 5px;
+    }
+
+.img {
+    max-height:170px;
+    max-width:200px;
+}
+
+.category {
+    position:absolute;
+    left:0;
+    margin-top:60px;
+}
+
+.avtor {
+    position: absolute;
+    left: 0;
+    margin-top: 80px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.link {
+    cursor: pointer;
+}
+    .link:hover {
+        color: black;
+    }
+
+.color {
+    color: #606060;
+}
+
 

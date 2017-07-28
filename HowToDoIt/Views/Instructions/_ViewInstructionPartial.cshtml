@@ -1,11 +1,29 @@
-﻿@model IEnumerable<HowToDoIt.Models.Classes_for_Db.Instruction>
+﻿@model List<HowToDoIt.Models.Classes_for_Db.Instruction>
 <link rel="stylesheet" href="~/Content/StyleViewInstruction.css">
-@foreach (var item in Model)
+@for (int i = 0; i < Model.Count(); i++)
 {
+    <input type="hidden" id="id-instruction" name="id-instruction" value="@Model[i].Id">
         <div class="pricing-table pricing-three-column ">
             <div class=" plan">
-                <div style="width:300px;height:100px;background-color:antiquewhite; margin-bottom:10px;">
-                    @item.Name
+                <div class="row position-relative">
+                    <div class="col-md-3 img-container">
+                        <img class="img" src="@Url.Content(Model[i].Image)" style="width:100%">
+                    </div>
+                    <div class="col-md-offset-3 col-md-8 position-absolute">
+                        <a class="instruction-name" href="#">@Model[i].Name</a>
+                        <div class="category">
+                            <h5 class="inline-block color">Категория</h5>
+                            <div class="inline-block">
+                                <h5></h5><a class="link color">@ViewBag.Category[i].Name</a><h5></h5>
+                            </div>
+                        </div>
+                        <div class="avtor">
+                            <h5 class="inline-block color">Создал</h5>
+                            <div class="inline-block">
+                                <h5></h5><a class="link color">@ViewBag.Author[i].UserName</a><h5></h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
