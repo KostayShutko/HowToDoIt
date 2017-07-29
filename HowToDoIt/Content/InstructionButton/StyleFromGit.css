@@ -1,4 +1,32 @@
-﻿body.droppable .profile-avatar-wrap {
+﻿.field {
+    display: inline-block;
+}
+
+.margin-bottom-30{
+    margin-bottom:30px;
+}
+.margin-bottom-100 {
+    margin-bottom: 10%;
+}
+
+.field-name {
+    display: inline-block;
+    font-weight: 500;
+    overflow-wrap: normal; /* не поддерживает IE, Firefox; является копией word-wrap */
+    word-wrap: normal;
+    word-break: normal; /* не поддерживает Opera12.14, значение keep-all не поддерживается IE, Chrome */
+    line-break: auto; /* нет поддержки для русского языка */
+    hyphens: manual; /* значение auto не поддерживается Chrome */
+    width: 50%;
+}
+
+.elem-in-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+body.droppable .profile-avatar-wrap {
     border: 5px dashed lightblue;
     z-index: 9999;
 }

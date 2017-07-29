@@ -70,5 +70,16 @@ namespace HowToDoIt.Controllers
                 db.SaveChanges();
             }
         }
+
+        public ActionResult OpenProfile(int idInstruction)
+        {
+            Profil profile=null;
+            using (var db = new ApplicationDbContext())
+            {
+                var instruction= db.Instructions.Find(idInstruction);
+                profile = instruction.User.Profil;
+            }
+            return View(profile);
+        }
     }
 }

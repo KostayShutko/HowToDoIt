@@ -626,6 +626,7 @@
     <Content Include="Views\Instructions\Instruction.cshtml" />
     <Content Include="Views\Instructions\ViewInstructions.cshtml" />
     <Content Include="Views\Instructions\_ViewInstructionPartial.cshtml" />
+    <Content Include="Views\Profile\OpenProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
