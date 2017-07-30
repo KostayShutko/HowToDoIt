@@ -2,6 +2,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
+
+<h1 class="text-muted elem-in-center">Инструкции</h1>
+
+<ul class="nav nav-pills margin-left-5">
+    <li role="presentation" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            All Prices <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+        </ul>
+    </li>
+    <li role="presentation" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            All Years <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+        </ul>
+    </li>
+</ul>
 <div id="scrolList">
     @Html.Partial("_ViewInstructionPartial")
 </div>

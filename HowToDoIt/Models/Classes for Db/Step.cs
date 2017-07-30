@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,7 @@ namespace HowToDoIt.Models.Classes_for_Db
         public virtual ICollection<Block> Blocks { get; set; }
 
         public int InstructionId { get; set; }
+        [JsonIgnore]
         [ForeignKey("InstructionId")]
         public virtual Instruction Instruction { get; set; }
     }

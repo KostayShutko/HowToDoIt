@@ -13,6 +13,40 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+        public ActionResult SearchInstruction()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                SetSession(db.Instructions.ToList());
+            }
+            return ViewInstructions(0);
+        }
+
+        public ActionResult History()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
+                SetSession( user.Instructions.ToList());
+            }
+            return ViewInstructions(0);
+        }
+
+        public ActionResult SearchByCategory(int idInstruction)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                SetSession(db.Instructions.Find(idInstruction).Category.Instructions.ToList());
+            }
+            return ViewInstructions(0);
+        }
+
+        private void SetSession(List<Instruction> inst)
+        {
+            Session["instructions"] = inst;
+            Session["instructions-original"] = inst;
+        }
+
         public ActionResult ViewInstructions(int? id)
         {
             int page = id ?? 0;
@@ -20,7 +54,7 @@ namespace HowToDoIt.Controllers
             {
                 return PartialView("_ViewInstructionPartial", GetItemsPage(page));
             }
-            return View(GetItemsPage(page));
+            return View("ViewInstructions", GetItemsPage(page));
         }
 
         private List<Instruction> GetItemsPage(int page = 1)
@@ -28,24 +62,36 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var itemsToSkip = page * 5;
-                return AddImageToInstruction(db, itemsToSkip);
+                return AddImageToInstruction(db,itemsToSkip);
             }
         }
 
         private List<Instruction> AddImageToInstruction(ApplicationDbContext db,int itemsToSkip)
         {
-            var instructions = db.Instructions.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+            var instructions = GetInstructionFromSession(db, itemsToSkip);
             List<Category> listCategory = new List<Category>();
             List<ApplicationUser> listUser = new List<ApplicationUser>();
-            for(int i=0;i< instructions.Count; i++)
+            ChangeImgInInstruction(instructions, listUser, listCategory);
+            return instructions;
+        }
+
+        private List<Instruction> GetInstructionFromSession(ApplicationDbContext db, int itemsToSkip)
+        {
+            var listOfRoleId = ((List<Instruction>)(Session["instructions"])).Select(r => r.Id);
+            var instr = db.Instructions.Where(r => listOfRoleId.Contains(r.Id));
+            return instr.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+        }
+
+        private void ChangeImgInInstruction(List<Instruction> instructions, List<ApplicationUser> listUser, List<Category> listCategory)
+        {
+            for (int i = 0; i < instructions.Count; i++)
             {
                 listUser.Add(instructions[i].User);
                 listCategory.Add(instructions[i].Category);
                 instructions[i].Image = FindImg(instructions[i]);
             }
-            ViewBag.Category= listCategory;
+            ViewBag.Category = listCategory;
             ViewBag.Author = listUser;
-            return instructions;
         }
 
         private string FindImg(HowToDoIt.Models.Classes_for_Db.Instruction instr)
@@ -244,8 +290,7 @@ namespace HowToDoIt.Controllers
 
         private void AddUserByInstruction(ApplicationDbContext db, Instruction instruction)
         {
-            ApplicationUser user;
-            user = Manager.GetCurrentUser(db, User.Identity.Name);
+            ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
             instruction.User = user;
         }
 

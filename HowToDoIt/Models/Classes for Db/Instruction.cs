@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,10 +26,12 @@ namespace HowToDoIt.Models.Classes_for_Db
         public virtual ICollection<Step> Steps { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public int CategoryId { get; set; }
+        [JsonIgnore]
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
         public virtual ICollection<Tag> Tags { get; set;}
         public string UserId { get; set; }
+        [JsonIgnore]
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
     }

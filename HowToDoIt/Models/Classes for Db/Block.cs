@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,6 +16,7 @@ namespace HowToDoIt.Models.Classes_for_Db
         public string Name { get; set; }
 
         public int StepId { get; set; }
+        [JsonIgnore]
         [ForeignKey("StepId")]
         public virtual Step Step { get; set; }
     }

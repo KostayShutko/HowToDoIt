@@ -87,4 +87,43 @@ textarea {
     max-width: 60%;
 }
 
+.margin-left-5{
+    margin-top:15px;
+    margin-bottom:20px;
+    margin-left:5%;
+}
 
+
+.dropdown-toggle {
+    border: 1px solid grey;
+    background-color: silver;
+    color: #fff;
+    margin: 0 .5em;
+    transition: background-color .2s;
+    border-radius: 0 !important;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: none;
+    background-color: #ffd14c;
+    color: #fefefe;
+}
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+    background-color: #ffd14c;
+    border-color: #D9A200;
+}
+
+.dropdown-menu {
+    font-size: 1.1em;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    left: .5em;
+    border-radius: 0;
+}

@@ -12,7 +12,7 @@
             </a>
             <ul class="dropdown-menu" id="proxy-dropdown-menu-color">
                 <li><a href="@Url.Action("Profile", "Profile")">@Res.ResourceIndex.Profile</a></li>
-                <li><a href="#">@Res.ResourceIndex.History</a></li>
+                <li><a href="@Url.Action("History", "Instructions")">@Res.ResourceIndex.History</a></li>
                 @if (User.IsInRole("admin"))
                 {
                     <li><a href="#">@Res.ResourceIndex.Users</a></li>
