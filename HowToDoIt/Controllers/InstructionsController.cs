@@ -1,6 +1,7 @@
 ﻿using HowToDoIt.Filters;
 using HowToDoIt.Models;
 using HowToDoIt.Models.Classes_for_Db;
+using HowToDoIt.Models.Sort;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,6 +14,23 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+        public ActionResult FilterByCategory(int idCategory)
+        {
+            var instr = ((List<Instruction>)(Session["instructions-original"])).ToList();
+            var sort = from c in instr where c.CategoryId == idCategory select c;
+            Session["instructions"] = sort.ToList();
+            return ViewInstructions(0);
+        }
+
+        public ActionResult Sorting(string nameClass)
+        {
+            ISorting classSort= Activator.CreateInstance(Type.GetType(nameClass)) as ISorting;
+            Session["classSort"] = classSort;
+            Session["instructions"] = Session["instructions-original"]; 
+            return ViewInstructions(0);
+        }
+
+
         public ActionResult SearchInstruction()
         {
             using (var db = new ApplicationDbContext())
@@ -45,6 +63,7 @@ namespace HowToDoIt.Controllers
         {
             Session["instructions"] = inst;
             Session["instructions-original"] = inst;
+            Session["classSort"] = null;
         }
 
         public ActionResult ViewInstructions(int? id)
@@ -62,6 +81,7 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var itemsToSkip = page * 5;
+                ViewBag.Categories = db.Categories.ToArray();
                 return AddImageToInstruction(db,itemsToSkip);
             }
         }
@@ -79,7 +99,34 @@ namespace HowToDoIt.Controllers
         {
             var listOfRoleId = ((List<Instruction>)(Session["instructions"])).Select(r => r.Id);
             var instr = db.Instructions.Where(r => listOfRoleId.Contains(r.Id));
-            return instr.OrderBy(t => t.Id).Skip(itemsToSkip).Take(5).ToList();
+            List<Instruction> listInstr = ImplementInterfaceBySort(instr, itemsToSkip);
+            return SkipTake(listInstr, itemsToSkip);
+        }
+
+        private List<Instruction> ImplementInterfaceBySort(IQueryable<Instruction> instr, int itemsToSkip)
+        {
+            List<Instruction> listInstr;
+            if (Session["classSort"] != null)
+            {
+                ISorting s = Session["classSort"] as ISorting;
+                listInstr = s.Sorting(instr.ToList());
+                if (itemsToSkip + 5 >= listInstr.Count)
+                    Session["classSort"] = null;
+            }
+            else
+                listInstr = instr.ToList();
+            return listInstr;
+        }
+
+        private List<Instruction> SkipTake(List<Instruction> list, int itemsToSkip)
+        {
+            List<Instruction> newlist = new List<Models.Classes_for_Db.Instruction>();
+            int k = 5;
+            if (list.Count < itemsToSkip + 5)
+                k = list.Count - itemsToSkip;
+            for (int i = itemsToSkip; i < itemsToSkip + k; i++)
+                newlist.Add(list[i]);
+            return newlist;
         }
 
         private void ChangeImgInInstruction(List<Instruction> instructions, List<ApplicationUser> listUser, List<Category> listCategory)
@@ -382,7 +429,7 @@ namespace HowToDoIt.Controllers
                 var instr = db.Instructions.Find(instructionid);
                 MoveSteps(db, numstart, numend, instr);
                 db.SaveChanges();
-                return Json(new { success = true, responseText = GetStepId(instr) }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, responseText = GetStepId(db.Instructions.Find(instructionid)) }, JsonRequestBehavior.AllowGet);
             }
             
         }

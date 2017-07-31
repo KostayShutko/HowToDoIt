@@ -2,31 +2,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
-
+<link rel="stylesheet" href="~/Content/StyleViewInstruction.css">
 <h1 class="text-muted elem-in-center">Инструкции</h1>
-
-<ul class="nav nav-pills margin-left-5">
-    <li role="presentation" class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            All Prices <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-        </ul>
-    </li>
-    <li role="presentation" class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            All Years <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-        </ul>
-    </li>
-</ul>
+<div class="header-div">
+    <div class="pricing-table-sort pricing-three-column-sort ">
+        <div class=" plan-sort">
+            <ul class="nav nav-pills margin-left-5">
+                <li role="presentation" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Категории <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @for (int i = 0; i < ViewBag.Categories.Length; i++)
+                        {
+                            <li><a class="sort-click" href="@Url.Action("FilterByCategory", "Instructions", new {idCategory= ViewBag.Categories[i].Id })">@ViewBag.Categories[i].Name</a></li>
+                        }
+                    </ul>
+                </li>
+                <li role="presentation" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Сортировать <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByAlphabet" })">По алфавиту</a></li>
+                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByDate" })">По дате</a></li>
+                        <li><a href="#">По рейтингу</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div id="scrolList">
     @Html.Partial("_ViewInstructionPartial")
 </div>
@@ -36,10 +42,20 @@
 <script>
     $(function () {
 
+        
+
         $('div#loading').hide();
 
         var page = 0;
         var _inCallback = false;
+
+        /*$('.sort-click').click(function () {
+            page = 0;
+            var block = document.getElementById("scrolList");
+            block.remove();
+            alert("sdaasddd");
+        });*/
+
         function loadItems() {
             if (page > -1 && !_inCallback) {
                 _inCallback = true;

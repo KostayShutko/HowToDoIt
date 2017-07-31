@@ -446,6 +446,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Sort\ISorting.cs" />
+    <Compile Include="Models\Sort\SortingByAlphabet.cs" />
+    <Compile Include="Models\Sort\SortingByDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResourceIndex.en.Designer.cs">
       <AutoGen>True</AutoGen>
