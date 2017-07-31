@@ -487,6 +487,7 @@
     <Content Include="Content\InstructionButton\Square.css" />
     <Content Include="Content\InstructionButton\StyleFromGit.css" />
     <Content Include="Content\InstructionButton\StyleStep.css" />
+    <Content Include="Content\InstructionButton\StyleViewInstruction.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
     <Content Include="Content\StyleViewInstruction.css" />
@@ -643,6 +644,7 @@
     <Content Include="Views\Instructions\ViewInstructions.cshtml" />
     <Content Include="Views\Instructions\_ViewInstructionPartial.cshtml" />
     <Content Include="Views\Profile\OpenProfile.cshtml" />
+    <Content Include="Views\Instructions\ViewInstruction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,37 @@
+﻿.icon-style {
+    color: #483C32;
+    display:inline-block;
+}
+
+    .icon-style:hover {
+        cursor: pointer;
+        color: black;
+    }
+
+.align-right{
+    text-align:right;
+}
+
+.elem-in-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+iframe {
+    width: 80%;
+    height: 350px;
+}
+
+.text-block {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    margin-top: 30px;
+    text-indent: 50px;
+    line-height: 24px;
+    color: #333;
+    font-size: 17px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}

@@ -14,6 +14,31 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+
+        public ActionResult ViewInstruction(int idInstruction)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var instruction = db.Instructions.Find(idInstruction);
+                UpdateDataForViewInstruction(instruction);
+                return View(instruction);
+            }
+        }
+        
+        private void UpdateDataForViewInstruction(Instruction instruction)
+        {
+            var user = instruction.User.UserName;
+            var steps = instruction.Steps;
+            foreach(var step in steps)
+            {
+                var blocks = step.Blocks;
+            }
+            instruction.Steps = steps.OrderBy(c => c.Number).ToList();
+        }
+
+
+    //---------------------------------------------
+
         public ActionResult FilterByCategory(int idCategory)
         {
             var instr = ((List<Instruction>)(Session["instructions-original"])).ToList();
