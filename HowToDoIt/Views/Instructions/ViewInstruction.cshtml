@@ -33,10 +33,10 @@
             {
                 <div class="col-md-2">
                     <div class="align-right">
-                        @if ((Model.User.UserName==User.Identity.Name)||(User.IsInRole("admin")))
+                        @if ((Model.User.UserName == User.Identity.Name) || (User.IsInRole("admin")))
                         {
                             <a href="@Url.Action("Instruction", "Instructions", new {instructionid= Model.Id })"><i class="fa fa-pencil fa-lg icon-style" aria-hidden="true"></i></a>
-                        } 
+                        }
                         @if (User.IsInRole("admin"))
                         {
                             <a href="@Url.Action("DeleteInstruction", "Instructions", new {instructionid= Model.Id })"><i class="fa fa-trash-o fa-lg icon-style" aria-hidden="true"></i></a>
@@ -86,36 +86,38 @@
                 <hr>
             }
 
+            <h2>Комментарии:</h2>
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    <img class="media-object" width="64" src="http://placehold.it/64x64" alt="">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">
-                        Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
+                        <a class="link color">Start Bootstrap</a>
+                        <small>01.08.2017</small>
                     </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
                 </div>
             </div>
 
-            <div class="well">
-                <h4>Leave a Comment:</h4>
-                <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            <div class="media-body" >
+                <div class="well well-lg margin-top-30">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea style="max-width:100%;" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-        
 
 
 
 
-<script>
+    <script>
     $(function () {
         var instructionId=@Model.Id;
 
@@ -162,7 +164,7 @@
                 });
             </text>
         }
-        
+
 
         function SendRating(p) {
             fl = false;
@@ -171,11 +173,11 @@
             SendRequestAsUrl("/Instructions/Rating/?countStar=" + countStar + '&instructionid=' + instructionId);
         }
     });
-</script>
+    </script>
 
-@section Scripts {
-    @Scripts.Render("~/Scripts/bootstrap-rating/bootstrap-rating.min.js")
-}
+    @section Scripts {
+        @Scripts.Render("~/Scripts/bootstrap-rating/bootstrap-rating.min.js")
+    }
 
 
 

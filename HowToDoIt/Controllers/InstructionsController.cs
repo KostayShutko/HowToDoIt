@@ -14,6 +14,7 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteInstruction(int instructionid)
         {
             using (var db = new ApplicationDbContext())
