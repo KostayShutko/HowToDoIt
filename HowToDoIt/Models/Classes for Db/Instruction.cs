@@ -15,6 +15,7 @@ namespace HowToDoIt.Models.Classes_for_Db
             Tags = new List<Tag>();
             Steps= new List<Step>();
             Ratings= new List<Rating>();
+            Comments = new List<Comment>();
         }
 
         [Key]
@@ -34,5 +35,7 @@ namespace HowToDoIt.Models.Classes_for_Db
         [JsonIgnore]
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

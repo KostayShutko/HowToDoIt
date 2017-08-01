@@ -14,6 +14,35 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+
+        public JsonResult AddComment(int idInstruction,string content)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                AddCoomentToDB(db, idInstruction, content);
+                db.SaveChanges();
+                return Json(new { Status = "200", Message = "Ok" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void AddCoomentToDB(ApplicationDbContext db, int idInstruction, string content)
+        {
+            var instruction = db.Instructions.Find(idInstruction);
+            ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
+            Comment comment = CreateComment(instruction, user, content);
+            db.Comments.Add(comment);
+        }
+
+        private Comment CreateComment( Instruction instruction, ApplicationUser user, string content)
+        {
+            Comment comment = new Comment();
+            comment.Date = DateTime.Now.ToString();
+            comment.Text = content;
+            comment.User = user;
+            comment.Instruction = instruction;
+            return comment;
+        }
+
         [Authorize(Roles = "admin")]
         public ActionResult DeleteInstruction(int instructionid)
         {
@@ -77,6 +106,11 @@ namespace HowToDoIt.Controllers
         {
             var user = instruction.User.UserName;
             var steps = instruction.Steps;
+            var comment = instruction.Comments;
+            foreach (var c in comment)
+            {
+                var t = c.User.Profil;
+            }
             var tags = instruction.Tags;
             foreach(var step in steps)
             {
@@ -95,6 +129,8 @@ namespace HowToDoIt.Controllers
             Session["instructions"] = sort.ToList();
             return ViewInstructions(0);
         }
+
+        
 
         public ActionResult Sorting(string nameClass)
         {
@@ -129,6 +165,15 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 SetSession(db.Instructions.Find(idInstruction).Category.Instructions.ToList());
+            }
+            return ViewInstructions(0);
+        }
+
+        public ActionResult SearchTag(int idTag)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                SetSession(db.Tags.Find(idTag).Instructions.ToList());
             }
             return ViewInstructions(0);
         }

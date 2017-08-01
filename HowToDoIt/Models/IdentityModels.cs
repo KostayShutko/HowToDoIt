@@ -13,6 +13,7 @@ namespace HowToDoIt.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual ICollection<Instruction> Instructions { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual Profil Profil { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -33,6 +34,7 @@ namespace HowToDoIt.Models
         public DbSet<Step> Steps { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Profil> Profils { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

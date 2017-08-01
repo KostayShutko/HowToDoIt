@@ -87,39 +87,49 @@
             }
 
             <h2>Комментарии:</h2>
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" width="64" src="http://placehold.it/64x64" alt="">
-                </a>
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="media">
+                    <a class="pull-left" href="@Url.Action("OpenProfileFromComent", "Profile", new {idUser= comment.UserId })">
+                        <img class="media-object" width="64" src="@Url.Content(comment.User.Profil.Avatar)" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a class="link color" href="@Url.Action("OpenProfileFromComent", "Profile", new {idUser= comment.UserId })">@comment.User.UserName</a>
+                            <small>@comment.Date</small>
+                        </h4>
+                        @comment.Text
+                    </div>
+                </div>
+            }
+            
+            <hr>
+            @if (Request.IsAuthenticated)
+            {
                 <div class="media-body">
-                    <h4 class="media-heading">
-                        <a class="link color">Start Bootstrap</a>
-                        <small>01.08.2017</small>
-                    </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+                    <div class="well well-lg margin-top-30">
+                        <h4>Leave a Comment:</h4>
+                        @using (Ajax.BeginForm("AddComment", "Instructions", null, new AjaxOptions() { OnSuccess = "SuccessAjaxForm" }, null))
+                        {
+                            <input type="hidden" name="idInstruction" value="@Model.Id">
+                            <div class="form-group">
+                                <textarea id="text-content" style="max-width:100%;" name="content" class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        }
+                    </div>
                 </div>
-            </div>
-
-            <div class="media-body" >
-                <div class="well well-lg margin-top-30">
-                    <h4>Leave a Comment:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea style="max-width:100%;" class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
+            } 
         </div>
     </div>
 
 
 
-
+    
     <script>
     $(function () {
         var instructionId=@Model.Id;
+
 
         function SendRequestAsUrl(url) {
             $.ajax({
@@ -174,9 +184,16 @@
         }
     });
     </script>
-
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @section Scripts {
+        <script type="text/javascript">
+            var SuccessAjaxForm = function () {
+                $('#text-content').val("");
+            }
+        </script>
+
         @Scripts.Render("~/Scripts/bootstrap-rating/bootstrap-rating.min.js")
+
     }
 
 

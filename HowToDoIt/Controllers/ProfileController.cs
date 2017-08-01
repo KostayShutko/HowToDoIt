@@ -50,7 +50,6 @@ namespace HowToDoIt.Controllers
             return true;
         }
 
-        // GET: Profile
         public JsonResult Upload()
         {
             try
@@ -80,6 +79,17 @@ namespace HowToDoIt.Controllers
                 profile = instruction.User.Profil;
             }
             return View(profile);
+        }
+
+        public ActionResult OpenProfileFromComent(string idUser)
+        {
+            Profil profile = null;
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Find(idUser);
+                profile = user.Profil;
+            }
+            return View("OpenProfile", profile);
         }
     }
 }
