@@ -14,6 +14,16 @@ namespace HowToDoIt.Controllers
     [Culture]
     public class InstructionsController : Controller
     {
+        public ActionResult DeleteInstruction(int instructionid)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var instruction = db.Instructions.Find(instructionid);
+                db.Instructions.Remove(instruction);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         public void Rating(int countStar,int instructionid)
         {

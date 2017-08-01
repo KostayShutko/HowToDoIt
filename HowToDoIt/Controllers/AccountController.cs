@@ -55,28 +55,6 @@ namespace HowToDoIt.Controllers
             }
         }
 
-        
-
-        
-
-        
-
-        
-
-        
-
-       
-
-        
-
-        
-
-       
-
-        
-
-        
-
         //
         // POST: /Account/ExternalLogin
         [AllowAnonymous]

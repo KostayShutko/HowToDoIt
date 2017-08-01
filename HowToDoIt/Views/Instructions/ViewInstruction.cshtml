@@ -33,10 +33,13 @@
             {
                 <div class="col-md-2">
                     <div class="align-right">
-                        <i class="fa fa-pencil fa-lg icon-style" aria-hidden="true"></i>
+                        @if ((Model.User.UserName==User.Identity.Name)||(User.IsInRole("admin")))
+                        {
+                            <a href="@Url.Action("Instruction", "Instructions", new {instructionid= Model.Id })"><i class="fa fa-pencil fa-lg icon-style" aria-hidden="true"></i></a>
+                        } 
                         @if (User.IsInRole("admin"))
                         {
-                            <i class="fa fa-trash-o fa-lg icon-style" aria-hidden="true"></i>
+                            <a href="@Url.Action("DeleteInstruction", "Instructions", new {instructionid= Model.Id })"><i class="fa fa-trash-o fa-lg icon-style" aria-hidden="true"></i></a>
                         }
                     </div>
                 </div>
