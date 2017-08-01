@@ -15,20 +15,58 @@ namespace HowToDoIt.Controllers
     public class InstructionsController : Controller
     {
 
+        public void Rating(int countStar,int instructionid)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                db.Ratings.Add(SaveInfoRating(countStar, instructionid));
+                db.SaveChanges();
+            }
+        }
+
+        private Rating SaveInfoRating(int countStar, int instructionid)
+        {
+            Rating r = new Rating();
+            r.Mark = countStar;
+            r.UserLogin = User.Identity.Name;
+            r.InstructionId = instructionid;
+            return r;
+        }
+
         public ActionResult ViewInstruction(int idInstruction)
         {
             using (var db = new ApplicationDbContext())
             {
                 var instruction = db.Instructions.Find(idInstruction);
+                ViewBagRating(instruction);
                 UpdateDataForViewInstruction(instruction);
                 return View(instruction);
             }
+        }
+
+        private void ViewBagRating(Instruction instruction)
+        {
+            if (User.Identity.Name != "")
+            {
+                ViewBag.Rating = GetRatingCurrentUser(instruction);
+            }
+            else
+            {
+                ViewBag.Rating = null;
+            }
+        }
+        
+        private Rating GetRatingCurrentUser(Instruction instruction)
+        {
+            var ratings = instruction.Ratings.ToList();
+            return ratings.Where(c => c.UserLogin == User.Identity.Name).FirstOrDefault();
         }
         
         private void UpdateDataForViewInstruction(Instruction instruction)
         {
             var user = instruction.User.UserName;
             var steps = instruction.Steps;
+            var tags = instruction.Tags;
             foreach(var step in steps)
             {
                 var blocks = step.Blocks;

@@ -45,6 +45,7 @@
 .instruction-name {
     position: absolute;
     left: 0;
+    text-align:left;
     color: #505050;
     font-family: "Ubuntu", sans-serif;
     font-weight: 500;

@@ -1,0 +1,36 @@
+﻿.star-ctr {
+    display: inline-block;
+    position: relative;
+}
+
+    .star-ctr ul {
+        list-style: none outside none;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+.star-fg {
+    top: 0;
+    position: absolute;
+}
+
+.star-ctr li {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.star-ctr a > span {
+    font-size: 3em;
+}
+
+.star-bg a > span {
+    color: silver
+}
+
+.star-fg a > span {
+    color: yellow;
+}

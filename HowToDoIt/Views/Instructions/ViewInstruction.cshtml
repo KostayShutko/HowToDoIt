@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using HowToDoIt.Models.Classes_for_Db
 @model HowToDoIt.Models.Classes_for_Db.Instruction
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,9 +8,23 @@
 <link rel="stylesheet" href="~/Content/bootstrap.min.css">
 <link rel="stylesheet" href="~/Content/blog-post.css">
 <link rel="stylesheet" href="~/Content/InstructionButton/StyleViewInstruction.css">
+<link rel="stylesheet" href="~/Content/StyleViewInstruction.css">
+<link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
+
 <div class="row">
     <div class="col-lg-10 col-lg-offset-1">
-        <h1>@Model.Name</h1>
+        <div class="row">
+            <h1 class="col-md-10">@Model.Name</h1>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="col-md-2">
+                    <div style="margin-top:2.5em;">
+                        @Html.BootstrapRating()
+                    </div>
+                </div>
+            }
+        </div>
+
         <div class="row" style="height:30px;">
             <p class="lead col-md-10">
                 create <a href="@Url.Action("OpenProfile", "Profile", new {idInstruction= Model.Id })">@Model.User.UserName</a>
@@ -22,65 +37,142 @@
                         @if (User.IsInRole("admin"))
                         {
                             <i class="fa fa-trash-o fa-lg icon-style" aria-hidden="true"></i>
-                        }                
+                        }
                     </div>
                 </div>
             }
         </div>
         <hr>
         <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Date</p>
-        <hr>
-
-        @foreach(var step in Model.Steps)
-        {
-            <h3 style="margin-top:50px; text-indent: 50px;"><strong> Шаг @step.Number: @step.Name</strong></h3>
-            foreach(var block in step.Blocks)
+        <p class="inline-block">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            Теги:
+            @for (int i = 0; i < Model.Tags.Count; i++)
             {
-                if (block.Type == "Text")
+                <a href="@Url.Action("SearchTag", "Instructions", new {idTag= (((IList<Tag>)Model.Tags)[i].Id) })" class="link color">@(((IList<Tag>)Model.Tags)[i].Name)</a>
+                if (i != Model.Tags.Count - 1)
                 {
-                    <p class="text-block">@block.Name</p>
-                }
-                if (block.Type == "Image")
-                {
-                    <div class="elem-in-center margin-top-30">
-                        <img  src="@Url.Content(block.Name)" style="width:60%;">
-                    </div>
-                }
-                if (block.Type == "Video")
-                {
-                    <div class="elem-in-center margin-top-30">
-                        <iframe src="@("http://www.youtube.com/embed/"+ block.Name.Split('=')[1])" frameborder="0" allowfullscreen"></iframe>
-                    </div>
+                <p class="inline-block">, </p>
                 }
             }
+            </p>
             <hr>
-        }
 
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="http://placehold.it/64x64" alt="">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">
-                    Start Bootstrap
-                    <small>August 25, 2014 at 9:30 PM</small>
-                </h4>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            @foreach (var step in Model.Steps)
+            {
+                <h3 style="margin-top:50px; text-indent: 50px;"><strong> Шаг @step.Number: @step.Name</strong></h3>
+                foreach (var block in step.Blocks)
+                {
+                    if (block.Type == "Text")
+                    {
+                        <p class="text-block">@block.Name</p>
+                    }
+                    if (block.Type == "Image")
+                    {
+                        <div class="elem-in-center margin-top-30">
+                            <img class="img-thumbnail rounded" src="@Url.Content(block.Name)" style="width:60%;">
+                        </div>
+                    }
+                    if (block.Type == "Video")
+                    {
+                        <div class="elem-in-center margin-top-30">
+                            <iframe src="@("http://www.youtube.com/embed/"+ block.Name.Split('=')[1])" frameborder="0" allowfullscreen"></iframe>
+                        </div>
+                    }
+                }
+                <hr>
+            }
+
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        Start Bootstrap
+                        <small>August 25, 2014 at 9:30 PM</small>
+                    </h4>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+
+            <div class="well">
+                <h4>Leave a Comment:</h4>
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
-
-        <div class="well">
-            <h4>Leave a Comment:</h4>
-            <form role="form">
-                <div class="form-group">
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        
     </div>
-</div>
+        
+
+
+
+
+<script>
+    $(function () {
+        var instructionId=@Model.Id;
+
+        function SendRequestAsUrl(url) {
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (response) {
+                },
+            });
+        }
+
+        $('.rating-tooltip').rating({
+            extendSymbol: function (rate) {
+                $(this).tooltip({
+                    container: 'body',
+                    placement: 'bottom',
+                    title: 'Valor ' + rate
+                });
+            }
+        });
+
+        var fl = true;
+        var countStar = 0;
+        @if (ViewBag.Rating!=null)
+        {
+            <text>
+                $('.rating').val(@ViewBag.Rating.Mark);
+                $('.rating').on('change', function () {
+                    $(this).val(@ViewBag.Rating.Mark);
+                });
+            </text>
+        }
+        else
+        {
+            <text>
+                $('.rating').on('change', function () {
+                    if (fl) {
+                        SendRating(this);
+                    }
+                    else {
+                        $(this).val(countStar);
+                    }
+                });
+            </text>
+        }
+        
+
+        function SendRating(p) {
+            fl = false;
+            $(p).next('.label').text($(p).val());
+            countStar = $(p).val();
+            SendRequestAsUrl("/Instructions/Rating/?countStar=" + countStar + '&instructionid=' + instructionId);
+        }
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/bootstrap-rating/bootstrap-rating.min.js")
+}
 
 
 
