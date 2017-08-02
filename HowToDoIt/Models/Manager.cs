@@ -41,5 +41,49 @@ namespace HowToDoIt.Models
             return fileName;
         }
 
+        public static void ChangeImgInInstruction(List<Instruction> instructions, List<ApplicationUser> listUser, List<Category> listCategory)
+        {
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                listUser.Add(instructions[i].User);
+                listCategory.Add(instructions[i].Category);
+                instructions[i].Image = FindImg(instructions[i]);
+            }
+        }
+
+        private static string FindImg(HowToDoIt.Models.Classes_for_Db.Instruction instr)
+        {
+            if (instr.Steps != null)
+            {
+                var sortingStep = (instr.Steps.OrderBy(c => c.Number).ToList());
+                sortingStep.Reverse();
+                return FindImgInStep(sortingStep);
+            }
+            return "~/image/not foto2.png";
+        }
+
+        private static string FindImgInStep(List<Step> steps)
+        {
+            foreach (var step in steps)
+            {
+                if (step.Blocks != null)
+                {
+                    return FindImgInBlock(step.Blocks.ToList());
+                }
+            }
+            return "~/image/not foto2.png";
+        }
+
+        private static string FindImgInBlock(List<Block> blocks)
+        {
+            blocks.Reverse();
+            foreach (var block in blocks)
+            {
+                if (block.Type == "Image")
+                    return block.Name;
+            }
+            return "~/image/not foto2.png";
+        }
+
     }
 }

@@ -101,8 +101,7 @@
                     </div>
                 </div>
             }
-            <div id="before-insert"></div>
-            <hr>
+            <div id="before-insert" class="margin-bottom-30"></div>
             @if (Request.IsAuthenticated)
             {
                 <div class="media-body">
@@ -136,7 +135,6 @@
             });
 
         hub.client.createComment = function (avatar, userName, date, text, idUser) {
-            alert(idUser);
             $('#before-insert').before('<div class="media"><a class="pull-left" href="/Profile/OpenProfileFromComent/?idUser=' + idUser + '"><img class="media-object" width="64" src="' + avatar + '" alt=""></a><div class="media-body"><h4 class="media-heading"><a class="link color" href="/Profile/OpenProfileFromComent/?idUser=' + idUser + '">' + userName +' '+ '</a><small>' + date+'</small></h4>'+text+'</div></div>');
         }
 

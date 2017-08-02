@@ -25,3 +25,13 @@
     margin-top: 10px;
     background: #fff;
 }
+
+#button-for-add-instruction {
+    display: inline-block;
+    position: absolute;
+    left: 86%;
+    width: 14%;
+    padding-top: 13px;
+    padding-right: 10px;
+    padding-left: 10px;
+}

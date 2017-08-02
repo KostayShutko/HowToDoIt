@@ -132,10 +132,7 @@ namespace HowToDoIt.Controllers
             }
             instruction.Steps = steps.OrderBy(c => c.Number).ToList();
         }
-
-
     //---------------------------------------------
-
         public ActionResult FilterByCategory(int idCategory)
         {
             var instr = ((List<Instruction>)(Session["instructions-original"])).ToList();
@@ -144,8 +141,6 @@ namespace HowToDoIt.Controllers
             return ViewInstructions(0);
         }
 
-        
-
         public ActionResult Sorting(string nameClass)
         {
             ISorting classSort= Activator.CreateInstance(Type.GetType(nameClass)) as ISorting;
@@ -153,7 +148,6 @@ namespace HowToDoIt.Controllers
             Session["instructions"] = Session["instructions-original"]; 
             return ViewInstructions(0);
         }
-
 
         public ActionResult SearchInstruction()
         {
@@ -224,7 +218,8 @@ namespace HowToDoIt.Controllers
             var instructions = GetInstructionFromSession(db, itemsToSkip);
             List<Category> listCategory = new List<Category>();
             List<ApplicationUser> listUser = new List<ApplicationUser>();
-            ChangeImgInInstruction(instructions, listUser, listCategory);
+            Manager.ChangeImgInInstruction(instructions, listUser, listCategory);
+            WriteCategoryAndUserToViewBag(listUser, listCategory);
             return instructions;
         }
 
@@ -262,54 +257,13 @@ namespace HowToDoIt.Controllers
             return newlist;
         }
 
-        private void ChangeImgInInstruction(List<Instruction> instructions, List<ApplicationUser> listUser, List<Category> listCategory)
+        private void WriteCategoryAndUserToViewBag(List<ApplicationUser> listUser, List<Category> listCategory)
         {
-            for (int i = 0; i < instructions.Count; i++)
-            {
-                listUser.Add(instructions[i].User);
-                listCategory.Add(instructions[i].Category);
-                instructions[i].Image = FindImg(instructions[i]);
-            }
             ViewBag.Category = listCategory;
             ViewBag.Author = listUser;
         }
 
-        private string FindImg(HowToDoIt.Models.Classes_for_Db.Instruction instr)
-        {
-            if (instr.Steps != null)
-            {
-                var sortingStep= (instr.Steps.OrderBy(c => c.Number).ToList());
-                sortingStep.Reverse();
-                return FindImgInStep(sortingStep);
-            }
-            return "~/image/not foto2.png";
-        }
-
-        private string FindImgInStep(List<Step> steps)
-        {
-            foreach (var step in steps)
-            {
-                if (step.Blocks != null)
-                {
-                    return FindImgInBlock(step.Blocks.ToList());
-                }
-            }
-            return "~/image/not foto2.png";
-        }
-
-        private string FindImgInBlock(List<Block> blocks)
-        {
-            blocks.Reverse();
-            foreach (var block in blocks)
-            {
-                if (block.Type == "Image")
-                    return block.Name;
-            }
-            return "~/image/not foto2.png";
-        }
-
-
-
+        
         //-----------------------------------------------------------------------
         [System.Web.Mvc.Authorize]
         public ActionResult Step(int step,int idInstruction,int idStep)
@@ -530,8 +484,6 @@ namespace HowToDoIt.Controllers
                 instr.Tags.Remove(tag);
             }
         }
-
-
 
         public JsonResult Upload()
         {

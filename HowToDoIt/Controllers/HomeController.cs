@@ -1,4 +1,5 @@
 ﻿using HowToDoIt.Filters;
+using HowToDoIt.Models.Classes_for_Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 using Nest;
 using HowToDoIt.Models;
 using Elasticsearch.Net;
-using HowToDoIt.Models.Classes_for_Db;
+using HowToDoIt.Models.Sort;
 
 namespace HowToDoIt.Controllers
 {
@@ -16,35 +17,31 @@ namespace HowToDoIt.Controllers
     {
         public ActionResult Index()
         {
-            /*var node = new Uri("http://localhost:9200");
-            var settings = new ConnectionSettings(node);
-            settings.DefaultIndex("HowToDo");
-            var client = new ElasticClient(settings);
 
-            using (var db = new ApplicationDbContext())
-            {
-                var instruction = db.Instructions.ToList();
-                foreach (var i in instruction)
-                {
-                    //client.IndexAsync<Instruction>(i, null);
-                    client.Index(i, idx => idx.Index(i.Id.ToString()));
-                }
-            }
-
-            var result = client.Search<Models.Classes_for_Db.Instruction>(s => s
-                   .From(0)
-                   .Take(10)
-                   .Query(qry => qry
-                       .Bool(b => b
-                           .Must(m => m
-                               .QueryString(qs => qs
-                                   .DefaultField("_all")
-                                   .Query("10"))))));
-            var list = result.Documents.ToList();*/
             return View();
         }
 
+        public ActionResult SortingHome(string nameClass)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                ISorting classSort = Activator.CreateInstance(Type.GetType(nameClass)) as ISorting;
+                List<Instruction> instructions = db.Instructions.ToList();
+                instructions = classSort.Sorting(instructions);
+                List<Category> listCategory = new List<Category>();
+                List<ApplicationUser> listUser = new List<ApplicationUser>();
+                Manager.ChangeImgInInstruction(instructions, listUser, listCategory);
+                WriteCategoryAndUserToViewBag(listUser, listCategory);
+                return PartialView("~/Views/Instructions/_ViewInstructionPartial.cshtml", instructions);
+            }
+                
+        }
 
+        private void WriteCategoryAndUserToViewBag(List<ApplicationUser> listUser, List<Category> listCategory)
+        {
+            ViewBag.Category = listCategory;
+            ViewBag.Author = listUser;
+        }
 
         public ActionResult ChangeCulture(string lang)
         {

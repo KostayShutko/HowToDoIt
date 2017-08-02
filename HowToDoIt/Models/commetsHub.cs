@@ -14,14 +14,5 @@ namespace HowToDoIt.Models
         {
             Groups.Add(Context.ConnectionId, instructionId.ToString());
         }
-
-
-        public Task CreateComment(string instructionId, Comment data)
-        {
-            return Clients.Group(instructionId).createComment(data);
-        }
-
-
-
     }
 }

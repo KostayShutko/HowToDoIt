@@ -421,30 +421,6 @@
     <Compile Include="Migrations\201707161847416_InitialCreate.Designer.cs">
       <DependentUpon>201707161847416_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707271734502_v14.cs" />
-    <Compile Include="Migrations\201707271734502_v14.Designer.cs">
-      <DependentUpon>201707271734502_v14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707271751067_v1.cs" />
-    <Compile Include="Migrations\201707271751067_v1.Designer.cs">
-      <DependentUpon>201707271751067_v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707271757241_v2.cs" />
-    <Compile Include="Migrations\201707271757241_v2.Designer.cs">
-      <DependentUpon>201707271757241_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707281338454_v3.cs" />
-    <Compile Include="Migrations\201707281338454_v3.Designer.cs">
-      <DependentUpon>201707281338454_v3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707291806059_v4.cs" />
-    <Compile Include="Migrations\201707291806059_v4.Designer.cs">
-      <DependentUpon>201707291806059_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708011329551_v5.cs" />
-    <Compile Include="Migrations\201708011329551_v5.Designer.cs">
-      <DependentUpon>201708011329551_v5.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201708020734123_v7.cs" />
     <Compile Include="Migrations\201708020734123_v7.Designer.cs">
       <DependentUpon>201708020734123_v7.cs</DependentUpon>
@@ -510,6 +486,7 @@
     <Content Include="Content\InstructionButton\StyleFromGit.css" />
     <Content Include="Content\InstructionButton\StyleStep.css" />
     <Content Include="Content\InstructionButton\StyleViewInstruction.css" />
+    <Content Include="Content\StyleHome.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
     <Content Include="Content\StyleViewInstruction.css" />
@@ -689,24 +666,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707161847416_InitialCreate.resx">
       <DependentUpon>201707161847416_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707271734502_v14.resx">
-      <DependentUpon>201707271734502_v14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707271751067_v1.resx">
-      <DependentUpon>201707271751067_v1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707271757241_v2.resx">
-      <DependentUpon>201707271757241_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707281338454_v3.resx">
-      <DependentUpon>201707281338454_v3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707291806059_v4.resx">
-      <DependentUpon>201707291806059_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708011329551_v5.resx">
-      <DependentUpon>201708011329551_v5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708020734123_v7.resx">
       <DependentUpon>201708020734123_v7.cs</DependentUpon>

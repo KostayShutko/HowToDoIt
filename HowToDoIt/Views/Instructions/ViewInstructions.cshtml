@@ -41,20 +41,9 @@
 
 <script>
     $(function () {
-
-        
-
         $('div#loading').hide();
-
         var page = 0;
         var _inCallback = false;
-
-        /*$('.sort-click').click(function () {
-            page = 0;
-            var block = document.getElementById("scrolList");
-            block.remove();
-            alert("sdaasddd");
-        });*/
 
         function loadItems() {
             if (page > -1 && !_inCallback) {
@@ -78,7 +67,7 @@
                 });
             }
         }
-        // обработка события скроллинга
+
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 
