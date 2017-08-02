@@ -17,24 +17,38 @@ namespace HowToDoIt.Controllers
     {
         public ActionResult Index()
         {
-
-            return View();
+            List<Instruction> instructions = GetSortingInstruction("HowToDoIt.Models.Sort.SortingByDate");
+            return View(instructions);
         }
 
         public ActionResult SortingHome(string nameClass)
         {
+            return PartialView("~/Views/Instructions/_ViewInstructionPartial.cshtml", GetSortingInstruction(nameClass));          
+        }
+
+        private List<Instruction> GetSortingInstruction(string nameClass)
+        {
             using (var db = new ApplicationDbContext())
             {
-                ISorting classSort = Activator.CreateInstance(Type.GetType(nameClass)) as ISorting;
-                List<Instruction> instructions = db.Instructions.ToList();
-                instructions = classSort.Sorting(instructions);
-                List<Category> listCategory = new List<Category>();
-                List<ApplicationUser> listUser = new List<ApplicationUser>();
-                Manager.ChangeImgInInstruction(instructions, listUser, listCategory);
-                WriteCategoryAndUserToViewBag(listUser, listCategory);
-                return PartialView("~/Views/Instructions/_ViewInstructionPartial.cshtml", instructions);
+                List<Instruction> instructions = SortInstruction(db, nameClass);
+                CreateDataInViewBag(instructions);
+                return instructions;
             }
-                
+        }
+
+        private List<Instruction> SortInstruction(ApplicationDbContext db, string nameClass)
+        {
+            ISorting classSort = Activator.CreateInstance(Type.GetType(nameClass)) as ISorting;
+            List<Instruction> instructions = db.Instructions.ToList();
+            return (classSort.Sorting(instructions)).Take(5).ToList();
+        }
+
+        private void CreateDataInViewBag(List<Instruction> instructions)
+        {
+            List<Category> listCategory = new List<Category>();
+            List<ApplicationUser> listUser = new List<ApplicationUser>();
+            Manager.ChangeImgInInstruction(instructions, listUser, listCategory);
+            WriteCategoryAndUserToViewBag(listUser, listCategory);
         }
 
         private void WriteCategoryAndUserToViewBag(List<ApplicationUser> listUser, List<Category> listCategory)

@@ -200,7 +200,20 @@ namespace HowToDoIt.Controllers
             {
                 return PartialView("_ViewInstructionPartial", GetItemsPage(page));
             }
-            return View("ViewInstructions", GetItemsPage(page));
+            return ReturnFirstPage(page);
+        }
+
+        private ActionResult ReturnFirstPage(int page)
+        {
+            List<Instruction> instructions = GetItemsPage(page);
+            if(instructions.Count>page*5)
+            {
+                return View("ViewInstructions", instructions);
+            }
+            else
+            {
+                return View("ViewInstructions", null);
+            }
         }
 
         private List<Instruction> GetItemsPage(int page = 1)
@@ -424,8 +437,11 @@ namespace HowToDoIt.Controllers
 
         private void AddUserByInstruction(ApplicationDbContext db, Instruction instruction)
         {
-            ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
-            instruction.User = user;
+            if (instruction.User == null)
+            {
+                ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
+                instruction.User = user;
+            } 
         }
 
         private void UpdateDataInInstruction(ApplicationDbContext db, Instruction instruction)
