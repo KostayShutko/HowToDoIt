@@ -35,6 +35,7 @@ namespace HowToDoIt.Models
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Profil> Profils { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Connection> Connections { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

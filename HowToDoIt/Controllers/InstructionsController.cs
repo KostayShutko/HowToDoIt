@@ -2,12 +2,14 @@
 using HowToDoIt.Models;
 using HowToDoIt.Models.Classes_for_Db;
 using HowToDoIt.Models.Sort;
+using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace HowToDoIt.Controllers
 {
@@ -30,7 +32,19 @@ namespace HowToDoIt.Controllers
             var instruction = db.Instructions.Find(idInstruction);
             ApplicationUser user = Manager.GetCurrentUser(db, User.Identity.Name);
             Comment comment = CreateComment(instruction, user, content);
+            SendCommentOtherUser(idInstruction, comment);
             db.Comments.Add(comment);
+        }
+
+        private void SendCommentOtherUser(int idInstruction, Comment comment)
+        {
+            var avatar = comment.User.Profil.Avatar;
+            var idUser = comment.User.Id;
+            var userName = comment.User.UserName;
+            var date = comment.Date;
+            var text = comment.Text;
+            var hub = GlobalHost.ConnectionManager.GetHubContext<commetsHub>();
+            hub.Clients.Group(idInstruction.ToString()).createComment(avatar,userName,date,text, idUser);
         }
 
         private Comment CreateComment( Instruction instruction, ApplicationUser user, string content)
@@ -43,7 +57,7 @@ namespace HowToDoIt.Controllers
             return comment;
         }
 
-        [Authorize(Roles = "admin")]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
         public ActionResult DeleteInstruction(int instructionid)
         {
             using (var db = new ApplicationDbContext())
@@ -297,7 +311,7 @@ namespace HowToDoIt.Controllers
 
 
         //-----------------------------------------------------------------------
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Step(int step,int idInstruction,int idStep)
         {
             Step s=null;
@@ -359,7 +373,7 @@ namespace HowToDoIt.Controllers
             DeleteAllBlocks(db, s);
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Instruction(int? instructionid)
         {
             Instruction instruction=null;

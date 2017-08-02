@@ -85,7 +85,6 @@
                 }
                 <hr>
             }
-
             <h2>Комментарии:</h2>
             @foreach (var comment in Model.Comments)
             {
@@ -102,7 +101,7 @@
                     </div>
                 </div>
             }
-            
+            <div id="before-insert"></div>
             <hr>
             @if (Request.IsAuthenticated)
             {
@@ -124,12 +123,22 @@
     </div>
 
 
-
     
     <script>
     $(function () {
         var instructionId=@Model.Id;
 
+        var hub = $.connection.commetsHub;
+
+        $.connection.hub.start()
+                .done(function () {
+                    hub.server.openInstruction(instructionId);
+            });
+
+        hub.client.createComment = function (avatar, userName, date, text, idUser) {
+            alert(idUser);
+            $('#before-insert').before('<div class="media"><a class="pull-left" href="/Profile/OpenProfileFromComent/?idUser=' + idUser + '"><img class="media-object" width="64" src="' + avatar + '" alt=""></a><div class="media-body"><h4 class="media-heading"><a class="link color" href="/Profile/OpenProfileFromComent/?idUser=' + idUser + '">' + userName +' '+ '</a><small>' + date+'</small></h4>'+text+'</div></div>');
+        }
 
         function SendRequestAsUrl(url) {
             $.ajax({
@@ -186,12 +195,14 @@
     </script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @section Scripts {
+
         <script type="text/javascript">
             var SuccessAjaxForm = function () {
                 $('#text-content').val("");
             }
         </script>
-
+        @Scripts.Render("~/Scripts/jquery.signalR-2.2.2.min.js")
+        @Scripts.Render("/signalr/hubs")
         @Scripts.Render("~/Scripts/bootstrap-rating/bootstrap-rating.min.js")
 
     }

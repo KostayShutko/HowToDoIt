@@ -84,6 +84,12 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
@@ -439,6 +445,10 @@
     <Compile Include="Migrations\201708011329551_v5.Designer.cs">
       <DependentUpon>201708011329551_v5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708020734123_v7.cs" />
+    <Compile Include="Migrations\201708020734123_v7.Designer.cs">
+      <DependentUpon>201708020734123_v7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
@@ -446,11 +456,13 @@
     <Compile Include="Models\Classes for Db\Block.cs" />
     <Compile Include="Models\Classes for Db\Category.cs" />
     <Compile Include="Models\Classes for Db\Comment.cs" />
+    <Compile Include="Models\Classes for Db\Connection.cs" />
     <Compile Include="Models\Classes for Db\Instruction.cs" />
     <Compile Include="Models\Classes for Db\Profil.cs" />
     <Compile Include="Models\Classes for Db\Rating.cs" />
     <Compile Include="Models\Classes for Db\Step.cs" />
     <Compile Include="Models\Classes for Db\Tag.cs" />
+    <Compile Include="Models\commetsHub.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -618,6 +630,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -693,6 +707,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708011329551_v5.resx">
       <DependentUpon>201708011329551_v5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708020734123_v7.resx">
+      <DependentUpon>201708020734123_v7.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceIndex.en.resx">
       <CustomToolNamespace>Res</CustomToolNamespace>
