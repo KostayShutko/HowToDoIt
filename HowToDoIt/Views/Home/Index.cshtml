@@ -1,10 +1,11 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <link rel="stylesheet" href="~/Content/StyleHome.css">
-<div class="row" style="margin-top:100px;">
+
+
+
+<div class="row">
     <div class="col-md-12">
         <div class="tabbable-panel">
             <div class="tabbable-line">
@@ -13,7 +14,7 @@
                         @Ajax.ActionLink("Недавние", "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByDate" }, new AjaxOptions { UpdateTargetId = "update" })
                     </li>
                     <li id="popular">
-                        @Ajax.ActionLink("Популярные", "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByRating" }, new AjaxOptions { UpdateTargetId = "update"})
+                        @Ajax.ActionLink("Популярные", "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByRating" }, new AjaxOptions { UpdateTargetId = "update" })
                     </li>
                 </ul>
             </div>

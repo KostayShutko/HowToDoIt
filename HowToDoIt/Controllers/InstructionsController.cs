@@ -275,8 +275,6 @@ namespace HowToDoIt.Controllers
             ViewBag.Category = listCategory;
             ViewBag.Author = listUser;
         }
-
-        
         //-----------------------------------------------------------------------
         [System.Web.Mvc.Authorize]
         public ActionResult Step(int step,int idInstruction,int idStep)
@@ -340,6 +338,7 @@ namespace HowToDoIt.Controllers
             DeleteAllBlocks(db, s);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         [System.Web.Mvc.Authorize]
         public ActionResult Instruction(int? instructionid)
         {
@@ -350,14 +349,25 @@ namespace HowToDoIt.Controllers
                     instruction = new Models.Classes_for_Db.Instruction();
                 else
                 {
-                    var inst = db.Instructions.Find(instructionid);
-                    WriteDataInViewBag(inst);
-                    instruction = inst;
+                    instruction=ReturnInstructionIfUserCorrect(db, instructionid);
                 }
                 WriteCatedoryAndTagInViewBag(db);
             }
-            this.Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
             return View(instruction);
+        }
+
+        private Instruction ReturnInstructionIfUserCorrect(ApplicationDbContext db, int? instructionid)
+        {
+            var inst = db.Instructions.Find(instructionid);
+            if ((inst.User.UserName == User.Identity.Name)||(User.IsInRole("admin")))
+            {
+                WriteDataInViewBag(inst);
+                return inst;
+            }
+            else
+            {
+                return new Models.Classes_for_Db.Instruction();
+            }
         }
 
         private void WriteCatedoryAndTagInViewBag(ApplicationDbContext db)
