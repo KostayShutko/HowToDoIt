@@ -470,6 +470,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-theme.css" />
+    <Content Include="bootstrap-theme.min.css" />
+    <Content Include="bootstrap.css" />
+    <Content Include="bootstrap.min.css" />
     <Content Include="Content\bootstrap-rating.css" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css" />
@@ -489,8 +493,12 @@
     <Content Include="Content\StyleHome.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
+    <Content Include="Content\StyleUsers.css" />
     <Content Include="Content\StyleViewInstruction.css" />
+    <Content Include="dashboard.css" />
     <Content Include="favicon.ico" />
+    <Content Include="font-awesome.css" />
+    <Content Include="font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -511,6 +519,16 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="image\1.jpg" />
+    <Content Include="image\256.jpg" />
+    <Content Include="image\avatar_user.png" />
+    <Content Include="image\img-en.bmp" />
+    <Content Include="image\img-ru.bmp" />
+    <Content Include="image\not foto.png" />
+    <Content Include="image\not foto1.jpg" />
+    <Content Include="image\not foto2.png" />
+    <Content Include="image\spinner.gif" />
+    <Content Include="image\user.png" />
     <Content Include="Scripts\bootstrap-rating\bootstrap-rating.js" />
     <Content Include="Scripts\bootstrap-rating\bootstrap-rating.min.js" />
     <Content Include="Scripts\bootstrap-select.js" />
@@ -518,6 +536,8 @@
     <Content Include="Content\bootstrap-select.css.map" />
     <Content Include="Content\bootstrap-tokenfield\tokenfield-typeahead.less" />
     <Content Include="Content\bootstrap-tokenfield\bootstrap-tokenfield.less" />
+    <Content Include="bootstrap.css.map" />
+    <Content Include="bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\Additional scripts\profile.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
@@ -622,6 +642,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Site.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -650,6 +671,7 @@
     <Content Include="Views\Instructions\_ViewInstructionPartial.cshtml" />
     <Content Include="Views\Profile\OpenProfile.cshtml" />
     <Content Include="Views\Instructions\ViewInstruction.cshtml" />
+    <Content Include="Views\Profile\Users.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,6 +3,7 @@ using HowToDoIt.Models;
 using HowToDoIt.Models.Classes_for_Db;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -72,24 +73,55 @@ namespace HowToDoIt.Controllers
 
         public ActionResult OpenProfile(int idInstruction)
         {
-            Profil profile=null;
+            Profil profile= new Profil();
             using (var db = new ApplicationDbContext())
             {
                 var instruction= db.Instructions.Find(idInstruction);
-                profile = instruction.User.Profil;
+                if (ProfileExist(profile, instruction.User, db))
+                    profile = instruction.User.Profil;
             }
             return View(profile);
         }
 
         public ActionResult OpenProfileFromComent(string idUser)
         {
-            Profil profile = null;
+            Profil profile = new Profil();
             using (var db = new ApplicationDbContext())
             {
                 var user = db.Users.Find(idUser);
-                profile = user.Profil;
+                if (ProfileExist(profile, user, db))
+                    profile = user.Profil;
             }
             return View("OpenProfile", profile);
         }
+
+        public ActionResult Users()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var users = GetUserRole(db);
+                return View(users);
+            }
+        }
+
+        private List<ApplicationUser> GetUserRole(ApplicationDbContext db)
+        {
+            List<ApplicationUser> list = new List<ApplicationUser>();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            foreach (var user in db.Users.ToList())
+            {
+                if (!userManager.IsInRole(user.Id, "Admin"))
+                {
+                    user.Profil = user.Profil??new Profil();
+                    user.Profil.Avatar = user.Profil.Avatar ?? (user.Profil.Avatar = "~/image/256.jpg");
+                    user.Instructions = user.Instructions ?? new List<Instruction>();
+                    user.Comments = user.Comments ?? new List<Comment>();
+                    list.Add(user);
+                }
+            }
+            return list;
+        }
+
+
     }
 }

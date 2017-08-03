@@ -46,7 +46,7 @@ namespace HowToDoIt.Controllers
             var hub = GlobalHost.ConnectionManager.GetHubContext<commetsHub>();
             hub.Clients.Group(idInstruction.ToString()).createComment(avatar,userName,date,text, idUser);
         }
-
+ 
         private Comment CreateComment( Instruction instruction, ApplicationUser user, string content)
         {
             Comment comment = new Comment();

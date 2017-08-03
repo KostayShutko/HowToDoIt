@@ -29,13 +29,29 @@
         <div id="main-container" style="min-height:90%;" class="container body-content">
             @RenderBody()
         </div>
-    @using Microsoft.AspNet.Identity
-@if (ViewContext.RouteData.Values["action"].ToString() == "Index")
-{
     <div id="button-for-add-instruction">
-            @Html.Partial("_AddInstructionButtonPartial")
+        @using Microsoft.AspNet.Identity
+        @if (ViewContext.RouteData.Values["action"].ToString() == "Index")
+        {
+            <div style="padding-top: 13px;">
+                @Html.Partial("_AddInstructionButtonPartial")
+            </div>
+        }
+        @if ((ViewContext.RouteData.Values["action"].ToString() == "Index")&&(ViewBag.TagsIndex!=null))
+        {
+            <h3 style="margin-top:0 !important">Теги:</h3>
+                <div class="tagcloud01">
+                    <ul>
+                        @foreach (var tag in ViewBag.TagsIndex)
+                        {
+                            <li><a href="@Url.Action("SearchTag", "Instructions", new {idTag=tag.Id })">@tag.Name</a></li>
+                        }
+                    </ul>
+                </div>
+        }
     </div>
-}
+
+
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)

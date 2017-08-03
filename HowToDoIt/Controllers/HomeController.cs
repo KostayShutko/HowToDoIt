@@ -18,12 +18,22 @@ namespace HowToDoIt.Controllers
         public ActionResult Index()
         {
             List<Instruction> instructions = GetSortingInstruction("HowToDoIt.Models.Sort.SortingByDate");
+            WriteTagsInViewBag();
             return View(instructions);
         }
 
         public ActionResult SortingHome(string nameClass)
         {
             return PartialView("~/Views/Instructions/_ViewInstructionPartial.cshtml", GetSortingInstruction(nameClass));          
+        }
+
+        private void WriteTagsInViewBag()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var tags = db.Tags.ToList();
+                ViewBag.TagsIndex = tags.Take(10).ToList();
+            }
         }
 
         private List<Instruction> GetSortingInstruction(string nameClass)

@@ -15,7 +15,7 @@
                 <li><a href="@Url.Action("History", "Instructions")">@Res.ResourceIndex.History</a></li>
                 @if (User.IsInRole("admin"))
                 {
-                    <li><a href="#">@Res.ResourceIndex.Users</a></li>
+                    <li><a href="@Url.Action("Users", "Profile")">@Res.ResourceIndex.Users</a></li>
                 }
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">@Res.ResourceIndex.SignOut</a></li>
             </ul>

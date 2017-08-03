@@ -31,7 +31,59 @@
     position: absolute;
     left: 86%;
     width: 14%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.tags {
+    display: inline-block;
+    position: absolute;
+    left: 86%;
+    width: 14%;
+    margin-top: auto;
     padding-top: 13px;
     padding-right: 10px;
     padding-left: 10px;
 }
+
+.tag-div {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+
+.tagcloud01 ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .tagcloud01 ul li {
+        display: inline-block;
+        margin: 0 .3em .3em 0;
+        padding: 0;
+    }
+
+        .tagcloud01 ul li a {
+            display: inline-block;
+            max-width: 100px;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 1em;
+            background-color: yellowgreen;
+
+            border-radius: 3px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            color: #fff;
+            font-size: 13px;
+            text-decoration: none;
+            -webkit-transition: .2s;
+            transition: .2s;
+        }
+
+            .tagcloud01 ul li a:hover {
+                background-color: #3498db;
+                color: #fff;
+            }
