@@ -36,9 +36,22 @@ namespace HowToDoIt.Controllers
             db.Comments.Add(comment);
         }
 
+        private string GetAvatar(Comment comment)
+        {
+            if (comment.User.Profil == null)
+            {
+                var p = Manager.GetProfileUser(comment.User.UserName);
+                return p.Avatar;
+            }
+            else 
+            {
+                return comment.User.Profil.Avatar;
+            }
+        }
+
         private void SendCommentOtherUser(int idInstruction, Comment comment)
         {
-            var avatar = comment.User.Profil.Avatar;
+            string avatar = GetAvatar(comment);
             var idUser = comment.User.Id;
             var userName = comment.User.UserName;
             var date = comment.Date;
@@ -91,10 +104,17 @@ namespace HowToDoIt.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                var instruction = db.Instructions.Find(idInstruction);
-                ViewBagRating(instruction);
-                UpdateDataForViewInstruction(instruction);
-                return View(instruction);
+                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
+                {
+                    var instruction = db.Instructions.Find(idInstruction);
+                    ViewBagRating(instruction);
+                    UpdateDataForViewInstruction(instruction);
+                    return View(instruction);
+                }
+                else
+                {
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
         }
 
@@ -123,7 +143,10 @@ namespace HowToDoIt.Controllers
             var comment = instruction.Comments;
             foreach (var c in comment)
             {
-                var t = c.User.Profil;
+                if (c.User.Profil==null)
+                {
+                    var p = Manager.GetProfileUser(c.User.UserName);
+                }
             }
             var tags = instruction.Tags;
             foreach(var step in steps)
@@ -192,7 +215,7 @@ namespace HowToDoIt.Controllers
             Session["instructions-original"] = inst;
             Session["classSort"] = null;
         }
-
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult ViewInstructions(int? id)
         {
             int page = id ?? 0;
@@ -279,22 +302,30 @@ namespace HowToDoIt.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Step(int step,int idInstruction,int idStep)
         {
-            Step s=null;
             using (var db = new ApplicationDbContext())
             {
-                if (idStep == 0)
+                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
                 {
-                    s = CreateNewStep(db, idInstruction, step);
-                    idStep = (db.Steps.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
+                    Step s = null;
+                    if (idStep == 0)
+                    {
+                        s = CreateNewStep(db, idInstruction, step);
+                        idStep = (db.Steps.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
+                    }
+                    else
+                    {
+                        s = db.Steps.Find(idStep);
+                        ViewBag.Blocks = s.Blocks;
+                    }
+                    MakeDataForStepView(step, idInstruction, idStep);
+                    return View(s);
                 }
                 else
                 {
-                    s = db.Steps.Find(idStep);
-                    ViewBag.Blocks = s.Blocks;
+                    return View("~/Views/Shared/Error.cshtml");
                 }
             }
-            MakeDataForStepView(step, idInstruction, idStep);
-            return View(s);
+            
         }
 
         private void MakeDataForStepView(int step, int idInstruction, int idStep)
@@ -342,18 +373,26 @@ namespace HowToDoIt.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Instruction(int? instructionid)
         {
-            Instruction instruction=null;
             using (var db = new ApplicationDbContext())
             {
-                if ((instructionid == null) || (instructionid == 0))
-                    instruction = new Models.Classes_for_Db.Instruction();
+                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
+                {
+                    Instruction instruction = null;
+                    if ((instructionid == null) || (instructionid == 0))
+                        instruction = new Models.Classes_for_Db.Instruction();
+                    else
+                    {
+                        instruction = ReturnInstructionIfUserCorrect(db, instructionid);
+                    }
+                    WriteCatedoryAndTagInViewBag(db);
+                    return View(instruction);
+                }
                 else
                 {
-                    instruction=ReturnInstructionIfUserCorrect(db, instructionid);
+                    return View("~/Views/Shared/Error.cshtml");
                 }
-                WriteCatedoryAndTagInViewBag(db);
             }
-            return View(instruction);
+            
         }
 
         private Instruction ReturnInstructionIfUserCorrect(ApplicationDbContext db, int? instructionid)

@@ -21,34 +21,8 @@ namespace HowToDoIt.Controllers
         public new ActionResult Profile()
         {
             Profil profile;
-            profile = GetProfileUser();
+            profile = Manager.GetProfileUser(User.Identity.Name);
             return View(profile);
-        }
-
-        private Profil GetProfileUser()
-        {
-            Profil profile = new Profil();
-            using (var db = new ApplicationDbContext())
-            {
-                ApplicationUser user;
-                user = Manager.GetCurrentUser(db, User.Identity.Name);
-                if (ProfileExist(profile,user,db))
-                    profile = user.Profil;
-            }
-            return profile;
-        }
-
-        private bool ProfileExist(Profil profile,ApplicationUser user,ApplicationDbContext db)
-        {
-            if (user.Profil == null)
-            {
-                profile.Avatar = "~/image/256.jpg";
-                profile.Users = user;
-                db.Profils.Add(profile);
-                db.SaveChanges();
-                return false;
-            }
-            return true;
         }
 
         public JsonResult Upload()
@@ -77,7 +51,7 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var instruction= db.Instructions.Find(idInstruction);
-                if (ProfileExist(profile, instruction.User, db))
+                if (Manager.ProfileExist(profile, instruction.User, db))
                     profile = instruction.User.Profil;
             }
             return View(profile);
@@ -89,39 +63,116 @@ namespace HowToDoIt.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var user = db.Users.Find(idUser);
-                if (ProfileExist(profile, user, db))
+                if (Manager.ProfileExist(profile, user, db))
                     profile = user.Profil;
             }
             return View("OpenProfile", profile);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult Search(string word)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user= (db.Users.ToList()).Where(c => c.UserName == word).FirstOrDefault();
+                List<ApplicationUser> list = new List<ApplicationUser>();
+                AddUserToList(list, user);
+                return View("Users", list);
+            }
+        }
+
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult Lock(string idUser)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Find(idUser);
+                user.IsLock = true;
+                db.SaveChanges();
+                return Users();
+            }
+        }
+
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult Unlock(string idUser)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Find(idUser);
+                user.IsLock = false;
+                db.SaveChanges();
+                return Users();
+            }
+        }
+
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        public ActionResult DeleteUser(string idUser)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Find(idUser);
+                DeleteEntity<Instruction>(db.Instructions, user.Instructions.ToList());
+                if (user.Profil!=null)
+                {
+                    var p = new List<Profil>();
+                    p.Add(user.Profil);
+                    DeleteEntity<Profil>(db.Profils, p);
+                }
+                DeleteEntity<Comment>(db.Comments,user.Comments.ToList());
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return Users();
+            }
+        }
+
+        private void DeleteEntity<T>(IDbSet<T> entity,List<T> list)where T:class
+        {
+            foreach(var c in list)
+            {
+                entity.Remove(c);
+            }
+        }
+
+        [System.Web.Mvc.Authorize(Roles = "admin")]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Users()
         {
             using (var db = new ApplicationDbContext())
             {
-                var users = GetUserRole(db);
-                return View(users);
+                var users = FindAllRoleUser(db);
+                return View("Users", users);
             }
         }
 
-        private List<ApplicationUser> GetUserRole(ApplicationDbContext db)
+        private List<ApplicationUser> FindAllRoleUser(ApplicationDbContext db)
         {
             List<ApplicationUser> list = new List<ApplicationUser>();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            SearchUser(db, list, userManager);
+            return list;
+        }
+
+        private void SearchUser(ApplicationDbContext db,List<ApplicationUser> list, UserManager<ApplicationUser> userManager)
+        {
             foreach (var user in db.Users.ToList())
             {
                 if (!userManager.IsInRole(user.Id, "Admin"))
                 {
-                    user.Profil = user.Profil??new Profil();
-                    user.Profil.Avatar = user.Profil.Avatar ?? (user.Profil.Avatar = "~/image/256.jpg");
-                    user.Instructions = user.Instructions ?? new List<Instruction>();
-                    user.Comments = user.Comments ?? new List<Comment>();
-                    list.Add(user);
+                    AddUserToList(list, user);
                 }
             }
-            return list;
         }
 
+
+        private void AddUserToList(List<ApplicationUser> list,ApplicationUser user)
+        {
+            user.Profil = user.Profil ?? new Profil();
+            user.Profil.Avatar = user.Profil.Avatar ?? (user.Profil.Avatar = "~/image/256.jpg");
+            user.Instructions = user.Instructions ?? new List<Instruction>();
+            user.Comments = user.Comments ?? new List<Comment>();
+            list.Add(user);
+        }
 
     }
 }

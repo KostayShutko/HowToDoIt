@@ -12,6 +12,7 @@ namespace HowToDoIt.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public bool IsLock { get; set; }
         public virtual ICollection<Instruction> Instructions { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Profil Profil { get; set; }

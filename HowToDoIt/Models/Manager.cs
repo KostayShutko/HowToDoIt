@@ -13,6 +13,33 @@ namespace HowToDoIt.Models
 {
     public class Manager
     {
+
+        public static Profil GetProfileUser(string nameCurrentUser)
+        {
+            Profil profile = new Profil();
+            using (var db = new ApplicationDbContext())
+            {
+                ApplicationUser user;
+                user = Manager.GetCurrentUser(db, nameCurrentUser);
+                if (ProfileExist(profile, user, db))
+                    profile = user.Profil;
+            }
+            return profile;
+        }
+
+        public static bool ProfileExist(Profil profile, ApplicationUser user, ApplicationDbContext db)
+        {
+            if (user.Profil == null)
+            {
+                profile.Avatar = "~/image/256.jpg";
+                profile.Users = user;
+                db.Profils.Add(profile);
+                db.SaveChanges();
+                return false;
+            }
+            return true;
+        }
+
         public static ApplicationUser GetCurrentUser(ApplicationDbContext db,string nameCurrentUser)
         {
             var users = db.Users.ToList();

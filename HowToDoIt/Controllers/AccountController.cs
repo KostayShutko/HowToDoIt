@@ -118,7 +118,7 @@ namespace HowToDoIt.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,IsLock=false };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
