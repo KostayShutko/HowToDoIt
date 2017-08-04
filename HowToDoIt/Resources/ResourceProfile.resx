@@ -123,11 +123,17 @@
   <data name="City" xml:space="preserve">
     <value>Город</value>
   </data>
+  <data name="Commets" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
   <data name="Contacts" xml:space="preserve">
     <value>Контакты</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Инструкции</value>
   </data>
   <data name="Interests" xml:space="preserve">
     <value>Интересы</value>
@@ -141,8 +147,17 @@
   <data name="PersonalInfo" xml:space="preserve">
     <value>Личные данные</value>
   </data>
+  <data name="SearchWord" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
   <data name="Sex" xml:space="preserve">
     <value>Пол</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
   </data>
   <data name="Woman" xml:space="preserve">
     <value>Женщина</value>

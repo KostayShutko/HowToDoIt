@@ -27,7 +27,7 @@
 
         <div class="row" style="height:30px;">
             <p class="lead col-md-10">
-                create <a href="@Url.Action("OpenProfile", "Profile", new {idInstruction= Model.Id })">@Model.User.UserName</a>
+                @Res.ResourceInstructions.mcreate <a href="@Url.Action("OpenProfile", "Profile", new {idInstruction= Model.Id })">@Model.User.UserName</a>
             </p>
             @if (Request.IsAuthenticated)
             {
@@ -46,10 +46,10 @@
             }
         </div>
         <hr>
-        <p><span class="glyphicon glyphicon-time"></span> Posted on @Model.Date</p>
+        <p><span class="glyphicon glyphicon-time"></span> @Res.ResourceInstructions.PostedOn on @Model.Date</p>
         <p class="inline-block">
             <i class="fa fa-tags" aria-hidden="true"></i>
-            Теги:
+            @Res.ResourceInstructions.Tags:
             @for (int i = 0; i < Model.Tags.Count; i++)
             {
                 <a href="@Url.Action("SearchTag", "Instructions", new {idTag= (((IList<Tag>)Model.Tags)[i].Id) })" class="link color">@(((IList<Tag>)Model.Tags)[i].Name)</a>
@@ -63,7 +63,7 @@
 
             @foreach (var step in Model.Steps)
             {
-                <h3 style="margin-top:50px; text-indent: 50px;"><strong> Шаг @step.Number: @step.Name</strong></h3>
+                <h3 style="margin-top:50px; text-indent: 50px;"><strong> @Res.ResourceInstructions.Step @step.Number: @step.Name</strong></h3>
                 foreach (var block in step.Blocks)
                 {
                     if (block.Type == "Text")
@@ -72,8 +72,10 @@
                     }
                     if (block.Type == "Image")
                     {
-                        <div class="elem-in-center margin-top-30">
-                            <img class="img-thumbnail rounded" src="@Url.Content(block.Name)" style="width:60%;">
+                        <div class="row margin-top-30">
+                            <div class="elem-in-center col-md-offset-2 col-md-8">
+                                <img class="img-thumbnail img-responsive" src="@Url.Content(block.Name)">
+                            </div>
                         </div>
                     }
                     if (block.Type == "Video")
@@ -85,7 +87,7 @@
                 }
                 <hr>
             }
-            <h2>Комментарии:</h2>
+            <h2>@Res.ResourceInstructions.Comments:</h2>
             @foreach (var comment in Model.Comments)
             {
                 <div class="media">
@@ -106,14 +108,14 @@
             {
                 <div class="media-body">
                     <div class="well well-lg margin-top-30">
-                        <h4>Leave a Comment:</h4>
+                        <h4>@Res.ResourceInstructions.LeaveAComment:</h4>
                         @using (Ajax.BeginForm("AddComment", "Instructions", null, new AjaxOptions() { OnSuccess = "SuccessAjaxForm" }, null))
                         {
                             <input type="hidden" name="idInstruction" value="@Model.Id">
                             <div class="form-group">
                                 <textarea id="text-content" style="max-width:100%;" name="content" class="form-control" rows="3"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">@Res.ResourceInstructions.Submit</button>
                         }
                     </div>
                 </div>

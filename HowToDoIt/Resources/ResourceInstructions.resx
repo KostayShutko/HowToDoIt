@@ -117,31 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAStep" xml:space="preserve">
+    <value>Добавить шаг</value>
+  </data>
   <data name="AddInstruction" xml:space="preserve">
-    <value>Add instruction</value>
+    <value>Добавить инструкцию</value>
   </data>
-  <data name="History" xml:space="preserve">
-    <value>History</value>
+  <data name="Alphabetically" xml:space="preserve">
+    <value>По алфавиту</value>
   </data>
-  <data name="Popular" xml:space="preserve">
-    <value>Popular</value>
+  <data name="ByDate" xml:space="preserve">
+    <value>По дате</value>
   </data>
-  <data name="Profile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="ByRating" xml:space="preserve">
+    <value>По рейтингу</value>
   </data>
-  <data name="Recent" xml:space="preserve">
-    <value>Recent</value>
+  <data name="Caption" xml:space="preserve">
+    <value>Заголовок</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментарии</value>
   </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="Created" xml:space="preserve">
+    <value>Создал</value>
   </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
+  <data name="EnterATitle" xml:space="preserve">
+    <value>Введите заголовок</value>
+  </data>
+  <data name="EnterTagsSeparatedByCommas" xml:space="preserve">
+    <value>Введи теги через запятую</value>
+  </data>
+  <data name="ImgSrc" xml:space="preserve">
+    <value>/image/img-ru.bmp</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Оставить комментарий</value>
+  </data>
+  <data name="LinkOnYoutube" xml:space="preserve">
+    <value>Сылка на youtube</value>
+  </data>
+  <data name="mcreate" xml:space="preserve">
+    <value>создал</value>
+  </data>
+  <data name="NoInstructionsFound" xml:space="preserve">
+    <value>Инструкций не найдено</value>
+  </data>
+  <data name="PostedOn" xml:space="preserve">
+    <value>Опубликовал</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SelectACategory" xml:space="preserve">
+    <value>Выберите категорию</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Сортировать</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Шаг</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
   </data>
 </root>

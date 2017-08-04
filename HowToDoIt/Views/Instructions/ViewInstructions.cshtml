@@ -3,14 +3,14 @@
 }
 <link rel="stylesheet" href="~/Content/StyleInstrucions.css">
 <link rel="stylesheet" href="~/Content/StyleViewInstruction.css">
-<h1 class="text-muted elem-in-center">Инструкции</h1>
+<h1 class="text-muted elem-in-center">@Res.ResourceProfile.Instructions</h1>
 <div class="header-div">
     <div class="pricing-table-sort pricing-three-column-sort ">
         <div class=" plan-sort">
             <ul class="nav nav-pills margin-left-5">
                 <li role="presentation" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Категории <span class="caret"></span>
+                        @Res.ResourceInstructions.Category <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         @for (int i = 0; i < ViewBag.Categories.Length; i++)
@@ -21,12 +21,12 @@
                 </li>
                 <li role="presentation" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Сортировать <span class="caret"></span>
+                        @Res.ResourceInstructions.Sort <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByAlphabet" })">По алфавиту</a></li>
-                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByDate" })">По дате</a></li>
-                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByRating" })">По рейтингу</a></li>
+                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByAlphabet" })">@Res.ResourceInstructions.Alphabetically</a></li>
+                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByDate" })">@Res.ResourceInstructions.ByDate</a></li>
+                        <li><a href="@Url.Action("Sorting", "Instructions", new {nameClass= "HowToDoIt.Models.Sort.SortingByRating" })">@Res.ResourceInstructions.ByRating</a></li>
                     </ul>
                 </li>
             </ul>

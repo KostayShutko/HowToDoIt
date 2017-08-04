@@ -79,6 +79,15 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Комментарии.
+        /// </summary>
+        public static string Commets {
+            get {
+                return ResourceManager.GetString("Commets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Контакты.
         /// </summary>
         public static string Contacts {
@@ -93,6 +102,15 @@ namespace Res {
         public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инструкции.
+        /// </summary>
+        public static string Instructions {
+            get {
+                return ResourceManager.GetString("Instructions", resourceCulture);
             }
         }
         
@@ -133,11 +151,38 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Поиск.
+        /// </summary>
+        public static string SearchWord {
+            get {
+                return ResourceManager.GetString("SearchWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Пол.
         /// </summary>
         public static string Sex {
             get {
                 return ResourceManager.GetString("Sex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пользователь.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пользователи.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
         

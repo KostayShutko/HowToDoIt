@@ -117,31 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAStep" xml:space="preserve">
+    <value>Add a step</value>
+  </data>
   <data name="AddInstruction" xml:space="preserve">
     <value>Add instruction</value>
   </data>
-  <data name="History" xml:space="preserve">
-    <value>History</value>
+  <data name="Alphabetically" xml:space="preserve">
+    <value>Alphabetically</value>
   </data>
-  <data name="Popular" xml:space="preserve">
-    <value>Popular</value>
+  <data name="ByDate" xml:space="preserve">
+    <value>By date</value>
   </data>
-  <data name="Profile" xml:space="preserve">
-    <value>Profile</value>
+  <data name="ByRating" xml:space="preserve">
+    <value>By rating</value>
   </data>
-  <data name="Recent" xml:space="preserve">
-    <value>Recent</value>
+  <data name="Caption" xml:space="preserve">
+    <value>Caption</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Sign in</value>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
   </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Sign out</value>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
   </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
+  <data name="EnterATitle" xml:space="preserve">
+    <value>Enter a title</value>
+  </data>
+  <data name="EnterTagsSeparatedByCommas" xml:space="preserve">
+    <value>Enter tags separated by commas</value>
+  </data>
+  <data name="ImgSrc" xml:space="preserve">
+    <value>/image/img-en.bmp</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Leave a comment</value>
+  </data>
+  <data name="LinkOnYoutube" xml:space="preserve">
+    <value>Link on youtube</value>
+  </data>
+  <data name="mcreate" xml:space="preserve">
+    <value>create</value>
+  </data>
+  <data name="NoInstructionsFound" xml:space="preserve">
+    <value>No instructions found</value>
+  </data>
+  <data name="PostedOn" xml:space="preserve">
+    <value>Posted on</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectACategory" xml:space="preserve">
+    <value>Select a category</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
   </data>
 </root>

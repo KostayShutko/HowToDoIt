@@ -5,6 +5,8 @@ jQuery.event.props.push('dataTransfer');
 (function () {
 
     var s;
+    var obj;
+    $('.profile').mouseenter(function (evt) {obj = evt.target; });
     var Step = {
 
         settings: {
@@ -118,13 +120,15 @@ jQuery.event.props.push('dataTransfer');
         },
 
         placeImage: function (data) {
-            $('.profile').mousemove(function (evt) {
+
+            var entity = $(obj).find(".profile-avatar");
+            entity.attr("src", data);
+            /*$('.profile').mouseenter(function (evt) {
                 var obj = evt.target;
                 var entity = $(obj).find(".profile-avatar");
                 entity.attr("src", data);
                 $(".profile").unbind("mousemove");
-            });
-
+            });*/
         }
 
     }

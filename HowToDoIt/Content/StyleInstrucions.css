@@ -55,12 +55,8 @@
 
 .content {
     width: 100%;
-
+    cursor:grab;
 }
-
-    .content .block {
-
-    }
 
 .link-youtube {
     margin-bottom: 20px;

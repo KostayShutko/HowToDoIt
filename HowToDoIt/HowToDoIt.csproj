@@ -461,6 +461,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourceIndex.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ResourceInstructions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceInstructions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceInstructions.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceInstructions.en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ResourceProfile.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -675,7 +685,7 @@
     <Content Include="Views\Profile\OpenProfile.cshtml" />
     <Content Include="Views\Instructions\ViewInstruction.cshtml" />
     <Content Include="Views\Profile\Users.cshtml" />
-    <Content Include="Views\Instructions\Instruction1.cshtml" />
+    <Content Include="Views\Instructions\Instruction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -708,6 +718,16 @@
       <CustomToolNamespace>Res</CustomToolNamespace>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceIndex.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceInstructions.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceInstructions.en.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Res</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceInstructions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceInstructions.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Res</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceProfile.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

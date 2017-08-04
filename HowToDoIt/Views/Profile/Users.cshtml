@@ -7,9 +7,9 @@
     @using (Html.BeginForm("Search", "Profile", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
     {
         <div class="form-group">
-            <input id="searchline" class="form-control" name="word" placeholder="Поиск">
+            <input id="searchline" class="form-control" name="word" placeholder="@Res.ResourceProfile.SearchWord">
         </div>
-        <button type="submit" class="btn btn-success">Поиск</button>
+        <button type="submit" class="btn btn-success">@Res.ResourceProfile.SearchWord</button>
     }
 </div>
 <div class="bootstrap snippet">
@@ -21,9 +21,9 @@
                         <table class="table user-list">
                             <thead>
                                 <tr>
-                                    <th><span>Пользователи</span></th>
-                                    <th><span>Инструкции</span></th>
-                                    <th><span>Комментарии</span></th>
+                                    <th><span>@Res.ResourceProfile.Users</span></th>
+                                    <th><span>@Res.ResourceProfile.Instructions</span></th>
+                                    <th><span>@Res.ResourceProfile.Commets</span></th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -34,7 +34,7 @@
                                     <td>
                                         <img src="@Url.Content(user.Profil.Avatar)" width="50" alt="">
                                         <a href="@Url.Action("OpenProfileFromComent", "Profile", new {idUser= user.Id })" class="user-link">@user.UserName</a>
-                                        <span class="user-subhead">User</span>
+                                        <span class="user-subhead">@Res.ResourceProfile.User</span>
                                     </td>
                                     <td>@user.Instructions.Count</td>
                                     <td>@user.Comments.Count</td>

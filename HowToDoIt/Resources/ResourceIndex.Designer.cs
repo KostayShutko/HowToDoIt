@@ -79,11 +79,29 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Популярные.
+        /// </summary>
+        public static string Popular {
+            get {
+                return ResourceManager.GetString("Popular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Профиль.
         /// </summary>
         public static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Недавние.
+        /// </summary>
+        public static string Recent {
+            get {
+                return ResourceManager.GetString("Recent", resourceCulture);
             }
         }
         

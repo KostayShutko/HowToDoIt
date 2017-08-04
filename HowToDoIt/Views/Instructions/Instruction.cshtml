@@ -13,14 +13,14 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="elem-in-center">
-                <h1 class="text-muted">Добавить инструкцию</h1>
+                <h1 class="text-muted">@Res.ResourceInstructions.AddInstruction</h1>
             </div>
         </div>
     </div>
     <div class="block">
         <div class="row margin-top-30">
             <div class=" col-md-8 entity">
-                <input class="form-control" value="@Model.Name" id="header-instruction" name="link-youtube-name" placeholder="заголовок" type="text">
+                <input class="form-control" value="@Model.Name" id="header-instruction" name="link-youtube-name" placeholder="@Res.ResourceInstructions.Caption" type="text">
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="row margin-top-15">
             <div class="col-md-8 entity">
                 <select id="category" class="form-control">
-                    <option selected disabled>Категория</option>
+                    <option selected disabled>@Res.ResourceInstructions.Category</option>
                     @for (int i = 0; i < ViewBag.Categories.Length; i++)
                     {
                         <option>@ViewBag.Categories[i].Name</option>
@@ -41,7 +41,7 @@
     <div class="block">
         <div class="row margin-top-15">
             <div class="col-md-8 entity">
-                <input id="tags" class="form-control" placeholder="Введи теги через запятую">
+                <input id="tags" class="form-control" placeholder="@Res.ResourceInstructions.EnterTagsSeparatedByCommas">
             </div>
         </div>
     </div>
@@ -50,23 +50,23 @@
         <div class="row content-sortable margin-top-30">
             @if (ViewBag.Step != null)
             {
-            foreach (var step in ViewBag.Step)
-            {
-                <div class="col-md-3 move-true">
-                    <div class="square-service-block">
-                        <div class="trash">
-                            <i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
-                        </div>
-                        <div class="item-block">
-                            <a style="cursor: pointer;" class="link  go-to-step">
-                                <h2 class="ssb-title">Step @step.Number</h2>
-                                <input type="hidden" id="id-step" name="id-instruction" value="@step.Id">
-                            </a>
-                            
+                foreach (var step in ViewBag.Step)
+                {
+                    <div class="col-md-3 move-true">
+                        <div class="square-service-block">
+                            <div class="trash">
+                                <i class="fa fa-times fa-lg icon-remove" aria-hidden="true"></i>
+                            </div>
+                            <div class="item-block">
+                                <a style="cursor: pointer;" class="link  go-to-step">
+                                    <h2 class="ssb-title">Step @step.Number</h2>
+                                    <input type="hidden" id="id-step" name="id-instruction" value="@step.Id">
+                                </a>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
             }
 
             <div class="col-md-3 before-insert">
@@ -79,13 +79,13 @@
                 </div>
             </div>
 
-            
+
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="elem-in-center">
-                <button type="button" class="btn btn-primary button-save">Сохранить</button>
+                <button type="button" class="btn btn-primary button-save">@Res.ResourceInstructions.Save</button>
             </div>
         </div>
     </div>
@@ -95,9 +95,9 @@
 
 <script>
     var count = @(ViewBag.CountStep??0);
-    var notHeader = "Введите заголовок";
-    var notCorrectCategory = "Выберите категорию";
-    var err; 
+    var notHeader = "@Res.ResourceInstructions.EnterATitle";
+    var notCorrectCategory = "@Res.ResourceInstructions.SelectACategory";
+    var err;
     var tegStr="@ViewBag.TagString";
     var categr;
     @if  (Model.Category!=null)
@@ -223,7 +223,7 @@
             var block = $(this).parent().parent().parent();
             SendRequestOnDelete(block);
             block.remove();
-            Recount(); 
+            Recount();
         });
 
         function SendRequestOnDelete(block) {
@@ -245,7 +245,7 @@
         function ChangeStepId(Ids)
         {
             var link = document.getElementsByClassName("go-to-step");
-            for (var i = 0; i < link.length; i++) 
+            for (var i = 0; i < link.length; i++)
             {
                 var input = link[i].getElementsByTagName('input')[0];
                 $(input).val(Ids[i]);
@@ -269,6 +269,7 @@
         }
 
         $('.content-sortable').sortable({
+            scroll: false,
             items: '.move-true',
             start: function (event, ui) {
                 ui.item.startPos = ui.item.index();
@@ -326,4 +327,5 @@
 @section Scripts {
     @Scripts.Render("~/Scripts/dowland/autocomplete-jquery-ui.js")
 }
+
 

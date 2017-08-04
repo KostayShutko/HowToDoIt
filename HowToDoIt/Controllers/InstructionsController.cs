@@ -104,7 +104,7 @@ namespace HowToDoIt.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
+                if ((User.Identity.Name=="") ||(!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock)))
                 {
                     var instruction = db.Instructions.Find(idInstruction);
                     ViewBagRating(instruction);
@@ -304,7 +304,7 @@ namespace HowToDoIt.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
+                if ((User.Identity.Name == "") || (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock)))
                 {
                     Step s = null;
                     if (idStep == 0)
@@ -379,7 +379,7 @@ namespace HowToDoIt.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                if (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock))
+                if ((User.Identity.Name == "") || (!((Manager.GetCurrentUser(db, User.Identity.Name)).IsLock)))
                 {
                     Instruction instruction = null;
                     if ((instructionid == null) || (instructionid == 0))

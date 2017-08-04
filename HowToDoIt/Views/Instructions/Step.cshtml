@@ -12,14 +12,14 @@
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="elem-in-center">
-            <h1 class="text-muted">Добавить шаг</h1>
+            <h1 class="text-muted">@Res.ResourceInstructions.AddAStep</h1>
         </div>
     </div>
 </div>
 
 <div class="row margin-top-30">
     <div class="col-md-offset-2 col-md-8">
-        <input id="header"  class="form-control" placeholder="Заголовок" type="text" value="@Model.Name">
+        <input id="header"  class="form-control" placeholder="@Res.ResourceInstructions.Caption" type="text" value="@Model.Name">
     </div>
 </div>
 <div class="content">
@@ -50,7 +50,7 @@
                 @if (block.Type == "Video")
                 {
                     <div class="form-group ">
-                        <label class="col-md-offset-2 col-md-2 control-label">Link on youtube</label>
+                        <label class="col-md-offset-2 col-md-2 control-label">@Res.ResourceInstructions.LinkOnYoutube</label>
                         <div class="col-md-6">
                             <input class="form-control link-youtube" name="link-youtube-name" type="text" value="@block.Name">
                         </div>
@@ -74,14 +74,14 @@
 <div class="row">
     <div class="col-md-offset-4 col-md-4">
         <div class="elem-in-center">
-            <button type="button" class="btn btn-primary button-save">Сохранить</button>
+            <button type="button" class="btn btn-primary button-save">@Res.ResourceInstructions.Save</button>
         </div>
     </div>
 </div>
 
 
 <script>
-    var srcimg = "/image/img-ru.bmp";
+    var srcimg = "@Res.ResourceInstructions.ImgSrc";
 
     function CheckVideo(entity, Step, block) {
         var object = new Object();
@@ -170,10 +170,10 @@
         block.remove();
     });
 
-    $('.content').sortable();
+    $('.content').sortable({ scroll: false, cursor: 'grabbing'});
 
     function AddVideo() {
-        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div><div class="form-group "><label class="col-md-offset-2 col-md-2 control-label">Link on youtube</label><div class="col-md-6"><input  class="form-control link-youtube" name="link-youtube-name" type="text"></div></div></div>').appendTo($('.content'));
+        $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"></div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div><div class="form-group "><label class="col-md-offset-2 col-md-2 control-label">'+"@Res.ResourceInstructions.LinkOnYoutube"+'</label><div class="col-md-6"><input  class="form-control link-youtube" name="link-youtube-name" type="text"></div></div></div>').appendTo($('.content'));
     }
     function AddImg() {
         $('<div class="block"><div class="row margin-top-30"><div class="col-md-offset-2 col-md-8 entity"><div class="profile elem-in-center"><div class="profile-avatar-wrap"><img id="addimg" class="profile-avatar"><input type="hidden" id="info" name="info"></div></div> </div><div class="margin-left-1 col-md-offset-10 col-md-1"><i class=" fa fa-times fa-lg icon-remove" aria-hidden="true"></i></div></div></div>').appendTo($('.content'));

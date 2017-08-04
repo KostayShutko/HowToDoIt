@@ -11,10 +11,10 @@
             <div class="tabbable-line">
                 <ul class="nav nav-tabs ">
                     <li id="last" class="active">
-                        @Ajax.ActionLink("Недавние", "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByDate" }, new AjaxOptions { UpdateTargetId = "update" })
+                        @Ajax.ActionLink(Res.ResourceIndex.Recent, "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByDate" }, new AjaxOptions { UpdateTargetId = "update" })
                     </li>
                     <li id="popular">
-                        @Ajax.ActionLink("Популярные", "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByRating" }, new AjaxOptions { UpdateTargetId = "update" })
+                        @Ajax.ActionLink(Res.ResourceIndex.Popular, "SortingHome", "Home", new { nameClass = "HowToDoIt.Models.Sort.SortingByRating" }, new AjaxOptions { UpdateTargetId = "update" })
                     </li>
                 </ul>
             </div>

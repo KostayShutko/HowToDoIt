@@ -123,8 +123,14 @@
   <data name="History" xml:space="preserve">
     <value>История</value>
   </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Популярные</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Недавние</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>

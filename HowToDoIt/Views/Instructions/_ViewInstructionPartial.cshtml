@@ -15,13 +15,13 @@
                     <div class="col-md-offset-3 col-md-8 position-absolute">
                         <a class="instruction-name" href="@Url.Action("ViewInstruction", "Instructions", new {idInstruction= Model[i].Id })">@Model[i].Name</a>
                         <div class="category">
-                            <h5 class="inline-block color">Категория</h5>
+                            <h5 class="inline-block color">@Res.ResourceInstructions.Category</h5>
                             <div class="inline-block">
                                 <a href="@Url.Action("SearchByCategory", "Instructions", new {idInstruction= Model[i].Id })" class="link color">@ViewBag.Category[i].Name</a>
                             </div>
                         </div>
                         <div class="avtor">
-                            <h5 class="inline-block color">Создал</h5>
+                            <h5 class="inline-block color">@Res.ResourceInstructions.Created</h5>
                             <div class="inline-block">
                                 <a href="@Url.Action("OpenProfile", "Profile", new {idInstruction= Model[i].Id })" class="link color">@ViewBag.Author[i].UserName</a>
                             </div>
@@ -34,5 +34,5 @@
 }
 else
 {
-    <h1>Инструкций не найдено:</h1>
+    <h1>@Res.ResourceInstructions.NoInstructionsFound:</h1>
 }
