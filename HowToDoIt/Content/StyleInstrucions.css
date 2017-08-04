@@ -152,3 +152,10 @@ textarea {
     width: 100%;
     
 }
+
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 43%;
+    width: 14%;
+}

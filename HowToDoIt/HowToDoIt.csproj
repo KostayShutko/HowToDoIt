@@ -670,12 +670,12 @@
     <Content Include="Views\Shared\_AddInstructionButtonPartial.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
     <Content Include="Views\Instructions\Step.cshtml" />
-    <Content Include="Views\Instructions\Instruction.cshtml" />
     <Content Include="Views\Instructions\ViewInstructions.cshtml" />
     <Content Include="Views\Instructions\_ViewInstructionPartial.cshtml" />
     <Content Include="Views\Profile\OpenProfile.cshtml" />
     <Content Include="Views\Instructions\ViewInstruction.cshtml" />
     <Content Include="Views\Profile\Users.cshtml" />
+    <Content Include="Views\Instructions\Instruction1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

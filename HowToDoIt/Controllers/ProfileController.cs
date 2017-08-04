@@ -164,7 +164,6 @@ namespace HowToDoIt.Controllers
             }
         }
 
-
         private void AddUserToList(List<ApplicationUser> list,ApplicationUser user)
         {
             user.Profil = user.Profil ?? new Profil();

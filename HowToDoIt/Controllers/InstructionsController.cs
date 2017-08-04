@@ -325,7 +325,6 @@ namespace HowToDoIt.Controllers
                     return View("~/Views/Shared/Error.cshtml");
                 }
             }
-            
         }
 
         private void MakeDataForStepView(int step, int idInstruction, int idStep)
@@ -351,7 +350,7 @@ namespace HowToDoIt.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                UpdateStep(db,Step);
+                UpdateStepAndDelete(db,Step);
                 foreach (var block in Step.Blocks)
                 {
                     db.Blocks.Add(block);
@@ -360,12 +359,17 @@ namespace HowToDoIt.Controllers
             }
         }
 
-        private void UpdateStep(ApplicationDbContext db, Step Step)
+        private void UpdateStep(ApplicationDbContext db, Step Step,Step s)
         {
-            var s = db.Steps.Find(Step.Id);
             s.Name = Step.Name;
             s.Number = Step.Number;
             db.Entry(s).State = EntityState.Modified;
+        }
+
+        private void UpdateStepAndDelete(ApplicationDbContext db, Step Step)
+        {
+            var s = db.Steps.Find(Step.Id);
+            UpdateStep(db, Step,s);
             DeleteAllBlocks(db, s);
         }
 
@@ -519,21 +523,25 @@ namespace HowToDoIt.Controllers
 
         public JsonResult SaveInstructionForAddStep(Instruction instruction)
         {
-            int id = 0;
+            int id = GetIdWhenSaveInstruction(instruction);
+            return Json(new { success = true, Id = id }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int GetIdWhenSaveInstruction(Instruction instruction)
+        {
             using (var db = new ApplicationDbContext())
             {
                 if (instruction.Id == 0)
                 {
                     CreateNewInstruction(db, instruction);
-                    id = (db.Instructions.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
+                    return (db.Instructions.OrderByDescending(u => u.Id).FirstOrDefault()).Id;
                 }
                 else
                 {
                     UpdateDataInInstruction(db, instruction);
-                    id = instruction.Id;
+                    return instruction.Id;
                 }
             }
-            return Json(new { success = true, Id = id }, JsonRequestBehavior.AllowGet);
         }
 
         private void DeleteNotExistTag(ApplicationDbContext db,Instruction instruction, Instruction instr)

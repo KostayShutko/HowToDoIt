@@ -83,10 +83,6 @@
 <script>
     var srcimg = "/image/img-ru.bmp";
 
-    window.addEventListener("hashchange", function (e) {
-        alert("asdasd");
-    })
-
     function CheckVideo(entity, Step, block) {
         var object = new Object();
         object.Type = "Video";
@@ -140,12 +136,16 @@
         Step.Name = $("#header").val();
     }
 
-    $('body').on('click', '.button-save', function () {
+    function ButtonSave(){
         var Step = new Object();
         Step.Blocks = [];
         GetEntityAndCheck(Step);
         GetAnotherData(Step);
-        SendAsAjax(Step, "Instructions", "SaveStep");
+        SendAsAjax(Step, "Instructions", "SaveStep"); 
+    }
+
+    $('body').on('click', '.button-save', function () {
+        ButtonSave();
         window.location.href = '/Instructions/Instruction/?instructionid=' + $("#id-instruction").val();
     });
 
