@@ -1,4 +1,5 @@
-﻿using HowToDoIt.Filters;
+﻿using HowToDoIt.App_Start;
+using HowToDoIt.Filters;
 using HowToDoIt.Models;
 using HowToDoIt.Models.Classes_for_Db;
 using HowToDoIt.Models.Sort;
@@ -172,13 +173,26 @@ namespace HowToDoIt.Controllers
             return ViewInstructions(0);
         }
 
-        public ActionResult SearchInstruction()
+        [HttpPost]
+        public ActionResult SearchInstruction(string query)
         {
-            using (var db = new ApplicationDbContext())
+            try
             {
-                SetSession(db.Instructions.ToList());
+                using (var db = new ApplicationDbContext())
+                {
+                    SetSession(SearchInstructionLucene(db, query));
+                }
+                return ViewInstructions(0);
             }
-            return ViewInstructions(0);
+            catch (Exception) { return View("~/Views/Shared/Error.cshtml"); }
+            
+        }
+
+        private List<Instruction> SearchInstructionLucene(ApplicationDbContext db,string query)
+        {
+            List<int> listInt = LuceneSearchConfig.Search(query);
+            var instr = db.Instructions.Where(r => listInt.Contains(r.Id));
+            return instr.ToList();
         }
 
         public ActionResult History()
@@ -516,9 +530,16 @@ namespace HowToDoIt.Controllers
                 else
                 {
                     UpdateDataInInstruction(db, instruction);
+                    SaveInstructionLucene(db, instruction);
                 }
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void SaveInstructionLucene(ApplicationDbContext db, Instruction instruction)
+        {
+            var instr = db.Instructions.Find(instruction.Id);
+            LuceneSearchConfig.CreateIndex(instr);
         }
 
         public JsonResult SaveInstructionForAddStep(Instruction instruction)
