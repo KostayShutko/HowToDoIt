@@ -7,20 +7,19 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <p class="text-info">
-        Вы успешно прошли проверку подлинности через <strong>@ViewBag.LoginProvider</strong>
-            Введите имя пользователя на этом сайте ниже и нажмите кнопку "Зарегистрировать", чтобы завершить
-            вход.
+        @Res.ResourceProfile.Sucsess1 <strong>@ViewBag.LoginProvider</strong>
+            @Res.ResourceProfile.Sucsess2
     </p>
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <label class="col-md-3 control-label" for="Email">@Res.ResourceProfile.Email</label>
+        <div class="col-md-9">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Регистрация" />
+        <div class="col-md-offset-3 col-md-9">
+            <input type="submit" class="btn btn-default" value="@Res.ResourceProfile.Registration" />
         </div>
     </div>
 }

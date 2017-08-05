@@ -129,6 +129,9 @@
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail address</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
@@ -147,11 +150,20 @@
   <data name="PersonalInfo" xml:space="preserve">
     <value>Personal info</value>
   </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
   <data name="SearchWord" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="Sex" xml:space="preserve">
     <value>Sex</value>
+  </data>
+  <data name="Sucsess1" xml:space="preserve">
+    <value>You have successfully authenticated through</value>
+  </data>
+  <data name="Sucsess2" xml:space="preserve">
+    <value>enter the username on this website below and click the "Register" button to complete entrance.</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>

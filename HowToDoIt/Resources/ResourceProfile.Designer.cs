@@ -97,6 +97,15 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Адрес электронной почты.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
         public static string FirstName {
@@ -151,6 +160,15 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Регистрация.
+        /// </summary>
+        public static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поиск.
         /// </summary>
         public static string SearchWord {
@@ -165,6 +183,24 @@ namespace Res {
         public static string Sex {
             get {
                 return ResourceManager.GetString("Sex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы успешно прошли проверку подлинности через.
+        /// </summary>
+        public static string Sucsess1 {
+            get {
+                return ResourceManager.GetString("Sucsess1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на введите имя пользователя на этом сайте ниже и нажмите кнопку &quot;Зарегистрировать&quot;, чтобы завершить вход..
+        /// </summary>
+        public static string Sucsess2 {
+            get {
+                return ResourceManager.GetString("Sucsess2", resourceCulture);
             }
         }
         

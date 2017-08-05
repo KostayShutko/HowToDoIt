@@ -129,6 +129,9 @@
   <data name="Contacts" xml:space="preserve">
     <value>Контакты</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
   </data>
@@ -147,11 +150,20 @@
   <data name="PersonalInfo" xml:space="preserve">
     <value>Личные данные</value>
   </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
   <data name="SearchWord" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="Sex" xml:space="preserve">
     <value>Пол</value>
+  </data>
+  <data name="Sucsess1" xml:space="preserve">
+    <value>Вы успешно прошли проверку подлинности через</value>
+  </data>
+  <data name="Sucsess2" xml:space="preserve">
+    <value>введите имя пользователя на этом сайте ниже и нажмите кнопку "Зарегистрировать", чтобы завершить вход.</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Пользователь</value>
