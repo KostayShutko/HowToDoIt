@@ -54,7 +54,7 @@ namespace HowToDoIt.Controllers
                 if (Manager.ProfileExist(profile, instruction.User, db))
                     profile = instruction.User.Profil;
             }
-            return View(profile);
+            return View("~/Views/Profile/UserInfo.cshtml",profile);
         }
 
         public ActionResult OpenProfileFromComent(string idUser)
@@ -66,7 +66,7 @@ namespace HowToDoIt.Controllers
                 if (Manager.ProfileExist(profile, user, db))
                     profile = user.Profil;
             }
-            return View("OpenProfile", profile);
+            return View("~/Views/Profile/UserInfo.cshtml", profile);
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]

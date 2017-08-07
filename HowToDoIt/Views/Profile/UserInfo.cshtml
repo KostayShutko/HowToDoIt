@@ -1,0 +1,56 @@
+﻿@model HowToDoIt.Models.Classes_for_Db.Profil
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel='stylesheet' href='~/Content/InstructionButton/StyleFromGit.css'>
+<link rel='stylesheet' href='~/Content/InstructionButton/UserInfo.css'>
+<h1 class="elem-in-center margin-bottom-30">@Res.ResourceProfile.PersonalInfo</h1>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Url.Content(Model.Avatar)" class="img-circle img-responsive"> </div>
+            <div class=" col-md-8 col-lg-8 col-md-offset-1 ">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>
+                            <td>@Res.ResourceProfile.Login:</td>
+                            <td>@User.Identity.Name</td>
+                        </tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.FirstName:</td>
+                            <td>@Model.FirtstName</td>
+                        </tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.LastName:</td>
+                            <td>@Model.LastName</td>
+                        </tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.Sex:</td>
+                            @if (Model.Sex == "man")
+                            {
+                                <td>@Res.ResourceProfile.Man</td>
+                            }
+                            else
+                            {
+                                <td>@Res.ResourceProfile.Woman</td>
+                            }
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.City:</td>
+                            <td>@Model.City</td>
+                        </tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.Contacts:</td>
+                            <td>@Model.Contacts</td>
+                        </tr>
+                        <tr>
+                            <td>@Res.ResourceProfile.Interests:</td>
+                            <td>@Model.Interests</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+<hr />

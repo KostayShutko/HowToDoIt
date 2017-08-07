@@ -142,6 +142,15 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Логин.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Мужчина.
         /// </summary>
         public static string Man {

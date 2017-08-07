@@ -144,6 +144,9 @@
   <data name="LastName" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
+  </data>
   <data name="Man" xml:space="preserve">
     <value>Мужчина</value>
   </data>

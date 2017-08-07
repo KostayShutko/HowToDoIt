@@ -511,6 +511,7 @@
     <Content Include="Content\InstructionButton\StyleFromGit.css" />
     <Content Include="Content\InstructionButton\StyleStep.css" />
     <Content Include="Content\InstructionButton\StyleViewInstruction.css" />
+    <Content Include="Content\InstructionButton\UserInfo.css" />
     <Content Include="Content\StyleHome.css" />
     <Content Include="Content\StyleInstrucions.css" />
     <Content Include="Content\StyleLayout.css" />
@@ -693,6 +694,7 @@
     <Content Include="Views\Instructions\ViewInstruction.cshtml" />
     <Content Include="Views\Profile\Users.cshtml" />
     <Content Include="Views\Instructions\Instruction.cshtml" />
+    <Content Include="Views\Profile\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\LuceneIndexes\" />

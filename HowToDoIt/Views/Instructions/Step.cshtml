@@ -79,9 +79,12 @@
     </div>
 </div>
 
+<script src="~/Scripts/dowland/autoresize.jquery.js"></script>
 
 <script>
     var srcimg = "@Res.ResourceInstructions.ImgSrc";
+
+    $('textarea').autoResize();
 
     function CheckVideo(entity, Step, block) {
         var object = new Object();

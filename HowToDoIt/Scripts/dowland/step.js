@@ -6,7 +6,9 @@ jQuery.event.props.push('dataTransfer');
 
     var s;
     var obj;
-    $('.profile').mouseenter(function (evt) {obj = evt.target; });
+    $('body').on('mouseenter', '.profile', function (evt) {
+        obj = evt.target;
+    });
     var Step = {
 
         settings: {
@@ -79,7 +81,6 @@ jQuery.event.props.push('dataTransfer');
         },
 
         handleDrop: function (files) {
-
             Step.hideDroppableArea();
             // Multiple files can be dropped. Lets only deal with the "first" one.
             var file = files[0];
@@ -120,7 +121,6 @@ jQuery.event.props.push('dataTransfer');
         },
 
         placeImage: function (data) {
-
             var entity = $(obj).find(".profile-avatar");
             entity.attr("src", data);
             /*$('.profile').mouseenter(function (evt) {
