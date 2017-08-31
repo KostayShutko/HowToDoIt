@@ -87,7 +87,7 @@ namespace HowToDoIt.Controllers
                 cookie.Expires = DateTime.Now.AddYears(1);
             }
             Response.Cookies.Add(cookie);
-            return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
